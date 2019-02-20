@@ -15,11 +15,9 @@
   <script src="js/jquery/2.0.0/jquery.min.js"></script>
   <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
   <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
-  <link href="css/dashboard.css" rel="stylesheet">
+  <%--<link href="css/dashboard.css" rel="stylesheet">--%>
   <link href="css/bootstrap/navbar.css" rel="stylesheet">
   <script src="js/bootstrap/navbar.js"></script>
-  <script src="js/time.js"></script>
-  <script src="js/util.js"></script>
 </head>
 <style type="text/css">
   .pull-right{
@@ -434,7 +432,6 @@
   <input type="file" id="file2" name="file2" value="发票上传" placeholder="">
   <input type="file" id="file3" name="file3" value="箱单上传" placeholder="">
 </div>
-<div id="embed"></div>
 </body>
 <script>
   $("#fileUpload").click(
