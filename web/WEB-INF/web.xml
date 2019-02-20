@@ -7,10 +7,10 @@
     <!--<welcome-file>index.jsp</welcome-file>-->
 <!--</welcome-file-list>-->
     <!-- 截取文件 -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.*</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.*</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!-- spring的配置文件 -->
     <context-param>
@@ -62,8 +62,8 @@
     <!--</filter-mapping>-->
 
     <!--设置登陆保护时间为30分钟-->
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
+    <!--<session-config>-->
+        <!--<session-timeout>30</session-timeout>-->
+    <!--</session-config>-->
 
 </web-app>
