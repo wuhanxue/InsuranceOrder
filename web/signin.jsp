@@ -31,6 +31,5 @@
   <input type="password" id="inputPassword" class="form-control" name="password" placeholder="密码" required>
   <button type="button" class="btn btn-lg btn-primary btn-block" id="input1" onclick="login()">登录</button>
 </form>
-<div id="embed"></div>
 </body>
 </html>
