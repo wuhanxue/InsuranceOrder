@@ -1,4 +1,4 @@
-package com.jdlink.domain;
+package com.jdlink.domain.dataItem;
 
 /**
  * 委托人数据字典

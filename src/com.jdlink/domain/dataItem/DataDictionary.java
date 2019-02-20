@@ -1,4 +1,4 @@
-package com.jdlink.domain;
+package com.jdlink.domain.dataItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +12,7 @@ public class DataDictionary {
     /**
      * 主键
      */
-    private int id;
+    private Integer id;
     /**
      * 字典类型编码
      */
