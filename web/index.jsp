@@ -15,5 +15,6 @@
   $END$
   <a href="signin.jsp">保险登陆</a>
   <a href="orderList.jsp">订单列表</a>
+  <a href="orderDetail.jsp">订单详细</a>
   </body>
 </html>
