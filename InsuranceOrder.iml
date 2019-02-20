@@ -18,13 +18,12 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="pdf" level="project" />
-    <orderEntry type="library" name="joda-time-2.10" level="project" />
-    <orderEntry type="library" name="jsonLib" level="project" />
-    <orderEntry type="library" name="SSM" level="project" />
-    <orderEntry type="library" name="upload" level="project" />
-    <orderEntry type="library" name="date" level="project" />
+    <orderEntry type="library" exported="" name="joda-time-2.10" level="project" />
+    <orderEntry type="library" exported="" name="ezmorph-1.0.2" level="project" />
+    <orderEntry type="library" exported="" name="fontbox-1.8.15" level="project" />
+    <orderEntry type="library" exported="" name="com.springsource.org.aopalliance-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-io-1.3" level="project" />
   </component>
 </module>
