@@ -1,4 +1,4 @@
-package com.jdlink.domain;
+package com.jdlink.domain.dataItem;
 
 /**
  * 数据字典明细
@@ -8,12 +8,12 @@ public class DataDictionaryItem {
     /**
      * 明细字段编号
      */
-    private int id;
+    private Integer id;
 
     /**
      * 外键（主表ID）
      */
-    private int dataDictionaryId;
+    private Integer dataDictionaryId;
     /**
      * 明细类型编码
      */

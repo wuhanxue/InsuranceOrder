@@ -1,5 +1,9 @@
 package com.jdlink.domain;
 
+import com.jdlink.domain.dataItem.CompanyDataItem;
+import com.jdlink.domain.dataItem.DepartmentDataItem;
+import com.jdlink.domain.dataItem.TeamDataItem;
+
 import java.util.Date;
 
 /**
@@ -9,7 +13,7 @@ public class User {
     /**
      * 主键
      */
-    private int id;
+    private Integer id;
     /**
      * 用户名（账号）
      */

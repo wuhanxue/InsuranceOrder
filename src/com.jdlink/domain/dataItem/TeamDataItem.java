@@ -1,4 +1,4 @@
-package com.jdlink.domain;
+package com.jdlink.domain.dataItem;
 
 /**
  * 项目组数据字典
