@@ -51,9 +51,9 @@ public class InsuranceOrder {
      */
     private Float packageWeight;
     /**
-     * 实际承运人
+     * 实际承运人(我司承运1/供方承运2/第三方承运3)
      */
-    private String actualCarrier;
+    private Integer actualCarrier;
     /**
      * 启运地
      */
@@ -93,7 +93,7 @@ public class InsuranceOrder {
     /**
      * 是否粤港台货物
      */
-    private Boolean gHTGoods;
+    private Boolean yHTGoods;
     /**
      * 投保金额
      */
@@ -117,11 +117,11 @@ public class InsuranceOrder {
     /**
      * 其他险种说明
      */
-    private String ortherInsurance;
+    private String otherInsurance;
     /**
      * 制单客服
      */
-    private String orderMakedService;
+    private String orderMakerService;
     /**
      * 创建时间
      */
@@ -134,30 +134,6 @@ public class InsuranceOrder {
      * 修改人
      */
     private String modifier;
-
-    public Date getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-    public String getModifier() {
-        return modifier;
-    }
-
-    public void setModifier(String modifier) {
-        this.modifier = modifier;
-    }
 
     public String getId() {
         return id;
@@ -239,11 +215,11 @@ public class InsuranceOrder {
         this.packageWeight = packageWeight;
     }
 
-    public String getActualCarrier() {
+    public Integer getActualCarrier() {
         return actualCarrier;
     }
 
-    public void setActualCarrier(String actualCarrier) {
+    public void setActualCarrier(Integer actualCarrier) {
         this.actualCarrier = actualCarrier;
     }
 
@@ -319,12 +295,12 @@ public class InsuranceOrder {
         this.goodsValue = goodsValue;
     }
 
-    public Boolean getgHTGoods() {
-        return gHTGoods;
+    public Boolean getyHTGoods() {
+        return yHTGoods;
     }
 
-    public void setgHTGoods(Boolean gHTGoods) {
-        this.gHTGoods = gHTGoods;
+    public void setyHTGoods(Boolean yHTGoods) {
+        this.yHTGoods = yHTGoods;
     }
 
     public Float getInsuranceMoney() {
@@ -367,20 +343,44 @@ public class InsuranceOrder {
         this.fileInsurance = fileInsurance;
     }
 
-    public String getOrtherInsurance() {
-        return ortherInsurance;
+    public String getOtherInsurance() {
+        return otherInsurance;
     }
 
-    public void setOrtherInsurance(String ortherInsurance) {
-        this.ortherInsurance = ortherInsurance;
+    public void setOtherInsurance(String otherInsurance) {
+        this.otherInsurance = otherInsurance;
     }
 
-    public String getOrderMakedService() {
-        return orderMakedService;
+    public String getOrderMakerService() {
+        return orderMakerService;
     }
 
-    public void setOrderMakedService(String orderMakedService) {
-        this.orderMakedService = orderMakedService;
+    public void setOrderMakerService(String orderMakerService) {
+        this.orderMakerService = orderMakerService;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
     }
 
     @Override
@@ -393,10 +393,10 @@ public class InsuranceOrder {
                 ", approvalDate=" + approvalDate +
                 ", insuredPersonName='" + insuredPersonName + '\'' +
                 ", goodsName='" + goodsName + '\'' +
-                ", goodsType='" + goodsType + '\'' +
+                ", goodsType=" + goodsType +
                 ", packageNumber=" + packageNumber +
                 ", packageWeight=" + packageWeight +
-                ", actualCarrier='" + actualCarrier + '\'' +
+                ", actualCarrier=" + actualCarrier +
                 ", originalPlace='" + originalPlace + '\'' +
                 ", receiveTime=" + receiveTime +
                 ", destination='" + destination + '\'' +
@@ -406,14 +406,17 @@ public class InsuranceOrder {
                 ", truckShift='" + truckShift + '\'' +
                 ", licensePlate='" + licensePlate + '\'' +
                 ", goodsValue=" + goodsValue +
-                ", gHTGoods=" + gHTGoods +
+                ", yHTGoods=" + yHTGoods +
                 ", insuranceMoney=" + insuranceMoney +
                 ", internationalFreightDataItem=" + internationalFreightDataItem +
                 ", domesticFreightDataItem=" + domesticFreightDataItem +
                 ", insuranceOrderRequirement=" + insuranceOrderRequirement +
                 ", fileInsurance=" + fileInsurance +
-                ", ortherInsurance='" + ortherInsurance + '\'' +
-                ", orderMakedService='" + orderMakedService + '\'' +
+                ", otherInsurance='" + otherInsurance + '\'' +
+                ", orderMakerService='" + orderMakerService + '\'' +
+                ", creationTime=" + creationTime +
+                ", modifyTime=" + modifyTime +
+                ", modifier='" + modifier + '\'' +
                 '}';
     }
 }

@@ -29,17 +29,25 @@ public class DataDictionary {
      * 修改时间
      */
     private Date modifyTime;
+    /**
+     * 创建人
+     */
+    private String creator;
+    /**
+     * 修改人
+     */
+    private String modifier;
 
     /**
      * 字典明细列表
      */
     private List<DataDictionaryItem> dataDictionaryItemList=new ArrayList<>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,20 +75,36 @@ public class DataDictionary {
         this.creationTime = creationTime;
     }
 
-    public List<DataDictionaryItem> getDataDictionaryItemList() {
-        return dataDictionaryItemList;
-    }
-
-    public void setDataDictionaryItemList(List<DataDictionaryItem> dataDictionaryItemList) {
-        this.dataDictionaryItemList = dataDictionaryItemList;
-    }
-
     public Date getModifyTime() {
         return modifyTime;
     }
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
+    }
+
+    public List<DataDictionaryItem> getDataDictionaryItemList() {
+        return dataDictionaryItemList;
+    }
+
+    public void setDataDictionaryItemList(List<DataDictionaryItem> dataDictionaryItemList) {
+        this.dataDictionaryItemList = dataDictionaryItemList;
     }
 
     @Override
@@ -91,6 +115,8 @@ public class DataDictionary {
                 ", name='" + name + '\'' +
                 ", creationTime=" + creationTime +
                 ", modifyTime=" + modifyTime +
+                ", creator='" + creator + '\'' +
+                ", modifier='" + modifier + '\'' +
                 ", dataDictionaryItemList=" + dataDictionaryItemList +
                 '}';
     }
