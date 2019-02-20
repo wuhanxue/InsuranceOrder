@@ -5,8 +5,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <context:annotation-config/><!-- 可以使用注解-->
-    <context:component-scan base-package="com.jdlink.service"/><!-- 组件扫面自动配置-->
+
+    <context:component-scan base-package="com.jdlink"/><!-- 组件扫面自动配置-->
 
     <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
         <!--<property name="driverClassName">-->
@@ -28,7 +28,7 @@
     <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">-->
         <!--<property name="typeAliasesPackage" value="com.jdlink.domain"/>-->
         <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--&lt;!&ndash;<property name="mapperLocations" value="classpath:com/jdlink/mapper/*.xml"/>&ndash;&gt;-->
+        <!--<property name="mapperLocations" value="classpath:com/jdlink/mapper/*.xml"/>-->
         <!--<property name="mapperLocations">-->
             <!--<array>-->
                 <!--<value>classpath*:com/jdlink/mapper/*.xml</value>-->
@@ -38,9 +38,9 @@
         <!--</property>-->
     <!--</bean>-->
 
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--<property name="basePackage" value="com.jdlink.mapper"/>-->
-    <!--</bean>-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.jdlink.mapper"/>
+    </bean>
 
 
 

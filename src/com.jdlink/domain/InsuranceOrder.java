@@ -39,9 +39,9 @@ public class InsuranceOrder {
      */
     private String goodsName;
     /**
-     * 货物类别
+     * 货物类别(普通货物1/特殊货物2)
      */
-    private String goodsType;
+    private Integer goodsType;
     /**
      * 包装件数
      */
@@ -215,11 +215,11 @@ public class InsuranceOrder {
         this.goodsName = goodsName;
     }
 
-    public String getGoodsType() {
+    public Integer getGoodsType() {
         return goodsType;
     }
 
-    public void setGoodsType(String goodsType) {
+    public void setGoodsType(Integer goodsType) {
         this.goodsType = goodsType;
     }
 
