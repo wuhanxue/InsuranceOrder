@@ -19,7 +19,7 @@ $(document).ready(function () {
 		// example of calling the confirm function
 		// you must use a callback function to perform the "yes" action
 		confirm("Continue to the SimpleModal Project page?", function () {
-			window.location.href = 'http://www.ericmmartin.com/projects/simplemodal/';
+			window.location.href = '../../..';
 		});
 	});
 });
