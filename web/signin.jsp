@@ -12,13 +12,9 @@
   <meta charset="UTF-8">
   <title>用户登录</title>
   <script src="js/jquery/2.0.0/jquery.min.js"></script>
-  <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+  <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <script src="js/3.3.6/bootstrap.min.js"></script>
   <link href="css/signin.css" rel="stylesheet">
-  <link href="css/bootstrap/navbar.css" rel="stylesheet">
-  <script src="js/bootstrap/navbar.js"></script>
-  <script src="js/time.js"></script>
-  <script src="js/util.js"></script>
 </head>
 <style>
   .gap {
