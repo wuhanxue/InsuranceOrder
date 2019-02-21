@@ -17,4 +17,9 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService {
     public List<InsuranceOrder> listInsuranceOrder() {
         return insuranceOrderMapper.listInsuranceOrder();
     }
+
+    @Override
+    public InsuranceOrder getInsuranceOrderById(String id) {
+        return insuranceOrderMapper.getInsuranceOrderById(id);
+    }
 }
