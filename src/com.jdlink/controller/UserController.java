@@ -106,9 +106,14 @@ public class UserController {
     /**
      * 导航栏跳转到账号管理页面
      */
-    @RequestMapping(value="/account")
-    public ModelAndView account(ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/accountManage");
+    @RequestMapping(value="/checkUserIsAdministrator")
+    public ModelAndView checkUserIsAdministrator(ModelAndView modelAndView,HttpSession session) {
+        User user = (User) session.getAttribute("user");   // 获取用户信息
+        if(user != null && user.getUserName().equals("root")) {
+            modelAndView.setViewName("redirect:/accountManage");
+        } else {
+            modelAndView.setViewName("redirect:/orderList");
+        }
         return modelAndView;
     }
 }
