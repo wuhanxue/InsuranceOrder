@@ -11,12 +11,12 @@
 <head>
   <meta charset="UTF-8">
   <title>订单列表</title>
-  <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <script src="js/jquery/2.0.0/jquery.min.js"></script>
-  <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <script src="js/3.3.6/bootstrap.min.js"></script>
-  <link href="css/navbar.css" rel="stylesheet">
-  <script src="js/navbar.js"></script>
+  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <script src="../../js/3.3.6/bootstrap.min.js"></script>
+  <link href="../../css/navbar.css" rel="stylesheet">
+  <script src="../../js/navbar.js"></script>
 </head>
 <style type="text/css">
   .pull-right{

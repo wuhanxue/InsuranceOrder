@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
 
-    <script type="text/javascript" src="js/jquery/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="../../js/jquery/jquery-1.3.2.js"></script>
 
     <%--<script src="js/jquery/jquery.paginate.js" type="text/javascript"></script>--%>
 
@@ -43,7 +43,7 @@
 
 
 
-<script src="js/page.js" type="text/javascript"></script>
+<script src="../../js/page.js" type="text/javascript"></script>
 </body>
 
 </html>
