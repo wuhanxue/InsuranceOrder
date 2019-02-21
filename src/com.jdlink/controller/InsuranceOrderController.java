@@ -1,5 +1,6 @@
 package com.jdlink.controller;
 
+import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.service.InsuranceOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,20 @@ public class InsuranceOrderController {
    /*获取所有订单的信息*/
     @RequestMapping("/orderList")
     public ModelAndView getAllInsuranceOrder(ModelAndView modelAndView){
-
         ModelAndView mav=new ModelAndView();
+        try{
+            List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder();
+            System.out.println("所有订单"+insuranceOrderList);
+            System.out.println("订单个数"+insuranceOrderList.size());
+            mav.addObject("insuranceOrderList", insuranceOrderList);
+        }
+        catch (Exception e){
+
+        }
+
         mav.setViewName("orderList");
-        System.out.println("访问路径走到这了！");
-        mav.addObject("time", new Date());
+//        System.out.println("访问路径走到这了！");
+
         return mav;
     }
 
