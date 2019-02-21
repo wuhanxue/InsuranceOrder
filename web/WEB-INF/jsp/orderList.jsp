@@ -25,6 +25,9 @@
   .pull-left{
     float: left !important;
   }
+  table{
+    font-family: "微软雅黑",Georgia,Serif;
+  }
 </style>
 <body>
 <!--导航条-->
@@ -40,7 +43,7 @@
   </div>
   <div class="container navbar-left" style="width: 800px;">
     <div class="navbar-header">
-      <%--<a class="navbar-brand" href="#"><img src="image/logo2.png"></a>--%>
+      <a class="navbar-brand" href="#"><img src="image/logo.jpg"></a>
     </div>
     <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
       <ul class="nav navbar-nav">
@@ -54,7 +57,7 @@
     <li class="dropdown">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="">个人信息</a></li>
+        <li><a href="">账号管理</a></li>
         <li><a href="">待办事项</a></li>
         <li><a href="" onclick="showLog();">登录日志</a></li>
         <li><a href="">注销</a></li>
@@ -66,20 +69,12 @@
 <div class="container-fluid">
   <div class="row">
     <div class="sidebar">
-      <ul class="sidenav animated fadeInUp">
+      <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
         <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统概览 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;商务管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;配伍计划 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;接收管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-save" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;贮存管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;预备管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li class="active"><a class="withripple" href=""><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;处置管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;次生管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-indent-right" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;采购管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;报表管理 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href=""><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
+        <li><a class="withripple" href=""><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple" href=""><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href=""><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统设置 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href=""><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;数据字典 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
     </div>
   </div>
@@ -179,12 +174,12 @@
               <td class="text-center"></td>
               <td class="text-center">
                 <a href="#" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+                <a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                <a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
+                <a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                <a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
               </td>
           </tr>
       </table>
