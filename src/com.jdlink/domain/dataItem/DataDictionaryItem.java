@@ -10,7 +10,7 @@ public class DataDictionaryItem {
     /**
      * 明细字段编号
      */
-    private Integer id;
+    private String id;
 
     /**
      * 外键（主表ID）
@@ -41,11 +41,11 @@ public class DataDictionaryItem {
      */
     private String modifier;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

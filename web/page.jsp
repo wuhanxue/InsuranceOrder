@@ -21,7 +21,7 @@
 
     <script type="text/javascript" src="js/jquery/jquery-1.3.2.js"></script>
 
-    <script src="js/jquery/jquery.paginate.js" type="text/javascript"></script>
+    <%--<script src="js/jquery/jquery.paginate.js" type="text/javascript"></script>--%>
 
 
 </head>

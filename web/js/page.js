@@ -85,8 +85,8 @@
         _divwrapright.append(_rotright).append(_last);
 
         /*添加跳转按钮*/
-        var _jump		= $(document.createElement('a')).addClass('jPag-last').html('跳转');
-        var _divwrapright	= $(document.createElement('div')).addClass('jPag-control-front');
+        var _jump		= $(document.createElement('button')).html('跳转');
+        // var _divwrapright	= $(document.createElement('div')).addClass('jPag-control-front');
         _divwrapright.append(_rotright).append(_jump);
 
          var _inputJump="<input style='width: 30px'>";
