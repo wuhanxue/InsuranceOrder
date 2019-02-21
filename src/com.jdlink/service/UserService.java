@@ -1,10 +1,10 @@
-package com.jdlink.mapper;
+package com.jdlink.service;
 
 import com.jdlink.domain.User;
 
 import java.util.List;
 
-public interface UserMapper {
+public interface UserService {
 
     List<User> getUserByUserNameAndPassword(User user);
 

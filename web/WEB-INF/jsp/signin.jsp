@@ -23,13 +23,18 @@
 </style>
 <body>
 <!--登录表单-->
-<form class="form-signin gap" id="loginForm" method="post">
+<form class="form-signin gap" id="loginForm" method="post" action="/CheckUserInfo">
   <h2 class="form-signin-heading">保险登录</h2>
   <label for="inputAccount" class="sr-only">账号</label>
-  <input type="text" id="inputAccount" class="form-control" name="username" placeholder="账号" required autofocus>
+  <input type="text" id="inputAccount" class="form-control" name="userName" placeholder="账号" required autofocus>
   <label for="inputPassword" class="sr-only">密码</label>
   <input type="password" id="inputPassword" class="form-control" name="password" placeholder="密码" required>
-  <button type="button" class="btn btn-lg btn-primary btn-block" id="input1" onclick="login()">登录</button>
+  <button type="submit" class="btn btn-lg btn-primary btn-block" id="input1" onclick="">登录</button>
 </form>
 </body>
+<script type="text/javascript">
+    if('${status}' !=null && '${status}' === 'fail'){  // 账号或密码错误提示
+        alert('${message}');
+    }
+</script>
 </html>
