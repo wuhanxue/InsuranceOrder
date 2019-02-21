@@ -31,10 +31,8 @@ public class UserController {
      * @param request
      * @return
      */
-//    @RequestMapping("CheckUserInfo")
-//    @ResponseBody
     @RequestMapping(value="/CheckUserInfo",method=RequestMethod.POST)
-    public ModelAndView getUser(User user, HttpSession session, HttpServletRequest request) {
+    public ModelAndView CheckUserInfo(User user, HttpSession session, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         try {
             // 查询参数
@@ -47,22 +45,70 @@ public class UserController {
             if (userList.size() > 0) {
                 user = userList.get(0);
                 session.setAttribute("user", user); // 将登陆账户存储到session中
-                // 放入转发参数
-                mav.addObject("status", "success");
-                mav.addObject("message","登录成功！");
                 // 放入jsp路径
-                mav.setViewName("/orderList");
+                mav.setViewName("redirect:/orderList");
             } else {
                 mav.addObject("status", "fail");
                 mav.addObject("message","账号或密码错误！");
-                mav.setViewName("/signin");
+                mav.setViewName("signin");
             }
         } catch (Exception e) {
             e.printStackTrace();
             mav.addObject("status", "fail");
             mav.addObject("message","服务器异常！");
-            mav.setViewName("/signin");
+            mav.setViewName("signin");
         }
         return mav;
+    }
+
+    /**
+     * 获取当前登陆用户
+     * @param session
+     * @return
+     */
+    @RequestMapping(value="/getCurrentUserInfo",method=RequestMethod.GET)
+    public ModelAndView getCurrentUserInfo(HttpSession session){
+        ModelAndView mav = new ModelAndView();
+        try{
+            User user = (User) session.getAttribute("user");   // 获取用户信息
+            mav.addObject("status", "success");
+            mav.addObject("message","获取成功！");
+            mav.addObject("user", user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            mav.addObject("status", "fail");
+            mav.addObject("message","获取失败！");
+        }
+        return mav;
+    }
+
+    /**
+     * 获取用户管理页面数据
+     * @return
+     */
+    @RequestMapping("/accountManage")
+    public ModelAndView listUser() {
+        ModelAndView mav = new ModelAndView();
+        try{
+            List<User> userList = userService.listUser();  // 获取所有用户
+            mav.addObject("status", "success");
+            mav.addObject("message","获取成功！");
+            mav.addObject("userList", userList);
+        }catch (Exception e) {
+            e.printStackTrace();
+            mav.addObject("status", "fail");
+            mav.addObject("message","获取失败！");
+        }
+        mav.setViewName("accountManage");
+        return mav;
+    }
+
+    /**
+     * 导航栏跳转到账号管理页面
+     */
+    @RequestMapping(value="/account")
+    public ModelAndView account(ModelAndView modelAndView) {
+        modelAndView.setViewName("redirect:/accountManage");
+        return modelAndView;
     }
 }

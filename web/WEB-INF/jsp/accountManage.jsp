@@ -23,7 +23,7 @@
       window.self.location = "accountManage.jsp"
   }
 </script>
-<body onload="loadUserList();">
+<body onload="">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
   <div class="main-title">
@@ -85,7 +85,7 @@
     <div>
       <!--操作按钮-->
       <div class="pull-left">
-        <a class="btn btn-primary btn-xs" id="function_-376" onclick="checkAuthority($(this))" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</a>
+        <a class="btn btn-primary btn-xs" onclick="" href=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</a>
       </div>
     </div>
     <div class="table">
@@ -100,26 +100,36 @@
           <th class="text-center">编号</th>
           <th class="text-center">账号</th>
           <th class="text-center">姓名</th>
-          <th class="text-center">角色</th>
+          <th class="text-center">公司</th>
+          <th class="text-center">部门</th>
+          <th class="text-center">项目组</th>
+          <th class="text-center">创建日期</th>
+          <th class="text-center">创建人</th>
           <th class="text-center">操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr id="cloneTr">
-          <td class="text-center">
-            <label>
-              <input class="checkbox" type="checkbox" value="option1" aria-label="..." name="checkbox1">
-            </label>
-          </td>
-          <td class="text-center" name="id">0001</td>
-          <td class="text-center">root</td>
-          <td class="text-center">小李</td>
-          <td class="text-center">管理员</td>
-          <td class="text-center">
-            <a href="#" id="function_-377" onclick="showEditModal(this);" title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-            <a href="#" id="function_-378" onclick="check(this); function check(e){if(!checkAuthority($(e))) return false; showRoleModal(e);}" title="分配角色"><span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span></a>
-          </td>
-        </tr>
+        <c:forEach items="${userList}" var="c" varStatus="st">
+          <tr>
+            <td class="text-center">
+              <label>
+                <input class="checkbox" type="checkbox" value="option1" aria-label="..." name="checkbox1">
+              </label>
+            </td>
+            <td class="text-center">${c.id}</td>
+            <td class="text-center">${c.userName}</td>
+            <td class="text-center">${c.name}</td>
+            <td class="text-center">${c.companyDataItem.name}</td>
+            <td class="text-center">${c.departmentDataItem.name}</td>
+            <td class="text-center">${c.teamDataItem.name}</td>
+            <td class="text-center">${c.creationTime}</td>
+            <td class="text-center">${c.creator}</td>
+            <td class="text-center">
+              <a href="#" onclick="showEditModal(this);" title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+              <a href="#" onclick="showRoleModal(this)" title="分配角色"><span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span></a>
+            </td>
+          </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>
@@ -204,6 +214,5 @@
     </div>
   </div>
 </div>
-<div id="embed"></div>
 </body>
 </html>
