@@ -4,6 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jdlink.mapper.InsuranceOrderMapper" >
 
+<resultMap id="InsuranceOrderRM" type="InsuranceOrder">
+    <association property="InsuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
+</resultMap>
 
+    <select id="getInsuranceOrderItem" resultType="InsuranceOrderItem">
+        select * from data_dictionary_item where order_id=#{id};
+    </select>
+
+    <select id="listInsuranceOrder" resultMap="InsuranceOrderRM">
+        select * from insurance_order ;
+    </select>
 
 </mapper>
