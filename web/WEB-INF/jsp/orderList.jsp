@@ -11,12 +11,12 @@
 <head>
   <meta charset="UTF-8">
   <title>订单列表</title>
-  <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <script src="js/jquery/2.0.0/jquery.min.js"></script>
-  <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <script src="js/3.3.6/bootstrap.min.js"></script>
-  <link href="css/navbar.css" rel="stylesheet">
-  <script src="js/navbar.js"></script>
+  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <script src="../../js/3.3.6/bootstrap.min.js"></script>
+  <link href="../../css/navbar.css" rel="stylesheet">
+  <script src="../../js/navbar.js"></script>
 </head>
 <style type="text/css">
   .pull-right{
@@ -40,7 +40,7 @@
   </div>
   <div class="container navbar-left" style="width: 800px;">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#"><img src="image/logo2.png"></a>
+      <%--<a class="navbar-brand" href="#"><img src="image/logo2.png"></a>--%>
     </div>
     <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
       <ul class="nav navbar-nav">
@@ -167,7 +167,7 @@
               <th class="text-center">操作</th>
           </tr>
           <tr>
-              <td class="text-center"></td>
+              <td class="text-center">${time}</td>
               <td class="text-center"></td>
               <td class="text-center"></td>
               <td class="text-center"></td>
