@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -17,13 +18,10 @@
   <script src="../../js/3.3.6/bootstrap.min.js"></script>
   <link href="../../css/navbar.css" rel="stylesheet">
   <script src="../../js/navbar.js"></script>
+  <script src="../../js/insurance/accountManage.js"></script>
+
 </head>
-<script type="text/javascript">
-  function go() {
-      window.self.location = "accountManage.jsp"
-  }
-</script>
-<body onload="">
+<body >
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
   <div class="main-title">
@@ -46,13 +44,10 @@
     </div><!--/.nav-collapse -->
   </div>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="#" title="提醒"><span class="glyphicon glyphicon-bell"></span></a></li>
-    <li><a href="#" title="事项"><span class="glyphicon glyphicon-envelope"></span></a></li>
     <li class="dropdown">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
         <li><a href="">账号管理</a></li>
-        <li><a href="#">待办事项</a></li>
         <li><a href="">注销</a></li>
       </ul>
     </li>
@@ -65,8 +60,8 @@
       <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
         <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
         <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href="/account"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;数据字典 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
@@ -122,18 +117,17 @@
             <td class="text-center">${c.companyDataItem.name}</td>
             <td class="text-center">${c.departmentDataItem.name}</td>
             <td class="text-center">${c.teamDataItem.name}</td>
-            <td class="text-center">${c.creationTime}</td>
+            <td class="text-center"><fmt:formatDate value="${c.creationTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td class="text-center">${c.creator}</td>
             <td class="text-center">
               <a href="#" onclick="showEditModal(this);" title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-              <a href="#" onclick="showRoleModal(this)" title="分配角色"><span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"></span></a>
+              <a href="#" onclick="deleteUser(this)" title="删除"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             </td>
           </tr>
         </c:forEach>
         </tbody>
       </table>
     </div>
-
   </div>
 </div>
 <!-- 修改信息模态框 -->
@@ -190,25 +184,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="updateUserInfo();">保存</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- 分配角色模态框 -->
-<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">分配角色</h4>
-      </div>
-      <div class="modal-body">
-        <select id="role"></select>
-      </div>
-      <div class="modal-footer" id="appoint">
-        <button type="button" class="btn btn-primary" id="saveRole">保存</button>
+        <button type="button" class="btn btn-primary" onclick="updateUser();">保存</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
       </div>
     </div>
