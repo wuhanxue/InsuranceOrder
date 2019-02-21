@@ -50,13 +50,13 @@ public class UserController {
             } else {
                 mav.addObject("status", "fail");
                 mav.addObject("message","账号或密码错误！");
-                mav.setViewName("redirect:/signin");
+                mav.setViewName("signin");
             }
         } catch (Exception e) {
             e.printStackTrace();
             mav.addObject("status", "fail");
             mav.addObject("message","服务器异常！");
-            mav.setViewName("redirect:/signin");
+            mav.setViewName("signin");
         }
         return mav;
     }
