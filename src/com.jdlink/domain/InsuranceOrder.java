@@ -135,6 +135,17 @@ public class InsuranceOrder {
      */
     private String modifier;
 
+    /*明细*/
+    private InsuranceOrderItem insuranceOrderItem;
+
+    public InsuranceOrderItem getInsuranceOrderItem() {
+        return insuranceOrderItem;
+    }
+
+    public void setInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem) {
+        this.insuranceOrderItem = insuranceOrderItem;
+    }
+
     public String getId() {
         return id;
     }

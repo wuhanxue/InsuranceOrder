@@ -5,15 +5,53 @@
 <mapper namespace="com.jdlink.mapper.InsuranceOrderMapper" >
 
 <resultMap id="InsuranceOrderRM" type="InsuranceOrder">
-    <association property="InsuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
+    <result column="id" property="id"></result>
+    <result column="approval_date" property="approvalDate"></result>
+    <result column="insured_person_name" property="insuredPersonName"></result>
+    <result column="goods_name" property="goodsName"></result>
+    <result column="package_number" property="packageNumber"></result>
+    <result column="package_weight" property="packageWeight"></result>
+    <result column="original_place" property="originalPlace"></result>
+    <result column="receive_time" property="receiveTime"></result>
+    <result column="destination" property="destination"></result>
+    <result column="flight_name" property="flightName"></result>
+    <result column="flight_number" property="flightNumber"></result>
+    <result column="flight_shift" property="flightShift"></result>
+    <result column="truck_shift" property="truckShift"></result>
+    <result column="license_plate" property="licensePlate"></result>
+    <result column="goods_value" property="goodsValue"></result>
+    <result column="yht_goods" property="yHTGoods"></result>
+    <result column="insurance_money" property="insuranceMoney"></result>
+    <result column="other_insurance" property="otherInsurance"></result>
+    <result column="order_maker_service" property="orderMakerService"></result>
+    <result column="creation_time" property="creationTime"></result>
+    <result column="modify_time" property="modifyTime"></result>
+    <result column="modifier" property="modifier"></result>
+    <association property="insuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
 </resultMap>
+    <resultMap id="InsuranceOrderItemRM" type="InsuranceOrderItem">
+        <result column="id" property="id"></result>
+        <result column="order_id" property="orderId"></result>
+        <result column="insure_company_name" property="insureCompanyName"></result>
+        <result column="insure_date" property="insureDate"></result>
+        <result column="peemium" property="premium"></result>
+        <result column="file_url" property="fileUrl"></result>
+        <result column="creation_time" property="creationTime"></result>
+        <result column="creator" property="creator"></result>
+        <result column="modify_time" property="modifyTime"></result>
+        <result column="modifier" property="modifier"></result>
+    </resultMap>
 
-    <select id="getInsuranceOrderItem" resultType="InsuranceOrderItem">
-        select * from data_dictionary_item where order_id=#{id};
+    <select id="getInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
+        select * from insurance_order_item where order_id=#{id};
     </select>
 
     <select id="listInsuranceOrder" resultMap="InsuranceOrderRM">
-        select * from insurance_order ;
+        select * from insurance_order;
     </select>
 
+    <!--通过单号查找订单-->
+    <select id="getInsuranceOrderById" parameterType="String" resultMap="InsuranceOrderRM">
+        select * from insurance_order where id=#{id};
+    </select>
 </mapper>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -167,27 +168,79 @@
               <th class="text-center">保费</th>
               <th class="text-center">操作</th>
           </tr>
+
+       <tr>
+
+           <c:choose>
+           <c:when test="${state!='success'}">
+           <%
+                   System.out.println("错误");
+           %>
+           <script type="text/javascript" language="javascript">
+               alert("${ex}");
+           </script>
+           </c:when>
+           <c:otherwise>
+           <c:forEach items="${insuranceOrderList}" var="list" varStatus="vs">
           <tr>
-              <td class="text-center">${time}</td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
-              <td class="text-center"></td>
+              <td class="text-center">${list.id}</td><%--订单号--%>
+              <td class="text-center"></td><%--状态--%>
+              <td class="text-center">${list.proposer}</td><%--申请人--%>
+              <td class="text-center"></td><%--申请部门--%>
+              <td class="text-center">${list.approvalDate}</td><%--投保日期--%>
+              <td class="text-center">${list.approvalDate}</td><%--审批日期--%>
+              <td class="text-center">${list.insuredPersonName}</td><%--被投保人名称--%>
+              <td class="text-center"> ${list.goodsValue}</td><%--货物价值--%>
+              <td class="text-center">${list.insuranceOrderItem.insureCompanyName}</td><%--保险公司名称--%>
+              <td class="text-center">${list.goodsValue}</td><%--保费--%>
               <td class="text-center">
-                <a href="#" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                <a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
-                <a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
+                  <a href="viewInsuranceOrder?id=${list.id}" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                  <a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
               </td>
           </tr>
+
+          </c:forEach>
+
+      </c:otherwise>
+
+           </c:choose>
+
+                     <%--<td>--%>
+                         <%--${insuranceOrderList}--%>
+                     <%--</td>--%>
+
+
+
+
+
+
+
+          <%--<tr>--%>
+              <%--<td class="text-center">${time}</td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center"></td>--%>
+              <%--<td class="text-center">--%>
+                <%--<a href="#" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>--%>
+                <%--<a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>--%>
+              <%--</td>--%>
+          <%--</tr>--%>
       </table>
     </div>
   </div>

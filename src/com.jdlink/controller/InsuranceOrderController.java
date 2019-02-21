@@ -2,12 +2,15 @@ package com.jdlink.controller;
 
 import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.service.InsuranceOrderService;
+import net.sf.json.JSONArray;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
@@ -21,20 +24,41 @@ public class InsuranceOrderController {
     @RequestMapping("/orderList")
     public ModelAndView getAllInsuranceOrder(ModelAndView modelAndView){
         ModelAndView mav=new ModelAndView();
+        mav.setViewName("orderList");
         try{
             List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder();
-            System.out.println("所有订单"+insuranceOrderList);
-            System.out.println("订单个数"+insuranceOrderList.size());
+            JSONArray jsonArray=JSONArray.fromObject(insuranceOrderList);
             mav.addObject("insuranceOrderList", insuranceOrderList);
+            mav.addObject("state","success");
+
         }
         catch (Exception e){
+            mav.addObject("ex", "订单获取失败!");
+            mav.addObject("state","error");
 
         }
 
-        mav.setViewName("orderList");
+
 //        System.out.println("访问路径走到这了！");
 
         return mav;
     }
 
+    /*根据订单号获取明细*/
+    @RequestMapping("/viewInsuranceOrder")
+    public ModelAndView viewInsuranceOrder(ModelAndView modelAndView, @Param(value ="id")String id){
+
+           try {
+                modelAndView.clear();//清除之前的记录
+                InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+               modelAndView.addObject("state","success");
+
+           }
+           catch (Exception e){
+               modelAndView.addObject("ex", "订单获取失败!");
+               modelAndView.addObject("state","error");
+           }
+        modelAndView.setViewName("orderDetail");
+        return modelAndView;
+    }
 }
