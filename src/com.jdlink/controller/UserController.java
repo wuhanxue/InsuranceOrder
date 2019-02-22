@@ -5,6 +5,7 @@ import com.jdlink.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -148,12 +149,22 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value="/getUserById/{id}",method=RequestMethod.GET)
-    public ModelAndView getUserById(User user){
-        User user1= userService.getUserById(user.getId());
-        ModelAndView mav = new ModelAndView("redirect:/accountManage");
-        mav.addObject("user", user1);
-        return mav;
+    @RequestMapping("getUserById")
+    @ResponseBody
+    public String getUserById(Integer id){
+        JSONObject res = new JSONObject();
+        try {
+            User user1= userService.getUserById(id);
+            JSONObject data = JSONObject.fromBean(user1);
+            res.put("status", "success");
+            res.put("message", "获取信息成功");
+            res.put("data", data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "获取信息失败");
+        }
+        return res.toString();
     }
 
     /**

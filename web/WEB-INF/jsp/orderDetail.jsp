@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -15,6 +16,7 @@
   <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
   <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
   <script src="../../js/3.3.6/bootstrap.min.js"></script>
+  <script src="../../js/util.js"></script>
   <link href="../../css/navbar.css" rel="stylesheet">
   <script src="../../js/navbar.js"></script>
 </head>
@@ -89,9 +91,10 @@
         <div class="form-group">
           <label for="name" class="col-sm-4 control-label">申请人：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="name" name="name" placeholder="">
+            <input type="text" class="form-control" id="name" name="name" placeholder="" value="${insuranceOrder.proposer}">
           </div>
         </div>
+
         <div class="form-group">
           <label class="col-sm-4 control-label">货物类别：</label>
           <div class="col-xs-7">
@@ -104,13 +107,13 @@
         <div class="form-group">
           <label for="department" class="col-sm-4 control-label">申请部门：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="department" name="department" placeholder="">
+            <input type="text" class="form-control" id="department" name="department" placeholder="" value="${insuranceOrder.departmentDataItem.name}">
           </div>
         </div>
         <div class="form-group">
           <label for="quantity" class="col-sm-4 control-label">包装件数：</label>
           <div class="col-xs-7">
-            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="">
+            <input type="number" class="form-control" id="quantity" name="quantity" placeholder="" value="${insuranceOrder.packageNumber}">
           </div>
         </div>
       </div>
@@ -118,13 +121,13 @@
         <div class="form-group">
           <label for="name2" class="col-sm-4 control-label">被保险人名称：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="name2" name="name2" placeholder="">
+            <input type="text" class="form-control" id="name2" name="name2" placeholder="" value="${insuranceOrder.insuredPersonName}">
           </div>
         </div>
         <div class="form-group">
           <label for="weight" class="col-sm-4 control-label">包装重量：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="weight" name="weight" placeholder="">
+            <input type="text" class="form-control" id="weight" name="weight" value="${insuranceOrder.packageWeight}">
           </div>
         </div>
       </div>
@@ -132,7 +135,7 @@
         <div class="form-group">
           <label for="goodsName" class="col-sm-4 control-label">货物名称：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="goodsName" name="goodsName" placeholder="">
+            <input type="text" class="form-control" id="goodsName" name="goodsName" placeholder="" value="${insuranceOrder.goodsName}">
           </div>
         </div>
         <div class="form-group">
@@ -179,19 +182,19 @@
         <div class="form-group">
           <label for="transportStart" class="col-sm-4 control-label">启运地：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="transportStart" name="transportStart" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="transportStart" name="transportStart" placeholder="" value="${insuranceOrder.originalPlace}">
           </div>
         </div>
         <div class="form-group">
           <label for="courseName" class="col-sm-4 control-label">航名：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="courseName" name="courseName" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="courseName" name="courseName" placeholder="" value="${insuranceOrder.flightName}">
           </div>
         </div>
         <div class="form-group">
           <label for="licensePlateNumber" class="col-sm-4 control-label">车牌号：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="licensePlateNumber" name="licensePlateNumber" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="licensePlateNumber" name="licensePlateNumber" placeholder="" value="${insuranceOrder.licensePlate}">
           </div>
         </div>
       </div>
@@ -199,19 +202,19 @@
         <div class="form-group">
           <label for="goodsTime" class="col-sm-4 control-label">提货时间：</label>
           <div class="col-xs-7">
-            <input type="date" onkeyup="searchData();" class="form-control" id="goodsTime" name="goodsTime" placeholder="">
+            <input type="date" onkeyup="searchData();" class="form-control" id="goodsTime" name="goodsTime" placeholder="" value='<fmt:formatDate value="${insuranceOrder.receiveTime}" pattern="yyyy-MM-dd" />' >
           </div>
         </div>
         <div class="form-group">
           <label for="voyage" class="col-sm-4 control-label">航次：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="voyage" name="voyage" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="voyage" name="voyage" placeholder="" value="${insuranceOrder.flightShift}">
           </div>
         </div>
         <div class="form-group">
           <label for="goodsCost" class="col-sm-4 control-label">货物价值：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${insuranceOrder.goodsValue}">
           </div>
         </div>
       </div>
@@ -219,13 +222,13 @@
         <div class="form-group">
           <label for="destination" class="col-sm-4 control-label">目的地：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="destination" name="destination" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="destination" name="destination" placeholder="" value="${insuranceOrder.destination}">
           </div>
         </div>
         <div class="form-group">
           <label for="flightNo" class="col-sm-4 control-label">航班号：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="flightNo" name="flightNo" placeholder="">
+            <input type="text" onkeyup="searchData();" class="form-control" id="flightNo" name="flightNo" placeholder="" value="${insuranceOrder.flightNumber}">
           </div>
         </div>
         <div class="form-group">
@@ -244,7 +247,7 @@
         <div class="form-group">
           <label for="trains" class="col-sm-4 control-label">车次：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="trains" name="trains" placeholder="">
+            <input type="text" class="form-control" id="trains" name="trains" placeholder="" value="${insuranceOrder.truckShift}">
           </div>
         </div>
         <div class="form-group" style="height: 34px">
@@ -259,26 +262,26 @@
           <label class="col-md-3 control-label">保险报价：</label>
           <div class="col-xs-4" style="display: inline-block">
             <label for="customer" style="display: inline-block">客户承担：</label>
-            <input type="text" style="width: 50px;display: inline-block" class="form-control" id="customer" name="customer">
+            <input type="text" style="width: 50px;display: inline-block" class="form-control" id="customer" name="customer" value="${insuranceOrder.truckShift}">
           </div>
           <span style="display: inline-block;margin-top: 5px">人民币</span>
         </div>
       </div>
       <div class="form-horizontal col-md-4">
-        <div class="form-group">
-          <span style="display: inline-block">货物价值*</span>
-          <input style="width: 50px;display: inline-block" type="text" class="form-control" id="rate" name="rate" placeholder="">
-          <span style="display: inline-block">%(费率)*</span>
-          <input style="width: 50px;display: inline-block" type="text" class="form-control" id="exchangeRate" name="exchangeRate" placeholder="">
-          <span style="display: inline-block">汇率</span>
-        </div>
+        <%--<div class="form-group">--%>
+          <%--<span style="display: inline-block">货物价值*</span>--%>
+          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="rate" name="rate" placeholder="" >--%>
+          <%--<span style="display: inline-block">%(费率)*</span>--%>
+          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="exchangeRate" name="exchangeRate" placeholder="">--%>
+          <%--<span style="display: inline-block">汇率</span>--%>
+        <%--</div>--%>
       </div>
       <div class="form-horizontal col-md-4">
-        <div class="form-group">
-          <span style="display: inline-block">(MIN：</span>
-          <input style="width: 50px;display: inline-block" type="text" class="form-control" id="RNB" name="RNB" placeholder="">
-          <span style="display: inline-block">人民币)</span>
-        </div>
+        <%--<div class="form-group">--%>
+          <%--<span style="display: inline-block">(MIN：</span>--%>
+          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="RNB" name="RNB" placeholder="">--%>
+          <%--<span style="display: inline-block">人民币)</span>--%>
+        <%--</div>--%>
       </div>
     </div>
     <div class="row">
@@ -311,7 +314,7 @@
         <div class="form-group">
           <label for="insuranceCompanyName" class="col-sm-4 control-label">保险公司名称：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="">
+            <input type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${insuranceOrder.insuranceOrderItem.insureCompanyName}">
           </div>
         </div>
       </div>
@@ -333,7 +336,7 @@
         <div class="form-group">
           <label for="insuranceMoney" class="col-sm-4 control-label">保费：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="">
+            <input type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${insuranceOrder.insuranceOrderItem.premium}">
           </div>
         </div>
       </div>
@@ -352,7 +355,7 @@
         <div class="form-group">
           <label for="insuranceNumber" class="col-sm-4 control-label">保单号：</label>
           <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="">
+            <input type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${insuranceOrder.insuranceOrderItem.id}">
           </div>
         </div>
       </div>
