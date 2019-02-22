@@ -1,6 +1,9 @@
 package com.jdlink.controller;
 
 import com.jdlink.domain.User;
+import com.jdlink.domain.dataItem.DataDictionary;
+import com.jdlink.domain.dataItem.DataDictionaryItem;
+import com.jdlink.service.DataDictionaryService;
 import com.jdlink.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    DataDictionaryService dataDictionaryService;
 
 
     /**
@@ -92,9 +97,15 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         try{
             List<User> userList = userService.listUser();  // 获取所有用户
+            List<DataDictionaryItem> companyList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(1);
+            List<DataDictionaryItem> departmentList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(2);
+            List<DataDictionaryItem> teamList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(3);
             mav.addObject("status", "success");
             mav.addObject("message","获取成功！");
             mav.addObject("userList", userList);
+            mav.addObject("companyList", companyList);
+            mav.addObject("departmentList", departmentList);
+            mav.addObject("teamList", teamList);
         }catch (Exception e) {
             e.printStackTrace();
             mav.addObject("status", "fail");
@@ -123,13 +134,22 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping(value="/addUser",method=RequestMethod.POST)
-    public ModelAndView addCategory(User user,HttpSession session){
-        User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
-        user.setCreator(user1.getName());
-        userService.add(user);
-        ModelAndView mav = new ModelAndView("redirect:/accountManage");
-        return mav;
+    @RequestMapping("addUser")
+    @ResponseBody
+    public String addUser(@RequestBody User user,HttpSession session){
+        JSONObject res = new JSONObject();
+        try {
+            User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
+            user.setCreator(user1.getName());
+            userService.add(user);
+            res.put("status", "success");
+            res.put("message", "新增成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "新增失败！");
+        }
+        return res.toString();
     }
 
     /**
@@ -174,8 +194,28 @@ public class UserController {
      */
     @RequestMapping(value="/updateUserById/{id}",method=RequestMethod.PUT)
     public ModelAndView updateUserById(User user,HttpSession session){
-        userService.updateUserById(user);
         ModelAndView mav = new ModelAndView("redirect:/accountManage");
         return mav;
+    }
+
+    /**
+     * 修改用户数据
+     * @param user
+     * @return
+     */
+    @RequestMapping("updateUserById")
+    @ResponseBody
+    public String updateUserById(@RequestBody User user){
+        JSONObject res = new JSONObject();
+        try {
+            userService.updateUserById(user);
+            res.put("status", "success");
+            res.put("message", "修改成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "修改失败！");
+        }
+        return res.toString();
     }
 }

@@ -88,8 +88,8 @@
         <div>
             <!--操作按钮-->
             <div class="pull-left">
-                <a class="btn btn-primary btn-xs" onclick="" href=""><span class="glyphicon glyphicon-plus"
-                                                                           aria-hidden="true"></span> 新增</a>
+                <button class="btn btn-primary btn-xs" type="button" onclick="showAddModal();" href=""><span class="glyphicon glyphicon-plus"
+                                                                           aria-hidden="true"></span> 新增</button>
             </div>
         </div>
         <div class="table">
@@ -221,52 +221,52 @@
                 <div class="row">
                     <div class="form-horizontal col-md-6">
                         <div class="form-group">
-                            <label for="add_userName" class="col-sm-4 control-label">用户名 </label>
+                            <label for="userName" class="col-sm-4 control-label">用户名 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="add_userName" name="userName">
+                                <input type="text" class="form-control" id="add_userName">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add_password" class="col-sm-4 control-label">新密码 </label>
+                            <label for="password" class="col-sm-4 control-label">密码 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="add_password" name="password">
+                                <input type="text" class="form-control" id="add_password">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add_company" class="col-sm-4 control-label">公司 </label>
+                            <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select id="add_company" name="company">
-
+                                <select id="add_department" name="department">
+                                    <c:forEach items="${departmentList}" var="d" >
+                                        <option value="${d.type}">${d.name}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-horizontal col-md-6">
                         <div class="form-group">
-                            <label for="add_name" class="col-sm-4 control-label">姓名 </label>
+                            <label for="name" class="col-sm-4 control-label">姓名 </label>
                             <div class="col-xs-8">
                                 <input type="text" class="form-control" id="add_name" name="name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add_cfmPassword" class="col-sm-4 control-label">确认密码 </label>
+                            <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="add_cfmPassword" name="cfmPassword">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="add_department" class="col-sm-4 control-label">部门 </label>
-                            <div class="col-xs-8">
-                                <select id="add_department" name="department">
+                                <select id="add_company" name="company">
+                                    <c:forEach items="${companyList}" var="d" >
+                                        <option value="${d.type}">${d.name}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-horizontal col-md-6">
                         <div class="form-group">
-                            <label for="add_team" class="col-sm-4 control-label">项目组 </label>
+                            <label for="name" class="col-sm-4 control-label">项目组 </label>
                             <div class="col-xs-8">
                                 <select id="add_team" name="team">
+                                    <c:forEach items="${teamList}" var="d" >
+                                        <option value="${d.type}">${d.name}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="updateUser();">保存</button>
+                <button type="button" class="btn btn-primary" onclick="addUser();">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
