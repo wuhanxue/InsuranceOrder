@@ -3,7 +3,6 @@ package com.jdlink.domain;
 import com.jdlink.domain.dataItem.DepartmentDataItem;
 import com.jdlink.domain.dataItem.FreightDataItem;
 import com.jdlink.domain.dataItem.OrderStateDataItem;
-
 import java.util.Date;
 
 /**
@@ -134,6 +133,17 @@ public class InsuranceOrder {
      * 修改人
      */
     private String modifier;
+
+    /*分页*/
+    private com.jdlink.domain.Page page=null;
+
+    public com.jdlink.domain.Page getPage() {
+        return page;
+    }
+
+    public void setPage(com.jdlink.domain.Page page) {
+        this.page = page;
+    }
 
     /*明细*/
     private InsuranceOrderItem insuranceOrderItem;

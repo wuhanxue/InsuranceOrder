@@ -93,16 +93,19 @@
          // var _divwrapright	= $(document.createElement('div')).addClass('jPag-control-front');
         _divwrapright.append(_rotright).append(_inputJump);
 
-        var _span="&nbsp;&nbsp;<span style='color: black'>每页显示</span>"
+        var _span="&nbsp;&nbsp;<span  id='only' style='color: black'>每页显示</span>"
         _divwrapright.append(_rotright).append(_span);
-         var _select="<select id=\"count\" >\n" +
-             "                            <option>5</option>\n" +
-             "                            <option selected>15</option>\n" +
-             "                            <option>50</option>\n" +
-             "                        </select>"
-
-
-        _divwrapright.append(_rotright).append(_select);
+         // var _select="<select id=\"count\" >\n" +
+         //     "                            <option>5</option>\n" +
+         //     "                            <option selected>15</option>\n" +
+         //     "                            <option>50</option>\n" +
+         //     "                        </select>"
+        var select=$('#count').clone();
+        select.removeAttr('class');
+        select.attr('id','select');
+        console.log(countValue())
+        $(select).val(countValue());
+        // _divwrapright.append(_rotright).append(select);
         //append all:
         $this.addClass('jPaginate').append(_divwrapleft).append(_ulwrapdiv).append(_divwrapright);
 
@@ -271,17 +274,13 @@
 
 })(jQuery);
 
-var num=TotalPage();//代表总页数
-
-
-
 $("#demo3").paginate({
 
-    count 		: 100,//总页数(动态)
+    count 		: TotalPage(),//总页数(动态)
 
     start 		: 1,//起始页码
 
-    display     : 12,
+    display     : 5,
 
     border					: true,
 
@@ -305,6 +304,14 @@ $("#demo3").paginate({
 
 });
 
+
+
+
+
+
+
+
+
 function findPageumber(item) {
 
     console.log($(item).text());
@@ -324,8 +331,15 @@ function  findInfoBy(pageNumber) {
  * 计算每页显示数量
  * */
 function countValue() {
+            if($('#select').length>0){
+                console.log("复制存在")
+             return 10;
+            }
+    if($('#select').length==0) {
+                console.log("复制不存在")
+                return   $("#count").find("option:selected").text();;
+            }
 
-    return   $("#count").find("option:selected").text();;
 }
 
 
@@ -345,6 +359,52 @@ function TotalPage() {
 }
 
 //计算总记录数(可能需要各自处理)==>url 获取总记录数的请求路径
-function TotalRecord(url) {
-    
+function TotalRecord() {
+   return $('#countPage').val();//返回总记录数
+}
+
+/*返回Page*/
+function getPage() {
+//需要起始页码，每页显示个数，即可
+
+}
+
+function Page() {
+
+}
+
+/*切换标签页码*/
+function switchPageNumber() {
+
+
+
+    $("#demo3").paginate({
+
+        count 		: TotalPage(),//总页数(动态)
+
+        start 		: 1,//起始页码
+
+        display     : 5,
+
+        border					: true,
+
+        border_color			: '#BEF8B8',
+
+        text_color  			: '#68BA64',
+
+        background_color    	: '#E3F2E1',
+
+        border_hover_color		: '#68BA64',
+
+        text_hover_color  		: 'black',
+
+        background_hover_color	: '#CAE6C6',
+
+        rotate      : false,
+
+        images		: false,
+
+        mouse		: 'press'
+
+    });
 }

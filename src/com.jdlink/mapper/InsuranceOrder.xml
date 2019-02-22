@@ -46,12 +46,17 @@
         select * from insurance_order_item where order_id=#{id};
     </select>
 
-    <select id="listInsuranceOrder" resultMap="InsuranceOrderRM">
-        select * from insurance_order;
+    <select id="listInsuranceOrder" resultMap="InsuranceOrderRM" parameterType="Page">
+        select * from insurance_order limit #{start}, #{count};
     </select>
 
     <!--通过单号查找订单-->
     <select id="getInsuranceOrderById" parameterType="String" resultMap="InsuranceOrderRM">
         select * from insurance_order where id=#{id};
+    </select>
+
+    <!--获取订单总数-->
+    <select id="getTotalInsuranceOrder" resultType="int">
+        select count(*) from insurance_order;
     </select>
 </mapper>

@@ -12,30 +12,22 @@
 <head>
   <meta charset="UTF-8">
   <title>订单列表</title>
+    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
   <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
   <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
   <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
   <script src="../../js/3.3.6/bootstrap.min.js"></script>
   <link href="../../css/navbar.css" rel="stylesheet">
   <script src="../../js/navbar.js"></script>
+    <script src="../../js/insurance/insuranceOrder.js"></script>
 </head>
 <style type="text/css">
-  .pull-right{
-    float: right !important;
-  }
-  .pull-left{
-    float: left !important;
-  }
+
   table{
     font-family: "微软雅黑",Georgia,Serif;
   }
 </style>
-<script type="text/javascript">
-    function go() {
-        window.self.location = "accountManage.jsp"
-    }
-</script>
-<body>
+<body onload="insuranceOrderLoad()">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
   <div class="main-title">
@@ -231,17 +223,33 @@
           <%--</tr>--%>
       </table>
     </div>
+
   </div>
 </div>
+<div class="content">
+    <div class="demo">
+        <div id="demo3" >
+
+        </div>
+        <select id="count"  onchange="switchPageNumber()">
+            <option value=1>1</option>
+            <option selected value=15>15</option>
+            <option value=50>50</option>
+        </select>
+    </div>
+      <input class="hidden" id="countPage" value="${total}"/>
+
+</div>
+
 <div id="embed"></div>
 <div class="hidden">
   <input type="file" id="file">
 </div>
+
+
+<script src="../../js/page.js" type="text/javascript"></script>
 </body>
 <script>
-  $("#upload").click(
-      function file1Click() {
-          $("#file").click();
-      })
+
 </script>
 </html>
