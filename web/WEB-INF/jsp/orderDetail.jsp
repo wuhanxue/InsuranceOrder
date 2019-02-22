@@ -11,7 +11,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>订单列表</title>
+  <title>订单明细</title>
   <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
   <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
   <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="">订单保险</a></li>
+        <li class="active"><a href="">订单明细</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
@@ -56,9 +56,7 @@
     <li class="dropdown">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="">个人信息</a></li>
-        <li><a href="">待办事项</a></li>
-        <li><a href="" onclick="showLog();">登录日志</a></li>
+        <li><a href="">账号管理</a></li>
         <li><a href="">注销</a></li>
       </ul>
     </li>
@@ -71,10 +69,9 @@
       <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
         <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
         <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href="/account"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;数据字典 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/basicDate"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
     </div>
   </div>

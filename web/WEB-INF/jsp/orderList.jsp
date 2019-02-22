@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -68,10 +68,9 @@
       <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
         <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
         <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple" href="/checkUserIsAdministrator"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple" href="/basicDate"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;数据字典 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
     </div>
   </div>
@@ -181,9 +180,9 @@
               <td class="text-center">${list.insuranceOrderItem.insureCompanyName}</td><%--保险公司名称--%>
               <td class="text-center">${list.goodsValue}</td><%--保费--%>
               <td class="text-center">
-                  <a href="viewInsuranceOrder?id=${list.id}" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                  <a href="/orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
                   <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-                  <a href="#" onclick="" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                  <a href="#" onclick="" id="insured" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                   <a href="#" onclick="" title="作废"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                   <a href="#" id="upload" onclick="" title="上传附件"><span class="glyphicon glyphicon-open" aria-hidden="true"></span></a>
                   <a href="#" onclick="" title="查看附件"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a>
@@ -242,14 +241,82 @@
 </div>
 
 <div id="embed"></div>
+<div class="modal fade bs-example-modal-lg" id="insure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>投保</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th class="text-center">保险公司名称</th>
+                        <th class="text-center">保单号</th>
+                        <th class="text-center">投保日期</th>
+                        <th class="text-center">保费</th>
+                        <th class="text-center">附件</th>
+                        <th class="text-center">创建日期</th>
+                        <th class="text-center">创建人</th>
+                        <th class="text-center">修改日期</th>
+                        <th class="text-center">修改人</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${userList}" var="documents" varStatus="st">
+                        <tr>
+                            <td class="text-center">${documents.companyName}</td>
+                            <td class="text-center">${documents.orderNo}</td>
+                            <td class="text-center">${documents.insureTime}</td>
+                            <td class="text-center">${documents.insureMoney}</td>
+                            <td class="text-center">${documents.file}</td>
+                            <td class="text-center"><fmt:formatDate value="${documents.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                            <td class="text-center">${documents.creator}</td>
+                            <td class="text-center"><fmt:formatDate value="${documents.editTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                            <td class="text-center">${documents.editor}</td>
+                            <td class="text-center">${documents.station}</td>
+                            <td class="text-center">
+                                <a title="增加"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                <a onclick="showEditModal(this);" title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                <a class="delete" title="删除"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                <input type="button" id="upload2" value="上传电子保单">
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
 <div class="hidden">
   <input type="file" id="file">
+  <input type="file" id="file2">
 </div>
 
 
 <script src="../../js/page.js" type="text/javascript"></script>
 </body>
 <script>
+
+
+
+  $("#upload").click(
+      function () {
+          $("#file").click();
+      });
+  $("#upload2").click(
+      function () {
+          $("#file2").click();
+      });
+  $("#insured").click(
+      function () {
+          $("#insure").modal('show')
+      }
+  )
 
 </script>
 </html>
