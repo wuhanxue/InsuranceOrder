@@ -64,8 +64,6 @@
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
         <li><a href="">账号管理</a></li>
-        <li><a href="">待办事项</a></li>
-        <li><a href="" onclick="showLog();">登录日志</a></li>
         <li><a href="">注销</a></li>
       </ul>
     </li>
@@ -80,7 +78,7 @@
         <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
         <li><a class="withripple"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple" href="/checkUserIsAdministrator"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/basicDate"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;数据字典 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
     </div>
@@ -168,9 +166,6 @@
               <th class="text-center">保费</th>
               <th class="text-center">操作</th>
           </tr>
-
-       <tr>
-
            <c:choose>
            <c:when test="${state!='success'}">
            <%
@@ -190,7 +185,7 @@
               <td class="text-center">${list.approvalDate}</td><%--投保日期--%>
               <td class="text-center">${list.approvalDate}</td><%--审批日期--%>
               <td class="text-center">${list.insuredPersonName}</td><%--被投保人名称--%>
-              <td class="text-center"> ${list.goodsValue}</td><%--货物价值--%>
+              <td class="text-center">${list.goodsValue}</td><%--货物价值--%>
               <td class="text-center">${list.insuranceOrderItem.insureCompanyName}</td><%--保险公司名称--%>
               <td class="text-center">${list.goodsValue}</td><%--保费--%>
               <td class="text-center">
@@ -213,13 +208,6 @@
                      <%--<td>--%>
                          <%--${insuranceOrderList}--%>
                      <%--</td>--%>
-
-
-
-
-
-
-
           <%--<tr>--%>
               <%--<td class="text-center">${time}</td>--%>
               <%--<td class="text-center"></td>--%>
