@@ -39,4 +39,24 @@
         select * from user;
     </select>
 
+    <select id="getUserById" parameterType="int" resultMap="UserRM">
+        select * from user where id=#{id};
+    </select>
+
+    <update id="updateUserById" >
+        update user
+        set
+        user_name=#{userName},password=#{password},name=#{name},company_id=#{companyDataItem.id},
+        department_id=#{departmentDataItem.id},team_id=#{teamDataItem.id},modify_time=NOW();
+        WHERE id=#{id}
+    </update>
+
+    <insert id="add" >
+        insert into user
+        (user_name, password, name, company_id, department_id, team_id, creator, creation_time, modify_time)
+        values (#{userName},#{password},#{name},#{companyDataItem.id},#{departmentDataItem.id},#{teamDataItem.id},
+        #{creator},NOW(),NOW());
+    </insert>
+
+
 </mapper>

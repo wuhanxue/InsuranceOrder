@@ -106,9 +106,65 @@ public class UserController {
     /**
      * 导航栏跳转到账号管理页面
      */
-    @RequestMapping(value="/account")
-    public ModelAndView account(ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/accountManage");
+    @RequestMapping(value="/checkUserIsAdministrator")
+    public ModelAndView checkUserIsAdministrator(ModelAndView modelAndView,HttpSession session) {
+        User user = (User) session.getAttribute("user");   // 获取用户信息
+        if(user != null && user.getUserName().equals("root")) {
+            modelAndView.setViewName("redirect:/accountManage");
+        } else {
+            modelAndView.setViewName("redirect:/orderList");
+        }
         return modelAndView;
+    }
+
+    /**
+     * 新增用户
+     * @param user
+     * @return
+     */
+    @RequestMapping(value="/addUser",method=RequestMethod.POST)
+    public ModelAndView addCategory(User user,HttpSession session){
+        User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
+        user.setCreator(user1.getName());
+        userService.add(user);
+        ModelAndView mav = new ModelAndView("redirect:/accountManage");
+        return mav;
+    }
+
+    /**
+     * 根据ID删除用户
+     * @param user
+     * @return
+     */
+    @RequestMapping("/deleteUserById/{id}")
+    public ModelAndView deleteUserById(User user){
+        userService.deleteUserById(user.getId());
+        ModelAndView mav = new ModelAndView("redirect:/accountManage");
+        return mav;
+    }
+
+    /**
+     * 根据ID获取用户
+     * @param user
+     * @return
+     */
+    @RequestMapping(value="/getUserById/{id}",method=RequestMethod.GET)
+    public ModelAndView getUserById(User user){
+        User user1= userService.getUserById(user.getId());
+        ModelAndView mav = new ModelAndView("redirect:/accountManage");
+        mav.addObject("user", user1);
+        return mav;
+    }
+
+    /**
+     * 修改方法
+     * @param
+     * @return
+     */
+    @RequestMapping(value="/updateUserById/{id}",method=RequestMethod.PUT)
+    public ModelAndView updateUserById(User user,HttpSession session){
+        userService.updateUserById(user);
+        ModelAndView mav = new ModelAndView("redirect:/accountManage");
+        return mav;
     }
 }

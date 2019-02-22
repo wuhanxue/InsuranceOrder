@@ -6,6 +6,7 @@ import com.jdlink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,4 +22,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> listUser() { return userMapper.listUser(); }
+
+    @Override
+    public void add(User user) { userMapper.add(user); }
+
+    @Override
+    public void updateUserById(User user) {
+        userMapper.updateUserById(user);
+    }
+
+    @Override
+    public void deleteUserById(int id) { userMapper.deleteUserById(id); }
+
+    @Override
+    public User getUserById(int id) { return userMapper.getUserById(id); }
 }

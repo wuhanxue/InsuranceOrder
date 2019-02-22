@@ -40,7 +40,7 @@
   </div>
   <div class="container navbar-left" style="width: 800px;">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#"><img src="image/logo2.png"></a>
+      <%--<a class="navbar-brand" href="#"><img src="image/logo2.png"></a>--%>
     </div>
     <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
       <ul class="nav navbar-nav">

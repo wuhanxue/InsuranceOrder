@@ -7,4 +7,6 @@ import java.util.List;
 public interface InsuranceOrderMapper {
 
     List<InsuranceOrder>listInsuranceOrder();
+
+    InsuranceOrder getInsuranceOrderById(String id);
 }
