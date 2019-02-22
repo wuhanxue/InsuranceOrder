@@ -225,19 +225,17 @@
 
   </div>
 </div>
-<div class="content">
+<div class="content row" style="height: 50px">
     <div class="demo">
-        <div id="demo3" >
-
-        </div>
-        <select id="count"  onchange="switchPageNumber()">
+        <div id="demo3"></div>
+        <span style="display: inline-block">每页显示</span>
+        <select id="count" style="display: inline-block" onchange="switchPageNumber()">
             <option value=1>1</option>
             <option selected value=15>15</option>
             <option value=50>50</option>
         </select>
     </div>
-      <input class="hidden" id="countPage" value="${total}"/>
-
+    <input class="hidden" id="countPage" value="${total}"/>
 </div>
 
 <div id="embed"></div>
