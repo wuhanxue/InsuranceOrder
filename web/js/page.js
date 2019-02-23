@@ -1,3 +1,6 @@
+var isSearch=false;
+var tolalRecord;//总记录数
+var totalPage;
 (function($) {
     $.fn.paginate = function(options) {
         var opts = $.extend({}, $.fn.paginate.defaults, options);
@@ -64,12 +67,12 @@
         for(var i = 0; i < o.count; i++){
             var val = i+1;
             if(val == selectedpage){
-                var _obj = $(document.createElement('li')).html('<span class="jPag-current" onclick="findPageumber(this)">'+val+'</span>');
+                var _obj = $(document.createElement('li')).html('<span  id="current1" class="jPag-current"  onclick="findPageumber(insuranceOrderLoad);">'+val+'</span>');
                 selobj = _obj;
                 _ul.append(_obj);
             }
             else{
-                var _obj = $(document.createElement('li')).html('<a onclick="findPageumber(this)" >'+ val +'</a>');
+                var _obj = $(document.createElement('li')).html('<a  id="current" onclick="findPageumber(insuranceOrderLoad)">'+ val +'</a>');
                 _ul.append(_obj);
             }
         }
@@ -93,18 +96,6 @@
          // var _divwrapright	= $(document.createElement('div')).addClass('jPag-control-front');
         _divwrapright.append(_rotright).append(_inputJump);
 
-        var _span="&nbsp;&nbsp;<span  id='only' style='color: black'>每页显示</span>"
-        _divwrapright.append(_rotright).append(_span);
-         // var _select="<select id=\"count\" >\n" +
-         //     "                            <option>5</option>\n" +
-         //     "                            <option selected>15</option>\n" +
-         //     "                            <option>50</option>\n" +
-         //     "                        </select>"
-        var select=$('#count').clone();
-        select.removeAttr('class');
-        select.attr('id','select');
-        console.log(countValue())
-        $(select).val(countValue());
         // _divwrapright.append(_rotright).append(select);
         //append all:
         $this.addClass('jPaginate').append(_divwrapleft).append(_ulwrapdiv).append(_divwrapright);
@@ -274,35 +265,6 @@
 
 })(jQuery);
 
-$("#demo3").paginate({
-
-    count 		: TotalPage(),//总页数(动态)
-
-    start 		: 1,//起始页码
-
-    display     : 5,
-
-    border					: true,
-
-    border_color			: '#BEF8B8',
-
-    text_color  			: '#68BA64',
-
-    background_color    	: '#E3F2E1',
-
-    border_hover_color		: '#68BA64',
-
-    text_hover_color  		: 'black',
-
-    background_hover_color	: '#CAE6C6',
-
-    rotate      : false,
-
-    images		: false,
-
-    mouse		: 'press'
-
-});
 
 
 
@@ -312,12 +274,6 @@ $("#demo3").paginate({
 
 
 
-function findPageumber(item) {
-
-    console.log($(item).text());
-
-
-}
 
 
 
@@ -331,56 +287,28 @@ function  findInfoBy(pageNumber) {
  * 计算每页显示数量
  * */
 function countValue() {
-            if($('#select').length>0){
-                console.log("复制存在")
-             return 10;
-            }
-    if($('#select').length==0) {
-                console.log("复制不存在")
                 return   $("#count").find("option:selected").text();;
-            }
-
 }
 
 
 //计算总页数
-function TotalPage() {
-    var totalRecord=TotalRecord();
+function TotalPage(url) {
+    TotalRecord(url);
+    console.log("总记录:"+tolalRecord);
     var count=countValue();
-    if (totalRecord == 0) {
+    console.log("每页显示:"+count);
+    if (tolalRecord == 0) {
         console.log("总记录数为0，请检查！");
         return 0;
     }
-    else if (totalRecord % count == 0)
-        return totalRecord / count;
+    else if (tolalRecord % count == 0)
+         totalPage=tolalRecord / count;
     else
-        return parseInt(totalRecord / count) + 1;
-
-}
-
-//计算总记录数(可能需要各自处理)==>url 获取总记录数的请求路径
-function TotalRecord() {
-   return $('#countPage').val();//返回总记录数
-}
-
-/*返回Page*/
-function getPage() {
-//需要起始页码，每页显示个数，即可
-
-}
-
-function Page() {
-
-}
-
-/*切换标签页码*/
-function switchPageNumber() {
-
-
+        totalPage= parseInt(tolalRecord / count) + 1;
 
     $("#demo3").paginate({
 
-        count 		: TotalPage(),//总页数(动态)
+        count 		: totalPage,//总页数(动态)
 
         start 		: 1,//起始页码
 
@@ -408,3 +336,127 @@ function switchPageNumber() {
 
     });
 }
+
+//计算总记录数(可能需要各自处理)==>url 获取总记录数的请求路径
+function TotalRecord(url) {
+     $.ajax({
+         type:"POST",
+         url:url,
+         async: false,
+         dataType:"json",
+         contentType: "application/json; charset=utf-8",
+         success:function (reslut) {
+                // console.log(reslut)
+              tolalRecord= reslut;
+                 },
+         error:function(reslut){
+           console.log("总记录数查询失败！")
+         }
+     })
+}
+
+
+/*点击页码*/
+function findPageumber(fName) {
+    console.log($('#current1').text())
+    $("#demo3").paginate({
+
+        count 		: totalPage,//总页数(动态)
+
+        start 		: 1,//起始页码
+
+        display     : 5,
+
+        border					: true,
+
+        border_color			: '#BEF8B8',
+
+        text_color  			: '#68BA64',
+
+        background_color    	: '#E3F2E1',
+
+        border_hover_color		: '#68BA64',
+
+        text_hover_color  		: 'black',
+
+        background_hover_color	: '#CAE6C6',
+
+        rotate      : false,
+
+        images		: false,
+
+        mouse		: 'press'
+
+    });
+    var page={};
+    page.start=parseInt(countValue())*(parseInt($('#current').text())-1);
+    page.count=countValue();
+    console.log(page)
+    // insuranceOrderLoad(page)
+    window[fName(page)]
+    return page;
+}
+
+
+
+/*切换标签页码
+* url:计算总页数的路径
+*
+* */
+function switchPageNumber(fName) {
+
+    //变化的是每页显示，其他不变的
+    var page={};
+    page.start=0;
+    page.count=countValue();
+    console.log("每页显示:")
+    console.log(page)
+
+    // insuranceOrderLoad(page)
+    window[fName(page)]
+    $("#demo3").paginate({
+
+        count 		: totalPage,//总页数(动态)
+
+        start 		: 1,//起始页码
+
+        display     : 5,
+
+        border					: true,
+
+        border_color			: '#BEF8B8',
+
+        text_color  			: '#68BA64',
+
+        background_color    	: '#E3F2E1',
+
+        border_hover_color		: '#68BA64',
+
+        text_hover_color  		: 'black',
+
+        background_hover_color	: '#CAE6C6',
+
+        rotate      : false,
+
+        images		: false,
+
+        mouse		: 'press'
+
+    });
+
+
+}
+
+function getInitPage() {
+
+    var page={};
+
+    page.start=0;
+
+    page.count=15;
+
+    return page;
+}
+
+
+

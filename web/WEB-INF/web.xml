@@ -37,6 +37,7 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern><!--而"/"很多人理解成不能拦截带扩展名的，这种理解是错误的！它其实也能拦截“.js”，“.css”，".png"等静态资源的访问。-->
     </servlet-mapping>
+
     <!--<servlet-mapping>-->
         <!--<servlet-name>mvc-dispatcher</servlet-name>-->
         <!--<url-pattern>*.jsp</url-pattern>&lt;!&ndash;支持访问以.jsp为后缀的路径请求映射&ndash;&gt;-->

@@ -4,12 +4,14 @@ import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.domain.Page;
 import com.jdlink.service.InsuranceOrderService;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,30 +24,36 @@ public class InsuranceOrderController {
 @Autowired
     InsuranceOrderService insuranceOrderService;
 
-   /*获取所有订单的信息*/
-    @RequestMapping("orderList")
-    public ModelAndView getAllInsuranceOrder(ModelAndView modelAndView,  Page page ){
-        ModelAndView mav=new ModelAndView();
-        mav.setViewName("orderList");
+
+    @RequestMapping("/orderList")
+    public String orderList(){
+
+               return "orderList";
+    }
+
+    /*获取所有订单的信息*/
+    @RequestMapping(value = "listInsuranceOrder",method = RequestMethod.POST)
+    @ResponseBody
+    public String listInsuranceOrder(@RequestBody Page page){
+        JSONObject res=new JSONObject();
         try{
 
-                List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
-                mav.addObject("insuranceOrderList", insuranceOrderList);
-            mav.addObject("total", insuranceOrderService.getTotalInsuranceOrder());
-                mav.addObject("state","success");
+            List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
+            res.put("data",insuranceOrderList);
+            res.put("status", "success");
+            res.put("message", "订单信息查询成");
+
 
         }
         catch (Exception e){
-            mav.addObject("ex", "订单获取失败!");
-            mav.addObject("state","error");
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "查询失败");
 
         }
-
-
-//        System.out.println("访问路径走到这了！");
-
-        return mav;
+                return res.toString();
     }
+
 
     /*根据订单号获取明细*/
     @RequestMapping("/viewInsuranceOrder")
@@ -65,4 +73,13 @@ public class InsuranceOrderController {
         modelAndView.setViewName("orderDetail");
         return modelAndView;
     }
+
+
+    @RequestMapping("getTotalInsuranceOrder")
+    @ResponseBody
+    public int getTotalInsuranceOrder(){
+        return insuranceOrderService.getTotalInsuranceOrder();
+    }
+
+
 }

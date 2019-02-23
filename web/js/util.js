@@ -34,3 +34,78 @@ function Todate(num) { //Fri Oct 31 18:00:00 UTC+0800 2008
     date = date + month[str[1]] + "-" + str[2];
     return date;
 }
+
+/**/
+ function toQueryString(obj) {
+
+    var qstring = "?"
+    for (var k in obj) {
+        qstring += k + "=" + obj[k] + "&"
+    }
+
+    return qstring
+
+}
+var toHttpParams = (function(){
+    function serialize(key, value, param) {
+        if(Array.isArray(value)) {
+            for(var i = 0; i < value.length; i++) {
+                serialize(key + '[' + i + ']', value[i], param)
+            }
+        } else if(value != undefined && value.constructor === Object) {
+            for(var k in value) {
+                serialize(key + '.' + k, value[k], param);
+            }
+        } else {
+            param[key] = value;
+        }
+    }
+    function serializeObj(obj) {
+        var param = {};
+        for(var k in obj) {
+            serialize(k, obj[k], param);
+        }
+        return param;
+    }
+    return serializeObj;
+})();
+
+
+function printobj(obj){
+    //判断说明是数据类型
+
+    // if(typeof obj != "object"){//判断说明不是对象
+    //     return obj
+    // }
+    var qstring = "?"
+
+    for(var k in obj){//遍历对象和数组
+
+
+        if(typeof obj[k] != "object"){//不是对象
+            qstring += k + "=" + obj[k] + "&"
+        }
+        if(typeof obj[k] == "object"){//判断说明如果是对象则递归
+            printobj(obj[k])
+            // qstring += k + "=" + obj[k] + "&"
+
+        }
+
+
+
+
+        console.log(k + "\t" + obj[k]);//在控制台输出
+
+    }
+    return qstring;
+}
+
+/*取数据字典的数据*/
+function getDataFromDate(obj) {
+    if(obj!=null){
+        return obj.name;
+    }
+    else {
+        return ""
+    }
+}
