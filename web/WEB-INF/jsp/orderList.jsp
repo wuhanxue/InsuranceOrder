@@ -10,18 +10,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>订单列表</title>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
     <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
-  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <script src="../../js/3.3.6/bootstrap.min.js"></script>
-  <link href="../../css/navbar.css" rel="stylesheet">
-  <script src="../../js/navbar.js"></script>
+    <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/3.3.6/bootstrap.min.js"></script>
+    <link href="../../css/navbar.css" rel="stylesheet">
+    <script src="../../js/navbar.js"></script>
     <script src="../../js/insurance/insuranceOrder.js"></script>
     <script src="../../js/util.js"></script>
-
 </head>
 <style type="text/css">
 
@@ -56,7 +55,7 @@
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
           <li><a href="/account">账号管理</a></li>
-          <li><a href="/singin">注销</a></li>
+          <li><a href="/signin">注销</a></li>
       </ul>
     </li>
   </ul>

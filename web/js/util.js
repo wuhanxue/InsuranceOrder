@@ -109,3 +109,15 @@ function getDataFromDate(obj) {
         return ""
     }
 }
+
+/**
+ * 检验密码格式是否合格(英文大小写，数字，符号任意四选三，长度在8-30之间)
+ */
+function checkPassWord(password){
+    var regex = new RegExp('^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\W_!@#$%^&*`~()-+=]+$)(?![0-9\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\W_!@#$%^&*`~()-+=]{8,30}$');
+    if(!regex.test(password)){
+        return false;
+    }else{
+        return true;
+    }
+}
