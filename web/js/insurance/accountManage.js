@@ -46,6 +46,58 @@ function addUser(){
 }
 
 /**
+ * 设置模态框下拉框数据
+ */
+function setSelectDataList(){
+    $('.selectpicker').selectpicker({
+        language: 'zh_CN',
+        size: 4,
+    });
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getCompanyAndDepartmentAndTeamList",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                var company =$("select[name='company']");
+                company.children().remove();
+                $.each(result.companyList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    company.append(option);
+                });
+                var department =$("select[name='department']");
+                department.children().remove();
+                $.each(result.departmentList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    department.append(option);
+                });
+                var team =$("select[name='team']");
+                team.children().remove();
+                $.each(result.teamList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    team.append(option);
+                });
+             //   $('.bootstrap-select').find("button:first").remove();
+                $('.selectpicker').selectpicker('refresh');
+
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
+    });
+}
+
+/**
  * 显示模态框修改
  * @param e
  */
@@ -66,15 +118,16 @@ function showEditModal(e){
             if (result != undefined && result.status === "success") {
                 // 赋值
                 var data = eval(result.data);
+                console.log(data);
                 $("#userName").val(data.userName);
                 $("#password").val(data.password);
                 $("#name").val(data.name);
                 if(data.companyDataItem != null)
-                $("#company").val(data.companyDataItem.id);
+                $("#company").selectpicker('val',data.companyDataItem.id);
                 if(data.departmentDataItem != null)
-                $("#department").val(data.departmentDataItem.id);
+                $("#department").selectpicker('val',data.departmentDataItem.id);
                 if(data.teamDataItem != null)
-                $("#team").val(data.teamDataItem.id);
+                $("#team").selectpicker('val',data.teamDataItem.id);
                 $("#editModal").modal('show');
             } else {
                alert(result.message);

@@ -13,15 +13,17 @@
     <meta charset="UTF-8">
     <title>账号管理</title>
     <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
     <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap-select.min.css">
+    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
     <script src="../../js/3.3.6/bootstrap.min.js"></script>
+    <script src="../../js/bootstrap-select.min.js"></script>
     <link href="../../css/navbar.css" rel="stylesheet">
     <script src="../../js/navbar.js"></script>
     <script src="../../js/insurance/accountManage.js"></script>
 
 </head>
-<body>
+<body onload="setSelectDataList();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -88,8 +90,10 @@
         <div>
             <!--操作按钮-->
             <div class="pull-left">
-                <button class="btn btn-primary btn-xs" type="button" onclick="showAddModal();" href=""><span class="glyphicon glyphicon-plus"
-                                                                           aria-hidden="true"></span> 新增</button>
+                <button class="btn btn-primary btn-xs" type="button" onclick="showAddModal();" href=""><span
+                        class="glyphicon glyphicon-plus"
+                        aria-hidden="true"></span> 新增
+                </button>
             </div>
         </div>
         <div class="table">
@@ -132,10 +136,13 @@
                                                                 pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         <td class="text-center">${c.creator}</td>
                         <td class="text-center">
-                            <button onclick="showEditModal(this);" type="button" href="" title="修改"><span style="color: #2e6da4"
+                            <button onclick="showEditModal(this);" type="button" href="" title="修改"><span
+                                    style="color: #2e6da4"
                                     class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                            <button onclick="deleteById(); function deleteById(){if(confirm('确认删除？'))window.location.href='deleteUserById/${c.id}'}"  class="delete" title="删除"><span style="color: #2e6da4"
-                                    class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <button onclick="deleteById(); function deleteById(){if(confirm('确认删除？'))window.location.href='deleteUserById/${c.id}'}"
+                                    class="delete" title="删除"><span style="color: #2e6da4"
+                                                                    class="glyphicon glyphicon glyphicon-remove"
+                                                                    aria-hidden="true"></span></button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -171,7 +178,8 @@
                         <div class="form-group">
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select id="department" name="department">
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." title="未选择" id="department" name="department">
                                 </select>
                             </div>
                         </div>
@@ -186,7 +194,8 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select id="company" name="company">
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." id="company" name="company">
 
                                 </select>
                             </div>
@@ -194,7 +203,8 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label">项目组 </label>
                             <div class="col-xs-8">
-                                <select id="team" name="team">
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." id="team" name="team">
                                 </select>
                             </div>
                         </div>
@@ -235,10 +245,9 @@
                         <div class="form-group">
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select id="add_department" name="department">
-                                    <c:forEach items="${departmentList}" var="d" >
-                                        <option value="${d.type}">${d.name}</option>
-                                    </c:forEach>
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." id="add_department" name="department">
+
                                 </select>
                             </div>
                         </div>
@@ -253,20 +262,18 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select id="add_company" name="company">
-                                    <c:forEach items="${companyList}" var="d" >
-                                        <option value="${d.type}">${d.name}</option>
-                                    </c:forEach>
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." id="add_company" name="company">
+
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label">项目组 </label>
                             <div class="col-xs-8">
-                                <select id="add_team" name="team">
-                                    <c:forEach items="${teamList}" var="d" >
-                                        <option value="${d.type}">${d.name}</option>
-                                    </c:forEach>
+                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                                        data-live-search-placeholder="搜索..." id="add_team" name="team">
+
                                 </select>
                             </div>
                         </div>
@@ -282,6 +289,13 @@
 </div>
 </body>
 <script>
-
+    $(window).on('load', function () {
+        // 中文重写select 查询为空提示信息
+        $('.selectpicker').selectpicker({
+            language: 'zh_CN',
+            size: 4,
+            // title: '请选择'
+        });
+    });
 </script>
 </html>
