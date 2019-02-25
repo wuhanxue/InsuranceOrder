@@ -57,46 +57,13 @@
             ,team_id=#{teamDataItem.id}
         </if>
          WHERE id=#{id}
-        <!--<if test="companyDataItem != null and companyDataItem.id != null">-->
-            <!--update user set company_id=#{companyDataItem.id} WHERE id=#{id};-->
-        <!--</if>-->
-        <!--<if test="departmentDataItem != null and departmentDataItem.id != null">-->
-            <!--update user set department_id=#{departmentDataItem.id} WHERE id=#{id};-->
-        <!--</if>-->
-        <!--<if test="teamDataItem != null and teamDataItem.id != null">-->
-            <!--update user set team_id=#{teamDataItem.id} WHERE id=#{id};-->
-        <!--</if>-->
     </update>
 
     <insert id="add" >
         insert into user
         (user_name, password, name, company_id, department_id, team_id, creator, creation_time, modify_time)
-        values (#{userName},#{password},#{name}
-        <choose>
-            <when test="companyDataItem != null and companyDataItem.id != null">
-                ,#{companyDataItem.id}
-            </when>
-            <otherwise>
-                ,null
-            </otherwise>
-        </choose>
-        <choose>
-            <when test="departmentDataItem != null and departmentDataItem.id != null">
-                ,#{departmentDataItem.id}
-            </when>
-            <otherwise>
-                ,null
-            </otherwise>
-        </choose>
-        <choose>
-            <when test="teamDataItem != null and teamDataItem.id != null">
-                ,#{teamDataItem.id}
-            </when>
-            <otherwise>
-                ,null
-            </otherwise>
-        </choose>
-        ,#{creator},NOW(),NOW());
+        values (#{userName},#{password},#{name},#{companyDataItem.id},#{departmentDataItem.id},#{teamDataItem.id},
+        #{creator},NOW(),NOW());
     </insert>
 
     <delete id="deleteUserById" parameterType="int">
