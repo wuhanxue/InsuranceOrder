@@ -72,7 +72,7 @@
                 <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list"
                                                                       aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/basicDate"><span class="glyphicon glyphicon-signal"
+                <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span
                         class="iright pull-right">&gt;</span></a></li>
             </ul>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -19,21 +20,10 @@
   <script src="../../js/navbar.js"></script>
 </head>
 <style type="text/css">
-  .pull-right{
-    float: right !important;
-  }
-  .pull-left{
-    float: left !important;
-  }
   table{
     font-family: "微软雅黑",Georgia,Serif;
   }
 </style>
-<script type="text/javascript">
-    function go() {
-        window.self.location = "accountManage.jsp"
-    }
-</script>
 <body>
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
@@ -71,22 +61,17 @@
   <div class="row">
     <div class="sidebar">
       <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
-        <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
         <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span class="sr-only">(current)</span></a></li>
         <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
         <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
-        <li><a class="withripple" href="/basicDate"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
+        <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
       </ul>
     </div>
   </div>
 
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row">
-      <div>
-        <ol class="breadcrumb">
-          <li class="active">基础数据</li>
-        </ol>
-      </div>
+      <br>
       <h4 class="sub-header">数据列表</h4>
     </div>
     <div class="row">
@@ -160,42 +145,40 @@
                 <th class="text-center">
                     <label>
                         <input class="checkbox" type="checkbox" value="option1" aria-label="..." name="allSel"
-                               id="allSel" onclick="allSelect();">
+                               id="allSel" onclick="">
                     </label>
                 </th>
                 <th class="text-center">编号</th>
                 <th class="text-center">字典类型编码</th>
                 <th class="text-center">字典类型名称</th>
                 <th class="text-center">创建人</th>
-                <th class="text-center">创建时间</th>/**/
+                <th class="text-center">创建时间</th>
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr id="clonedTr1" ondblclick="toView1(this)">
+            <c:forEach items="${dataList}" var="c" varStatus="st">
+            <tr >
                 <td class="text-center">
                     <label>
                         <input name="select" class="checkbox" type="checkbox" id="blankCheckbox" value="option1"
                                aria-label="...">
                     </label>
                 </td>
-                <td class="text-center">${list.number}</td>
-                <td class="text-center">${list.code}</td>
-                <td class="text-center">${list.name}</td>
-                <td class="text-center">${list.creator}</td>
-                <td class="text-center">${list.time}</td>
+                <td class="text-center">${c.id}</td>
+                <td class="text-center">${c.type}</td>
+                <td class="text-center">${c.name}</td>
+                <td class="text-center">${c.creator}</td>
+                <td class="text-center"><fmt:formatDate value="${c.creationTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                 <td class="text-center">
-                    <a href="viewBasicDate?id=${list.number}" title="编辑" onclick=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a href="modifyBasicData?id=${c.id}" title="编辑" onclick=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                 </td>
             </tr>
+            </c:forEach>
             </tbody>
         </table>
     </div>
   </div>
-</div>
-<div id="embed"></div>
-<div class="hidden">
-  <input type="file" id="file">
 </div>
 </body>
 </html>

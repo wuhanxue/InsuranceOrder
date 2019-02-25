@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jdlink.mapper.DataDictionaryMapper">
 
+    <resultMap id="dataDictionaryRM" type="DataDictionary" autoMapping="true">
+        <id column="id" property="id"/>
+        <result property="creationTime" column="creation_time" ></result>
+        <result property="modifyTime" column="modify_time" ></result>
+    </resultMap>
+
     <resultMap id="dataDictionaryItemRM" type="DataDictionaryItem" autoMapping="true">
         <id column="id" property="id"/>
         <result property="creationTime" column="creation_time" ></result>
@@ -13,6 +19,10 @@
     <!--根据外键ID获取数据列表-->
     <select id="getDataDictionaryItemListByDataDictionaryId" parameterType="int" resultMap="dataDictionaryItemRM">
         select * from data_dictionary_item where dataDictionaryId=#{id};
+    </select>
+
+    <select id="listDataDictionary" resultMap="dataDictionaryRM">
+        select * from data_dictionary;
     </select>
 
 </mapper>
