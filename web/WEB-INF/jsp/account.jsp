@@ -12,29 +12,23 @@
   <meta charset="UTF-8">
   <title>基础数据</title>
   <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
   <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/bootstrap-select.min.css">
+  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
   <script src="../../js/3.3.6/bootstrap.min.js"></script>
+  <script src="../../js/bootstrap-select.min.js"></script>
   <link href="../../css/navbar.css" rel="stylesheet">
   <script src="../../js/navbar.js"></script>
+  <script src="../../js/util.js"></script>
+  <script src="../../js/insurance/account.js"></script>
+
 </head>
 <style type="text/css">
-  .pull-right{
-    float: right !important;
-  }
-  .pull-left{
-    float: left !important;
-  }
   table{
     font-family: "微软雅黑",Georgia,Serif;
   }
 </style>
-<script type="text/javascript">
-    function go() {
-        window.self.location = "accountManage.jsp"
-    }
-</script>
-<body>
+<body onload="loadAccountData()">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
   <div class="main-title">
@@ -88,25 +82,31 @@
           <div class="form-group">
             <label for="name" class="col-sm-4 control-label">姓名 </label>
             <div class="col-xs-8">
-              <input type="text" class="form-control" id="name" name="name">
+              <input type="text" class="form-control" id="name" name="name" value="${user.name}" >
             </div>
           </div>
           <div class="form-group">
             <label for="userName" class="col-sm-4 control-label">用户名 </label>
             <div class="col-xs-8">
-              <input type="text" class="form-control" id="userName">
+              <input type="text" class="form-control" id="userName" value="${user.userName}" readonly>
             </div>
           </div>
           <div class="form-group">
             <label for="password" class="col-sm-4 control-label">密码 </label>
             <div class="col-xs-8">
-              <input type="text" class="form-control" id="password">
+              <input type="password" class="form-control" id="password" value="${user.password}">
             </div>
           </div>
           <div class="form-group">
             <label for="password" class="col-sm-4 control-label">确认密码 </label>
             <div class="col-xs-8">
-              <input type="text" class="form-control" id="confirmPassword">
+              <input type="password" class="form-control" id="confirmPassword" value="${user.password}" onkeyup="checkPasswordIsSame()">
+            </div>
+          </div>
+          <div class="form-group">
+            <div  class="col-sm-4 "></div>
+            <div class="col-xs-8">
+              <span id="notPass" hidden style="color:red;">两次输入的密码不一致，请确认！</span>
             </div>
           </div>
         </div>
@@ -114,20 +114,26 @@
           <div class="form-group">
             <label for="department" class="col-sm-4 control-label">部门 </label>
             <div class="col-xs-8">
-              <select id="department" name="department">
+              <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                      data-live-search-placeholder="搜索..." title="未选择" id="department" name="department" >
               </select>
             </div>
           </div>
           <div class="form-group">
             <label for="company" class="col-sm-4 control-label">公司 </label>
             <div class="col-xs-8">
-              <select id="company" name="company"></select>
+              <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                      data-live-search-placeholder="搜索..." id="company" name="company">
+
+              </select>
             </div>
           </div>
           <div class="form-group">
             <label for="team" class="col-sm-4 control-label">项目组 </label>
             <div class="col-xs-8">
-              <select id="team" name="team">
+              <select class="selectpicker input-xlarge form-control" data-live-search="true"
+                      data-live-search-placeholder="搜索..." id="team" name="team">
+              </select>
               </select>
             </div>
           </div>
@@ -139,13 +145,20 @@
     </div>
   </div>
 </div>
+</body>
 <script>
     /**
-     * 返回历史页的上一页
+     * 加载初始数据
      */
-  function historyBack() {
-      history.back();
-  }
+    function loadAccountData() {
+        setSelectDataList();   // 填充下拉框数据
+        // 设置下拉框选中
+        if("${user.companyDataItem}" != null)
+            $("#company").selectpicker('val',"${user.companyDataItem.id}");
+        if("${user.departmentDataItem}" != null)
+            $("#department").selectpicker('val',"${user.departmentDataItem.id}");
+        if("${user.teamDataItem}" != null)
+            $("#team").selectpicker('val',"${user.teamDataItem.id}");
+    }
 </script>
-</body>
 </html>
