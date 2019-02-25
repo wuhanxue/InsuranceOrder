@@ -10,18 +10,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>订单列表</title>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
     <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
-  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <script src="../../js/3.3.6/bootstrap.min.js"></script>
-  <link href="../../css/navbar.css" rel="stylesheet">
-  <script src="../../js/navbar.js"></script>
+    <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/3.3.6/bootstrap.min.js"></script>
+    <link href="../../css/navbar.css" rel="stylesheet">
+    <script src="../../js/navbar.js"></script>
     <script src="../../js/insurance/insuranceOrder.js"></script>
     <script src="../../js/util.js"></script>
-
 </head>
 <style type="text/css">
 

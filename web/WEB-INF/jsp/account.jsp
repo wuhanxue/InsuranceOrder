@@ -80,80 +80,9 @@
     </div>
   </div>
 
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="row">
-      <div>
-        <ol class="breadcrumb">
-          <li class="active">基础数据</li>
-        </ol>
-      </div>
-      <h4 class="sub-header">数据列表</h4>
-    </div>
-    <div class="row">
-      <div>
-        <!--操作按钮-->
-        <div class="pull-left col-md-6">
-          <a class="btn btn-primary btn-xs" href="" id="function_-298" onclick=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</a>
-          <a class="btn btn-primary btn-xs" href="" id="function_-299" onclick=""><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> 导入</a>
-          <a class="btn btn-primary btn-xs" href="" id="function_-300" onclick=""><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> 导出</a>
-        </div>
-        <!--查询框-->
-        <div class="input-group col-md-4 pull-right">
-          <input type="text" class="form-control" placeholder="搜索..." id="searchContent" onkeyup="searchData();">
-          <span class="input-group-btn">
-              <a class="btn btn-default" onclick="searchData();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查询</a>
-              <a class="btn btn-default" onclick="$('#senior').toggle();"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 高级查询</a>
-              <a class="btn btn-default" onclick="reset();"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 重置</a>
-          </span>
-        </div>
-      </div>
-    </div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 6%">
     <br>
-    <div class="panel panel-default" id="senior" style="display: none;">
-      <div class="panel-body">
-        <div class="row">
-          <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="number" class="col-sm-4 control-label">编号</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="number" name="number" placeholder="">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="createTime" class="col-sm-4 control-label">创建时间</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="createTime" name="createTime" placeholder="">
-              </div>
-            </div>
-          </div>
-          <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="code" class="col-sm-4 control-label">字典类型编码</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="code" name="code" placeholder="">
-              </div>
-            </div>
-          </div>
-          <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="typeName" class="col-sm-4 control-label">字典类型名称</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="typeName" name="typeName" placeholder="">
-              </div>
-            </div>
-          </div>
-          <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="creator" class="col-sm-4 control-label">创建人</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="creator" name="creator" placeholder="">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-      <h4 class="modal-title">信息修改</h4>
+      <h2 class="modal-title">信息修改</h2>
       <div class="row">
         <div class="form-horizontal col-md-6">
           <div class="form-group">
@@ -192,9 +121,7 @@
           <div class="form-group">
             <label for="company" class="col-sm-4 control-label">公司 </label>
             <div class="col-xs-8">
-              <select id="company" name="company">
-
-              </select>
+              <select id="company" name="company"></select>
             </div>
           </div>
           <div class="form-group">
@@ -206,8 +133,10 @@
           </div>
         </div>
       </div>
+    <div class="text-center">
       <a type="button" class="btn btn-primary" onclick="updateUser()">保存</a>
-      <a type="button" onclick="historyBack()">返回</a>
+      <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
+    </div>
   </div>
 </div>
 <script>
