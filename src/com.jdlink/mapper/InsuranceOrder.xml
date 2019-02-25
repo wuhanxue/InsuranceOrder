@@ -28,7 +28,15 @@
     <result column="modify_time" property="modifyTime"></result>
     <result column="modifier" property="modifier"></result>
     <association property="insuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
+    <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"></association>
 </resultMap>
+
+    <select id="getDepartmentDataItem" resultType="DepartmentDataItem">
+        select * from data_dictionary_item where id=#{department_id}
+    </select>
+
+
+
     <resultMap id="InsuranceOrderItemRM" type="InsuranceOrderItem">
         <result column="id" property="id"></result>
         <result column="order_id" property="orderId"></result>
