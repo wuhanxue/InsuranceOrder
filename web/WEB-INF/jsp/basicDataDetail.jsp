@@ -25,7 +25,7 @@
         font-family: "微软雅黑", Georgia, Serif;
     }
 </style>
-<body onload="setData();">
+<body>
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -171,6 +171,7 @@
                     <th hidden>明细编号</th>
                     <th>明细编码</th>
                     <th>明细名称</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -179,6 +180,8 @@
                         <td hidden name="id"><input class="form-control" name="id" value="${c.id}"></td>
                         <td name="type"><input class="form-control" name="type" value="${c.type}"></td>
                         <td name="name"><input class="form-control" name="name" value="${c.name}"></td>
+                        <td ><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
+                            <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>
                     </tr>
                 </c:forEach>
                 <tr id="plus">
