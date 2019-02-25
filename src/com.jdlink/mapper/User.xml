@@ -39,10 +39,17 @@
         select * from user;
     </select>
 
+    <!--根据ID获取账号信息-->
     <select id="getUserById" parameterType="int" resultMap="UserRM">
         select * from user where id=#{id};
     </select>
 
+    <!--根据账号名获取账号信息-->
+    <select id="getUserByUserName" parameterType="String" resultMap="UserRM">
+         select * from user where user_name=#{userName};
+    </select>
+
+    <!--根据ID更新账号信息-->
     <update id="updateUserById" >
         update user
         set
@@ -59,6 +66,7 @@
          WHERE id=#{id}
     </update>
 
+    <!--新增账号-->
     <insert id="add" >
         insert into user
         (user_name, password, name, company_id, department_id, team_id, creator, creation_time, modify_time)
@@ -66,9 +74,9 @@
         #{creator},NOW(),NOW());
     </insert>
 
+    <!--根据Id删除账号-->
     <delete id="deleteUserById" parameterType="int">
         delete from user where id=#{id};
     </delete>
-
 
 </mapper>

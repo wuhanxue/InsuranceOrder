@@ -252,4 +252,29 @@ public class UserController {
         }
         return res.toString();
     }
+
+    /**
+     * 检验账号是否存在
+     *
+     * @param userName
+     * @return
+     */
+    @RequestMapping("checkUserNameIsExist")
+    @ResponseBody
+    public String checkUserNameIsExist(String userName) {
+        JSONObject res = new JSONObject();
+        try {
+            boolean data = userService.checkUserNameIsExist(userName);
+            res.put("status", "success");
+            res.put("message", "账号是否存在检验成功！");
+            res.put("data", data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "账号是否存在检验失败！");
+        }
+        return res.toString();
+    }
+
+
 }

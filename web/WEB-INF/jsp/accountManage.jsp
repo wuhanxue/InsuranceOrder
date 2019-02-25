@@ -21,6 +21,7 @@
     <link href="../../css/navbar.css" rel="stylesheet">
     <script src="../../js/navbar.js"></script>
     <script src="../../js/insurance/accountManage.js"></script>
+    <script src="../../js/util.js"></script>
 
 </head>
 <body onload="setSelectDataList();">
@@ -166,13 +167,13 @@
                         <div class="form-group">
                             <label for="userName" class="col-sm-4 control-label">用户名 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="userName">
+                                <input type="text" class="form-control" id="userName" name="userName" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-4 control-label">密码 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="password">
+                                <input type="text" class="form-control" id="password" name="password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -233,13 +234,13 @@
                         <div class="form-group">
                             <label for="userName" class="col-sm-4 control-label">用户名 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="add_userName">
+                                <input type="text" class="form-control" id="add_userName" name="userName">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-4 control-label">密码 </label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="add_password">
+                                <input type="text" class="form-control" id="add_password" name="password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -289,13 +290,13 @@
 </div>
 </body>
 <script>
-    $(window).on('load', function () {
-        // 中文重写select 查询为空提示信息
-        $('.selectpicker').selectpicker({
-            language: 'zh_CN',
-            size: 4,
-            // title: '请选择'
-        });
-    });
+    // $(window).on('load', function () {
+    //     // 中文重写select 查询为空提示信息
+    //     $('.selectpicker').selectpicker({
+    //         language: 'zh_CN',
+    //         size: 4,
+    //         // title: '请选择'
+    //     });
+    // });
 </script>
 </html>

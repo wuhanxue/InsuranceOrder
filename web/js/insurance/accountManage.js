@@ -1,4 +1,5 @@
 var userId;
+var isE = false;   // 账号是否存在
 
 /**
  * 打开新增模态框
@@ -11,10 +12,30 @@ function showAddModal(){
  * 新增账号
  */
 function addUser(){
+    if(!checkPassWord($("#add_password").val())){// 检验密码格式
+        alert("密码格式为英文大小写、数字、符号至少三种组合，长度在8至30之间！");
+        $("input[name='password']").focus();  // 鼠标焦点定位到密码输入框
+        return false;
+    }
+    // 获取数据
     var data = {};
     data.userName = $("#add_userName").val();
+    if(data.userName === ""){
+        alert("账号不能为空！");
+        return false;
+    }
+    checkUserName($("#add_userName").val());   // 检验该账号是否存在
+    if(isE){
+        alert("该账号已存在，请重新输入！");
+        $("input[name='userName']").focus();  // 鼠标焦点定位到账号输入框
+        return false;
+    }
     data.password = $("#add_password").val();
     data.name = $("#add_name").val();
+    if(data.name === ""){
+        alert("姓名不能为空！");
+        return false;
+    }
     var companyDataItem = {};
     companyDataItem.id = $("#add_company").find("option:selected").val();
     data.companyDataItem = companyDataItem;
@@ -46,13 +67,38 @@ function addUser(){
 }
 
 /**
+ * 检验账号是否存在
+ * @param name
+ */
+function checkUserName(name) {
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "checkUserNameIsExist",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        data: {
+            userName: name
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                isE = result.data;
+                return result.data;
+            } else {
+                alert(result.message);
+                return false;
+            }
+        },
+        error: function (result) {
+            alert(result.message);
+            return false;
+        }
+    });
+}
+
+/**
  * 设置模态框下拉框数据
  */
 function setSelectDataList(){
-    $('.selectpicker').selectpicker({
-        language: 'zh_CN',
-        size: 4,
-    });
     $.ajax({
         type: "POST",                       // 方法类型
         url: "getCompanyAndDepartmentAndTeamList",                  // url
@@ -60,7 +106,7 @@ function setSelectDataList(){
         dataType: "json",
         success: function (result) {
             if (result != undefined && result.status === "success") {
-                var company =$("select[name='company']");
+               var company =$("select[name='company']");
                 company.children().remove();
                 $.each(result.companyList, function (index, item) {
                     var option = $('<option/>');
@@ -94,6 +140,10 @@ function setSelectDataList(){
         error: function (result) {
             console.log(result.message);
         }
+    });
+    $('.selectpicker').selectpicker({
+        language: 'zh_CN',
+        size: 4,
     });
 }
 
@@ -143,12 +193,21 @@ function showEditModal(e){
  * @param e
  */
 function updateUser() {
+    if(!checkPassWord($("#password").val())){// 检验密码格式
+        alert("密码格式为英文大小写、数字、符号至少三种组合，长度在8至30之间！");
+        $("input[name='password']").focus();  // 鼠标焦点定位到密码输入框
+        return false;
+    }
     // 获取最新数据
     var data = {};
     data.id = userId;
     data.userName = $("#userName").val();
     data.password = $("#password").val();
     data.name = $("#name").val();
+    if(data.name === ""){
+        alert("姓名不能为空！");
+        return false;
+    }
     var companyDataItem = {};
     companyDataItem.id = $("#company").find("option:selected").val();
     data.companyDataItem = companyDataItem;
@@ -166,7 +225,7 @@ function updateUser() {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (result) {
-            if (result != undefined && result.status === "success") {
+            if (result !== undefined && result.status === "success") {
                 alert("修改成功!");
                 window.location.reload();
             } else {
