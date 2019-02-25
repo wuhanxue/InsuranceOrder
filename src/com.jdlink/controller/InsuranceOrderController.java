@@ -75,11 +75,42 @@ public class InsuranceOrderController {
     }
 
 
+    /*获取订单总数*/
     @RequestMapping("getTotalInsuranceOrder")
     @ResponseBody
     public int getTotalInsuranceOrder(){
         return insuranceOrderService.getTotalInsuranceOrder();
     }
 
+
+     /*订单查询*/
+    @RequestMapping("searchInsuranceOrder")
+    @ResponseBody
+    public String searchInsuranceOrder(@RequestBody InsuranceOrder insuranceOrder){
+        JSONObject res=new JSONObject();
+
+        try {
+            List<InsuranceOrder> insuranceOrderList=insuranceOrderService.searchInsuranceOrder(insuranceOrder);
+            res.put("status", "success");
+            res.put("message", "订单高级查询成功");
+            res.put("data", insuranceOrderList);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "订单高级查询失败");
+
+        }
+
+        return res.toString();
+    }
+
+
+
+    @RequestMapping("searchInsuranceOrderTotal")
+    @ResponseBody
+    public int searchInsuranceOrderTotal(@RequestBody InsuranceOrder insuranceOrder){
+        return insuranceOrderService.searchInsuranceOrderTotal(insuranceOrder);
+    }
 
 }

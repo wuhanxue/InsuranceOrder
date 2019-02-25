@@ -1,7 +1,12 @@
 var isSearch=false;
 var tolalRecord;//总记录数
-var totalPage;
- var fName;
+var totalPage;//总页数
+ var fName;//方法名称
+ var data;//查询从查询页面给的对象
+
+function getData(data1) {
+    data=data1;
+}
  /*传给方法名*/
 function initFName(functionName) {
     fName=functionName;
@@ -11,7 +16,6 @@ function initFName(functionName) {
 function initisSearch(isSearch1){
     isSearch=isSearch1;
 }
-
 
     (function($) {
         $.fn.paginate = function(options) {
@@ -285,27 +289,6 @@ function initisSearch(isSearch1){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*根据页面查询当页信息*/
-function  findInfoBy(pageNumber) {
-
-}
-
-
 /**
  * 计算每页显示数量
  * */
@@ -315,8 +298,8 @@ function countValue() {
 
 
 //计算总页数
-function TotalPage(url) {
-    TotalRecord(url);
+function TotalPage(url,data) {
+    TotalRecord(url,data);
     // console.log("总记录:"+tolalRecord);
     $('#totalRecord').text(tolalRecord);
     var count=countValue();
@@ -362,7 +345,7 @@ function TotalPage(url) {
 }
 
 //计算总记录数(可能需要各自处理)==>url 获取总记录数的请求路径
-function TotalRecord(url) {
+function TotalRecord(url,data) {
     //普通分页
     if(!isSearch){
         $.ajax({
@@ -382,22 +365,31 @@ function TotalRecord(url) {
     }
     //查询
     if(isSearch){
-
+        console.log("查询下的总记录数")
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:JSON.stringify(data),
+            async: false,
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+            success:function (reslut) {
+                tolalRecord= reslut;
+            },
+            error:function(reslut){
+                console.log("总记录数查询失败！")
+            }
+        })
     }
 
 }
 
 
 /*点击页码*/
-
-
-
 function findPageumber(item,fName) {
 
-
-  var num=$(item).text();
-    console.log( $('.jPag-current').text())
-
+    console.log(isSearch);
+    var num=$(item).text();
     $("#demo3").paginate({
 
         count 		: totalPage,//总页数(动态)
@@ -431,17 +423,16 @@ function findPageumber(item,fName) {
     var page={};
     page.start=parseInt(countValue())*(parseInt($(item).text())-1);
     page.count=countValue();
-    // console.log(page)
-    // insuranceOrderLoad(page)
+    //普通分页下
+if(!isSearch){
     window[fName](page);//以方法名调用改方法
-    // var li=$(item).parent();
-    // console.log(li)
-    // $(item).empty();
-    // var span="<span  class='jPag-current' style='color: black; background-color: rgb(202, 230, 198); border: 1px solid rgb(104, 186, 100);'>"+num+"</span>";
-    // li.append(span);
+}
+    if(isSearch) {
+    data.page=page;
+    window[fName](page,data);//以方法名调用改方法
 }
 
-
+}
 
 /*切换标签页码
 * url:计算总页数的路径
@@ -455,9 +446,13 @@ function switchPageNumber(fName) {
     page.count=countValue();
     console.log("每页显示:")
     console.log(page)
-
-    // insuranceOrderLoad(page)
-    window[fName(page)]
+    if(!isSearch){
+        window[fName(page)]
+    }
+       if(isSearch){
+     data.page=page;
+           window[fName(page,data)]
+       }
     $("#demo3").paginate({
 
         count 		: totalPage,//总页数(动态)
@@ -491,6 +486,7 @@ function switchPageNumber(fName) {
 
 }
 
+/*初始化页面信息*/
 function getInitPage() {
 
     var page={};
@@ -517,42 +513,14 @@ function jump() {
         page.count=countValue();
         console.log(tolalRecord)
         console.log(page)
-        window[fName](page);//以方法名调用改方法
-        // var li=$(item).parent();
-        // console.log(li)
-        // $(item).empty();
-        // var span="<span  class='jPag-current' style='color: black; background-color: rgb(202, 230, 198); border: 1px solid rgb(104, 186, 100);'>"+num+"</span>";
-        // li.append(span);
-        console.log(fName)
-        // $("#demo3").paginate({
-        //
-        //     count 		: totalPage,//总页数(动态)
-        //
-        //     start 		: 1,//起始页码
-        //
-        //     display     : 5,
-        //
-        //     border					: true,
-        //
-        //     border_color			: '#BEF8B8',
-        //
-        //     text_color  			: '#68BA64',
-        //
-        //     background_color    	: '#E3F2E1',
-        //
-        //     border_hover_color		: '#68BA64',
-        //
-        //     text_hover_color  		: 'black',
-        //
-        //     background_hover_color	: '#CAE6C6',
-        //
-        //     rotate      : false,
-        //
-        //     images		: false,
-        //
-        //     mouse		: 'press'
-        //
-        // });
+        if(!isSearch){
+            window[fName](page);//以方法名调用改方法
+        }
+            else {
+            data.page=page;
+            window[fName](page,data);//以方法名调用改方法
+        }
+
     }
 
 }

@@ -12,4 +12,8 @@ public interface InsuranceOrderMapper {
     InsuranceOrder getInsuranceOrderById(String id);
 
     int getTotalInsuranceOrder();
+
+    List<InsuranceOrder>searchInsuranceOrder(InsuranceOrder insuranceOrder);
+
+    int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder);
 }
