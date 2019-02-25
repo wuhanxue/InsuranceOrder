@@ -276,5 +276,28 @@ public class UserController {
         return res.toString();
     }
 
+    /**
+     * 跳转至登录页面
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/signin")
+    public ModelAndView jumpToSignin() {
+        ModelAndView mav = new ModelAndView("/signin");
+        return mav;
+    }
+
+    /**
+     * 跳转至个人账号管理页面
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/account")
+    public ModelAndView jumpToAccount() {
+        ModelAndView mav = new ModelAndView("/account");
+        return mav;
+    }
 
 }

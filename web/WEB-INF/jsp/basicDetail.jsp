@@ -57,13 +57,11 @@
     </div><!--/.nav-collapse -->
   </div>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="#" title="提醒"><span class="glyphicon glyphicon-bell"></span></a></li>
-    <li><a href="#" title="事项"><span class="glyphicon glyphicon-envelope"></span></a></li>
     <li class="dropdown">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="">账号管理</a></li>
-        <li><a href="">注销</a></li>
+        <li><a href="/account">账号管理</a></li>
+        <li><a href="/signin">注销</a></li>
       </ul>
     </li>
   </ul>
