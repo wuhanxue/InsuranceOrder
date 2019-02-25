@@ -1,5 +1,6 @@
 package com.jdlink.service;
 
+import com.jdlink.domain.dataItem.DataDictionary;
 import com.jdlink.domain.dataItem.DataDictionaryItem;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface DataDictionaryService {
      * @return
      */
     List<DataDictionaryItem> getDataDictionaryItemListByDataDictionaryId(Integer id);
+
+    List<DataDictionary> listDataDictionary();
 }
