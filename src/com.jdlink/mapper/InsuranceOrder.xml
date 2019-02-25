@@ -67,4 +67,116 @@
     <select id="getTotalInsuranceOrder" resultType="int">
         select count(*) from insurance_order;
     </select>
+
+    <!--订单高级查询-->
+    <select id="searchInsuranceOrder" resultMap="InsuranceOrderRM" parameterType="InsuranceOrder">
+        select * from insurance_order
+        <where>
+            <if test="keywords != null and keywords != ''">
+                 or id like binary"%"#{keywords}"%"
+                or insured_person_name like binary"%"#{keywords}"%"
+                or proposer like "%"#{keywords}"%"
+                or FORMAT(goods_value,3) like binary"%"#{keywords}"%"
+                or approval_date like binary"%"#{keywords}"%"
+                or id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where premium like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where insure_date like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where insure_date like binary"%"#{keywords}"%")
+            </if>
+            <if test="id!=null and id != ''">
+                and id like "%"#{id}"%"
+            </if>
+            <if test="insuredPersonName!=null and insuredPersonName != ''">
+                and insured_person_name like "%"#{insuredPersonName}"%"
+            </if>
+            <if test="proposer!=null and proposer != ''">
+                and proposer like "%"#{proposer}"%"
+            </if>
+            <if test="goodsValue!=null and goodsValue != ''">
+                and goods_value =#{goodsValue}
+            </if>
+            <if test="proposer!=null and proposer != ''">
+                and proposer like "%"#{proposer}"%"
+            </if>
+            <if test="approvalDateBegin!=null">
+                <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') >=  DATE_FORMAT(#{approvalDateBegin}, '%Y-%m-%d') ]]>
+            </if>
+            <if test="approvalDateEnd!=null">
+                <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
+            </if>
+            <if test="insuranceOrderItem!=null">
+                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
+                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
+                </if>
+                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
+                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
+                </if>
+                <if test="insuranceOrderItem.insureDateBegin!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
+                </if>
+                <if test="insuranceOrderItem.insureDateEnd!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
+                </if>
+
+            </if>
+        </where>
+            <if test="page!=null">
+                limit #{page.start}, #{page.count}
+            </if>
+    </select>
+
+    <!--订单高级查询总数-->
+    <select id="searchInsuranceOrderTotal" parameterType="InsuranceOrder" resultType="int">
+        select count(*) from insurance_order
+        <where>
+            <if test="keywords != null and keywords != ''">
+                or id like binary"%"#{keywords}"%"
+                or insured_person_name like binary"%"#{keywords}"%"
+                or proposer like "%"#{keywords}"%"
+                or FORMAT(goods_value,3) like binary"%"#{keywords}"%"
+                or approval_date like binary"%"#{keywords}"%"
+                or id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where premium like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where insure_date like binary"%"#{keywords}"%")
+                or id in(select order_id from insurance_order_item where insure_date like binary"%"#{keywords}"%")
+            </if>
+            <if test="id!=null and id != ''">
+                and id like "%"#{id}"%"
+            </if>
+            <if test="insuredPersonName!=null and insuredPersonName != ''">
+                and insured_person_name like "%"#{insuredPersonName}"%"
+            </if>
+            <if test="proposer!=null and proposer != ''">
+                and proposer like "%"#{proposer}"%"
+            </if>
+            <if test="goodsValue!=null and goodsValue != ''">
+                and goods_value =#{goodsValue}
+            </if>
+            <if test="proposer!=null and proposer != ''">
+                and proposer like "%"#{proposer}"%"
+            </if>
+            <if test="approvalDateBegin!=null">
+                <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') >=  DATE_FORMAT(#{approvalDateBegin}, '%Y-%m-%d') ]]>
+            </if>
+            <if test="approvalDateEnd!=null">
+                <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
+            </if>
+            <if test="insuranceOrderItem!=null">
+                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
+                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
+                </if>
+                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
+                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
+                </if>
+                <if test="insuranceOrderItem.insureDateBegin!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
+                </if>
+                <if test="insuranceOrderItem.insureDateEnd!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
+                </if>
+
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -24,6 +24,12 @@ public class InsuranceOrderItem {
      * 投保日期
      */
     private Date insureDate;
+
+    /*投保日期开始日期*/
+    private Date insureDateBegin;
+
+    /*投保日期结束日期*/
+    private Date insureDateEnd;
     /**
      * 保险费
      */
@@ -52,6 +58,22 @@ public class InsuranceOrderItem {
      *  保险单据状态
      */
     private OrderStateDataItem orderStateDataItem;
+
+    public Date getInsureDateBegin() {
+        return insureDateBegin;
+    }
+
+    public void setInsureDateBegin(Date insureDateBegin) {
+        this.insureDateBegin = insureDateBegin;
+    }
+
+    public Date getInsureDateEnd() {
+        return insureDateEnd;
+    }
+
+    public void setInsureDateEnd(Date insureDateEnd) {
+        this.insureDateEnd = insureDateEnd;
+    }
 
     public String getId() {
         return id;

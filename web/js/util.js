@@ -110,6 +110,11 @@ function getDataFromDate(obj) {
     }
 }
 
+/*重置*/
+function reset() {
+    window.location.reload();
+}
+
 /**
  * 检验密码格式是否合格(英文大小写，数字，符号任意四选三，长度在8-30之间)
  */
