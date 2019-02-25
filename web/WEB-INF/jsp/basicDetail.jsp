@@ -155,44 +155,55 @@
         </div>
       </div>
     </div>
-    <div class="row">
-        <table class="table table-striped table-hover table-condensed">
-            <thead>
-            <tr>
-                <th class="text-center">
-                    <label>
-                        <input class="checkbox" type="checkbox" value="option1" aria-label="..." name="allSel"
-                               id="allSel" onclick="allSelect();">
-                    </label>
-                </th>
-                <th class="text-center">编号</th>
-                <th class="text-center">字典类型编码</th>
-                <th class="text-center">字典类型名称</th>
-                <th class="text-center">创建人</th>
-                <th class="text-center">创建时间</th>/**/
-                <th class="text-center">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="clonedTr1" ondblclick="toView1(this)">
-                <td class="text-center">
-                    <label>
-                        <input name="select" class="checkbox" type="checkbox" id="blankCheckbox" value="option1"
-                               aria-label="...">
-                    </label>
-                </td>
-                <td class="text-center">${list.number}</td>
-                <td class="text-center">${list.code}</td>
-                <td class="text-center">${list.name}</td>
-                <td class="text-center">${list.creator}</td>
-                <td class="text-center">${list.time}</td>
-                <td class="text-center">
-                    <a href="viewBasicDate?id=${list.number}" title="编辑" onclick=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+      <form method="post" enctype="multipart/form-data">
+          <h4 class="modal-title">数据字典修改</h4>
+          <div class="modal-body" style="overflow-x:scroll;">
+              <div class="row">
+                  <div class="col-md-6">
+                      <p style="display: inline">字典类型编码:<input class="form-control" style="width: 35%;display: inline" id="dictionaryType2"></p>
+                  </div>
+                  <div class="col-md-6">
+                      <p style="display: inline">字典类型名称:<input class="form-control"  type="text" style="width: 35%;display: inline" id="dictionaryName2"></p>
+                      <input class="hidden" id="dataDictionaryId2">
+                  </div>
+              </div>
+              <table class="table table-striped table-hover table-condensed">
+                  <!--<thead style="border:none">-->
+                  <thead>
+                  <tr>
+                      <th>明细编码</th>
+                      <!--<th class="hidden">收样日期</th>-->
+                      <th>明细名称</th>
+                  </tr>
+                  </thead>
+                  <tbody >
+                  <tr id="cloneTr2" class="myclass3" >
+                      <td><input class="form-control" name="transferDraftId" >
+                      </td>
+                      <!--<td><input class="form-control hidden" name="produceCompany" type="date"></td>-->
+                      <td><input class="form-control" name="wastesName" ></td>
+                      <!--<td><input class="form-control" name="wastesCode" ></td>-->
+
+                      <td class="hidden"></td>
+                  </tr>
+                  <tr id="plus">
+                      <td>
+                          <a class="btn btn-default btn-xs" onclick="addNewLine1(this);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                      </td>
+                      <td></td>
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="modal-footer" >
+              <button type="button" class="btn btn-primary" onclick="adjust();">修改</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+      </form>
   </div>
 </div>
 <div id="embed"></div>
