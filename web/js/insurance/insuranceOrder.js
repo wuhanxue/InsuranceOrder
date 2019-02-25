@@ -1,10 +1,15 @@
 /*订单保险脚本*/
 
 function insuranceOrderLoad(page) {
-    console.log(page)
+    //传给page.js方法名
+    initFName(insuranceOrderLoad.name);
+    initisSearch(false);
+
+
      if(page==undefined){
          page=getInitPage();
      }
+     //根据url获取总页数
     TotalPage('getTotalInsuranceOrder');
     $.ajax({
         type:"POST",
@@ -30,11 +35,7 @@ function insuranceOrderLoad(page) {
 
 }
 
-$(function () {
-    $('#selected').click(function () {
-        alert(123)
-    })
-})
+
 
 
 
@@ -71,4 +72,4 @@ function setInsuranceOrderList(result) {
 
 }
 
-findPageumber(insuranceOrderLoad);
+// findPageumber(insuranceOrderLoad);
