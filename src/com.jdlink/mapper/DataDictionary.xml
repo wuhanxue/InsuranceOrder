@@ -21,8 +21,14 @@
         select * from data_dictionary_item where dataDictionaryId=#{id};
     </select>
 
+    <!--获取所有基础数据信息-->
     <select id="listDataDictionary" resultMap="dataDictionaryRM">
         select * from data_dictionary;
+    </select>
+
+    <!--根据ID获取基础数据信息-->
+    <select id="getDataDictionaryById" parameterType="int" resultMap="dataDictionaryRM">
+        select * from data_dictionary where id=#{id};
     </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.jdlink.controller;
 
 import com.jdlink.domain.User;
 import com.jdlink.domain.dataItem.DataDictionary;
+import com.jdlink.domain.dataItem.DataDictionaryItem;
 import com.jdlink.service.DataDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,4 +37,21 @@ public class BasicDataController {
         mav.setViewName("/basicData");
         return mav;
     }
+
+    /**
+     * 根据ID获取字典明细数据列表
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping("/getBasicDataById/{id}")
+    public ModelAndView getBasicDataById(DataDictionary dataDictionary) {
+        List<DataDictionaryItem> dataItemList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(dataDictionary.getId());
+        DataDictionary dataDictionary1 = dataDictionaryService.getDataDictionaryById(dataDictionary.getId());
+        ModelAndView mav = new ModelAndView("/basicDataDetail");
+        mav.addObject("dataItemList",dataItemList);
+        mav.addObject("data",dataDictionary1);
+        return mav;
+    }
+
 }

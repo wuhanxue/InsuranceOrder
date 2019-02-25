@@ -10,4 +10,6 @@ public interface DataDictionaryMapper {
     List<DataDictionaryItem> getDataDictionaryItemListByDataDictionaryId(Integer id);
 
     List<DataDictionary> listDataDictionary();
+
+    DataDictionary getDataDictionaryById(Integer id);
 }

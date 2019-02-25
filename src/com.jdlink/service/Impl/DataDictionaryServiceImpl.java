@@ -21,5 +21,6 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
     @Override
     public List<DataDictionary> listDataDictionary() { return dataDictionaryMapper.listDataDictionary(); }
 
-
+    @Override
+    public DataDictionary getDataDictionaryById(Integer id) { return dataDictionaryMapper.getDataDictionaryById(id); }
 }
