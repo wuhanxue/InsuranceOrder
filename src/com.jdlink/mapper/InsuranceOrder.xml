@@ -179,4 +179,26 @@
         </where>
     </select>
 
+
+    <!--根据保险单号查看明细(保单)-->
+    <select id="getInsuranceOrderItemById" parameterType="String" resultMap="InsuranceOrderItemRM">
+        select * from insurance_order_item where order_id=#{id}
+    </select>
+
+    <!--更新保单信息-->
+    <update id="updateInsuranceOrderItem" parameterType="InsuranceOrderItem">
+        update insurance_order_item set id=#{id},insure_company_name=#{insureCompanyName},insure_date=#{insureDate},
+        premium=#{premium},modify_time=#{modifyTime},modifier=#{modifier} where order_id=#{orderId}
+    </update>
+
+    <!--删除保单信息-->
+    <delete id="deleteInsuranceOrderItemById" parameterType="String">
+        delete from insurance_order_item where id=#{id}
+    </delete>
+
+    <!--添加保单信息-->
+    <insert id="addInsuranceOrderItem" parameterType="InsuranceOrderItem">
+        insert into insurance_order_item (id,order_id,insure_company_name,insure_date,premium,creation_time,creator) values
+        (#{id},#{orderId},#{insureCompanyName},#{insureDate},#{premium},#{creationTime},#{creator});
+    </insert>
 </mapper>

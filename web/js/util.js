@@ -186,3 +186,13 @@ function setSelectDataList(){
         size: 4,
     });
 }
+
+/*设置返回数字及保留的小数*/
+function getNumber(num,n) {
+    if(isNaN(num)){
+        return "";
+    }
+    else {
+        return parseFloat(num).toFixed(n);
+    }
+}
