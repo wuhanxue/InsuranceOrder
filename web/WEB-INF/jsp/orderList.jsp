@@ -56,7 +56,7 @@
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
           <li><a href="/account">账号管理</a></li>
-          <li><a href="/singin">注销</a></li>
+          <li><a href="/signin">注销</a></li>
       </ul>
     </li>
   </ul>
@@ -219,16 +219,29 @@
 <div class="content row" style="height: 50px">
     <div class="demo">
         <div id="demo3"></div>
+        <br>
+        <form class="form-inline">
+            <div class="form-group" style="width: 20%">
+               <a class="btn btn-primary" onclick="jump()" style="height: 30px;width: 60px">跳转</a>
+                <input type="text"  style="width:30%" id="jumpPage">
+                <span>页</span>
+            </div>
+
+        <span>当前第</span>
+        <span id="currentPage" style="color: green">1</span>
+        <span>页</span>
         <span style="display: inline-block">每页显示</span>
         <select  id="count" style="display: inline-block" onchange="switchPageNumber(insuranceOrderLoad);">
             <option value=1>1</option>
             <option selected value=15>15</option>
             <option value=50>50</option>
         </select>
+            <span style="display: inline-block">条记录</span>
+            <span>总共</span>
+            <span id="totalRecord" style="color: red"></span>
+            <span>条记录</span>
+        </form>
     </div>
-      <input class="hidden" id="countPage" value="${total}"/>
-    <input class="hidden" id="returnPageNumber" value="${everyPageCount}"/>
-</div>
 
 <div id="embed"></div>
 <div class="modal fade bs-example-modal-lg" id="insure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -288,7 +301,7 @@
 </div>
 
 <script src="../../js/page.js" type="text/javascript"></script>
-
+</div>
 </body>
 <script>
 

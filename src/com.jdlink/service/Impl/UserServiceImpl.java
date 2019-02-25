@@ -36,4 +36,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int id) { return userMapper.getUserById(id); }
+
+    @Override
+    public boolean checkUserNameIsExist(String userName) {
+        User user = userMapper.getUserByUserName(userName);
+        if(user != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
