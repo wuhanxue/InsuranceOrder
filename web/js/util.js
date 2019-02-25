@@ -126,3 +126,63 @@ function checkPassWord(password){
         return true;
     }
 }
+
+/**
+ * 返回历史页的上一页
+ */
+function historyBack() {
+    history.back();
+}
+
+
+/**
+ * 设置公司部门项目组下拉框数据
+ */
+function setSelectDataList(){
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getCompanyAndDepartmentAndTeamList",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                var company =$("select[name='company']");
+                company.children().remove();
+                $.each(result.companyList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    company.append(option);
+                });
+                var department =$("select[name='department']");
+                department.children().remove();
+                $.each(result.departmentList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    department.append(option);
+                });
+                var team =$("select[name='team']");
+                team.children().remove();
+                $.each(result.teamList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name);
+                    team.append(option);
+                });
+                //   $('.bootstrap-select').find("button:first").remove();
+                $('.selectpicker').selectpicker('refresh');
+
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
+    });
+    $('.selectpicker').selectpicker({
+        language: 'zh_CN',
+        size: 4,
+    });
+}
