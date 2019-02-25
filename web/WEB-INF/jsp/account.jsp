@@ -62,8 +62,8 @@
     <li class="dropdown">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="">账号管理</a></li>
-        <li><a href="">注销</a></li>
+        <li><a href="/account">账号管理</a></li>
+        <li><a href="/singin">注销</a></li>
       </ul>
     </li>
   </ul>
@@ -138,9 +138,9 @@
           </div>
           <div class="form-horizontal col-md-3">
             <div class="form-group">
-              <label for="name" class="col-sm-4 control-label">字典类型名称</label>
+              <label for="typeName" class="col-sm-4 control-label">字典类型名称</label>
               <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="name" name="name" placeholder="">
+                <input type="text" onkeyup="searchData();" class="form-control" id="typeName" name="typeName" placeholder="">
               </div>
             </div>
           </div>
@@ -155,49 +155,70 @@
         </div>
       </div>
     </div>
-    <div class="row">
-        <table class="table table-striped table-hover table-condensed">
-            <thead>
-            <tr>
-                <th class="text-center">
-                    <label>
-                        <input class="checkbox" type="checkbox" value="option1" aria-label="..." name="allSel"
-                               id="allSel" onclick="allSelect();">
-                    </label>
-                </th>
-                <th class="text-center">编号</th>
-                <th class="text-center">字典类型编码</th>
-                <th class="text-center">字典类型名称</th>
-                <th class="text-center">创建人</th>
-                <th class="text-center">创建时间</th>/**/
-                <th class="text-center">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="clonedTr1" ondblclick="toView1(this)">
-                <td class="text-center">
-                    <label>
-                        <input name="select" class="checkbox" type="checkbox" id="blankCheckbox" value="option1"
-                               aria-label="...">
-                    </label>
-                </td>
-                <td class="text-center">${list.number}</td>
-                <td class="text-center">${list.code}</td>
-                <td class="text-center">${list.name}</td>
-                <td class="text-center">${list.creator}</td>
-                <td class="text-center">${list.time}</td>
-                <td class="text-center">
-                    <a href="viewBasicDate?id=${list.number}" title="编辑" onclick=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+      <h4 class="modal-title">信息修改</h4>
+      <div class="row">
+        <div class="form-horizontal col-md-6">
+          <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">姓名 </label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" id="name" name="name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="userName" class="col-sm-4 control-label">用户名 </label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" id="userName">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-4 control-label">密码 </label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" id="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-4 control-label">确认密码 </label>
+            <div class="col-xs-8">
+              <input type="text" class="form-control" id="confirmPassword">
+            </div>
+          </div>
+        </div>
+        <div class="form-horizontal col-md-6">
+          <div class="form-group">
+            <label for="department" class="col-sm-4 control-label">部门 </label>
+            <div class="col-xs-8">
+              <select id="department" name="department">
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company" class="col-sm-4 control-label">公司 </label>
+            <div class="col-xs-8">
+              <select id="company" name="company">
+
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="team" class="col-sm-4 control-label">项目组 </label>
+            <div class="col-xs-8">
+              <select id="team" name="team">
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a type="button" class="btn btn-primary" onclick="updateUser()">保存</a>
+      <a type="button" onclick="historyBack()">返回</a>
   </div>
 </div>
-<div id="embed"></div>
-<div class="hidden">
-  <input type="file" id="file">
-</div>
+<script>
+    /**
+     * 返回历史页的上一页
+     */
+  function historyBack() {
+      history.back();
+  }
+</script>
 </body>
 </html>
