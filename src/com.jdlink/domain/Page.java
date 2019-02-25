@@ -1,7 +1,6 @@
 package com.jdlink.domain;
 
 /**
- * Created by matt on 2018/5/24.
  * 分页类
  */
 public class Page {

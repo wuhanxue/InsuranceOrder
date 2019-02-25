@@ -135,13 +135,13 @@ public class InsuranceOrder {
     private String modifier;
 
     /*分页*/
-    private com.jdlink.domain.Page page=null;
+    private Page page;
 
-    public com.jdlink.domain.Page getPage() {
+    public Page getPage() {
         return page;
     }
 
-    public void setPage(com.jdlink.domain.Page page) {
+    public void setPage(Page page) {
         this.page = page;
     }
 

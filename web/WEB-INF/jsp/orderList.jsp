@@ -20,12 +20,14 @@
   <link href="../../css/navbar.css" rel="stylesheet">
   <script src="../../js/navbar.js"></script>
     <script src="../../js/insurance/insuranceOrder.js"></script>
+    <script src="../../js/util.js"></script>
+
 </head>
 <style type="text/css">
 
-  table{
-    font-family: "微软雅黑",Georgia,Serif;
-  }
+  /*table{*/
+    /*font-family: "微软雅黑",Georgia,Serif;*/
+  /*}*/
 </style>
 <body onload="insuranceOrderLoad()">
 <!--导航条-->
@@ -144,6 +146,7 @@
     </div>
     <div class="row">
       <table class="table table-striped table-hover table-condensed">
+          <thead>
           <tr>
               <th class="text-center">订单号</th>
               <th class="text-center">状态</th>
@@ -157,29 +160,22 @@
               <th class="text-center">保费</th>
               <th class="text-center">操作</th>
           </tr>
-           <c:choose>
-           <c:when test="${state!='success'}">
-           <%
-                   System.out.println("错误");
-           %>
-           <script type="text/javascript" language="javascript">
-               alert("${ex}");
-           </script>
-           </c:when>
-           <c:otherwise>
-           <c:forEach items="${insuranceOrderList}" var="list" varStatus="vs">
+          </thead>
+
+
+                 <tbody id="insuranceOrderList">
           <tr>
-              <td class="text-center">${list.id}</td><%--订单号--%>
-              <td class="text-center"></td><%--状态--%>
-              <td class="text-center">${list.proposer}</td><%--申请人--%>
-              <td class="text-center"></td><%--申请部门--%>
-              <td class="text-center">${list.approvalDate}</td><%--投保日期--%>
-              <td class="text-center">${list.approvalDate}</td><%--审批日期--%>
-              <td class="text-center">${list.insuredPersonName}</td><%--被投保人名称--%>
-              <td class="text-center">${list.goodsValue}</td><%--货物价值--%>
-              <td class="text-center">${list.insuranceOrderItem.insureCompanyName}</td><%--保险公司名称--%>
-              <td class="text-center">${list.goodsValue}</td><%--保费--%>
-              <td class="text-center">
+              <td class='text-center'></td><%--订单号--%>
+              <td class='text-center'></td><%--状态--%>
+              <td class='text-center'></td><%--申请人--%>
+              <td class='text-center'></td><%--申请部门--%>
+              <td class='text-center'></td><%--投保日期--%>
+              <td class='text-center'></td><%--审批日期--%>
+              <td class='text-center'></td><%--被投保人名称--%>
+              <td class='text-center'></td><%--货物价值--%>
+              <td class='text-center'></td><%--保险公司名称--%>
+              <td class='text-center'></td><%--保费--%>
+              <td class='text-center'>
                   <a href="/orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
                   <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
                   <a href="#" onclick="" id="insured" title="投保"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
@@ -189,12 +185,9 @@
                   <a href="#" onclick="" title="关闭"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a>
               </td>
           </tr>
+                 </tbody>
 
-          </c:forEach>
 
-      </c:otherwise>
-
-           </c:choose>
 
                      <%--<td>--%>
                          <%--${insuranceOrderList}--%>
@@ -229,13 +222,14 @@
     <div class="demo">
         <div id="demo3"></div>
         <span style="display: inline-block">每页显示</span>
-        <select id="count" style="display: inline-block" onchange="switchPageNumber()">
+        <select  id="count" style="display: inline-block" onchange="switchPageNumber(insuranceOrderLoad);">
             <option value=1>1</option>
             <option selected value=15>15</option>
             <option value=50>50</option>
         </select>
     </div>
-    <input class="hidden" id="countPage" value="${total}"/>
+      <input class="hidden" id="countPage" value="${total}"/>
+    <input class="hidden" id="returnPageNumber" value="${everyPageCount}"/>
 </div>
 
 <div id="embed"></div>
@@ -295,8 +289,8 @@
   <input type="file" id="file2">
 </div>
 
-
 <script src="../../js/page.js" type="text/javascript"></script>
+
 </body>
 <script>
 
