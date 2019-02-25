@@ -148,7 +148,10 @@ public class UserController {
         User user = (User) session.getAttribute("user");   // 获取用户信息
         if (user != null && user.getUserName().equals("root")) {
             modelAndView.setViewName("redirect:/accountManage");
-        } else {
+        } else if(user == null){
+            modelAndView.setViewName("redirect:/signin");
+        }else{
+            //modelAndView.addObject("checkMessage","该账号无权限进入！");
             modelAndView.setViewName("redirect:/orderList");
         }
         return modelAndView;
@@ -219,17 +222,17 @@ public class UserController {
         return res.toString();
     }
 
-    /**
-     * 修改方法
-     *
-     * @param
-     * @return
-     */
-    @RequestMapping(value = "/updateUserById/{id}", method = RequestMethod.PUT)
-    public ModelAndView updateUserById(User user, HttpSession session) {
-        ModelAndView mav = new ModelAndView("redirect:/accountManage");
-        return mav;
-    }
+//    /**
+//     * 修改方法(暂不用)
+//     *
+//     * @param
+//     * @return
+//     */
+//    @RequestMapping(value = "/updateUserById/{id}", method = RequestMethod.PUT)
+//    public ModelAndView updateUserById(User user, HttpSession session) {
+//        ModelAndView mav = new ModelAndView("redirect:/accountManage");
+//        return mav;
+//    }
 
     /**
      * 修改用户数据
@@ -239,9 +242,13 @@ public class UserController {
      */
     @RequestMapping("updateUserById")
     @ResponseBody
-    public String updateUserById(@RequestBody User user) {
+    public String updateUserById(@RequestBody User user,HttpSession session) {
         JSONObject res = new JSONObject();
         try {
+            if(user != null && user.getId() == 0){
+                User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
+                user.setId(user1.getId());
+            }
             userService.updateUserById(user);
             res.put("status", "success");
             res.put("message", "修改成功！");
@@ -295,8 +302,14 @@ public class UserController {
      * @return
      */
     @RequestMapping("/account")
-    public ModelAndView jumpToAccount() {
+    public ModelAndView jumpToAccount(HttpSession session) {
+        User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
         ModelAndView mav = new ModelAndView("/account");
+        if(user1 != null){  // 如果信息存在则传递
+            mav.addObject("user",user1);
+        }else{  // 如果不存在则返回登录页面
+            mav.setViewName("/signin");
+        }
         return mav;
     }
 

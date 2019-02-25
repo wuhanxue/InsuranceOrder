@@ -1,5 +1,6 @@
 package com.jdlink.service.Impl;
 
+import com.jdlink.domain.dataItem.DataDictionary;
 import com.jdlink.domain.dataItem.DataDictionaryItem;
 import com.jdlink.mapper.DataDictionaryMapper;
 import com.jdlink.service.DataDictionaryService;
@@ -16,4 +17,9 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     @Override
     public List<DataDictionaryItem> getDataDictionaryItemListByDataDictionaryId(Integer id) { return dataDictionaryMapper.getDataDictionaryItemListByDataDictionaryId(id); }
+
+    @Override
+    public List<DataDictionary> listDataDictionary() { return dataDictionaryMapper.listDataDictionary(); }
+
+
 }
