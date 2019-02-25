@@ -93,7 +93,7 @@
         </div>
         <!--查询框-->
         <div class="input-group col-md-4 pull-right">
-          <input type="text" class="form-control" placeholder="搜索..." id="searchContent" onkeyup="searchData();">
+          <input type="text" class="form-control" placeholder="搜索..." id="searchContent">
           <span class="input-group-btn">
               <a class="btn btn-default" onclick="searchData();"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查询</a>
               <a class="btn btn-default" onclick="$('#senior').toggle();"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 高级查询</a>
@@ -108,35 +108,77 @@
         <div class="row">
           <div class="form-horizontal col-md-3">
             <div class="form-group">
-              <label for="search-documentNumber" class="col-sm-4 control-label">单据号</label>
+              <label for="search-id" class="col-sm-4 control-label">订单号</label>
               <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="search-documentNumber" name="search-documentNumber" placeholder="">
+                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-id" name="search-documentNumber" placeholder="">
               </div>
             </div>
+              <div class="form-group">
+                  <label for="search-state" class="col-sm-4 control-label">状态</label>
+                  <div class="col-xs-7">
+                      <select type="text" onchange="" class="form-control" id="search-state" name="search-documentNumber" placeholder=""></select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="search-proposer" class="col-sm-4 control-label">申请人</label>
+                  <div class="col-xs-7">
+                      <input type="text" onkeyup="enterSearch()" class="form-control" id="search-proposer" name="search-documentNumber" placeholder="">
+                  </div>
+              </div>
           </div>
           <div class="form-horizontal col-md-3">
             <div class="form-group">
-              <label for="search-creator" class="col-sm-4 control-label">创建人</label>
+              <label for="search-department" class="col-sm-4 control-label">申请部门</label>
               <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="search-creator" name="search-creator" placeholder="">
+                  <select type="text" onchange="" class="form-control" id="search-department" name="search-creator" placeholder=""></select>
               </div>
             </div>
+              <div class="form-group">
+                  <label for="search-insuredPersonName" class="col-sm-4 control-label">被投保人名称</label>
+                  <div class="col-xs-7">
+                      <input type="text" onkeyup="enterSearch()" class="form-control" id="search-insuredPersonName" name="search-creator" placeholder="">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="search-goodsValue" class="col-sm-4 control-label">货物价值</label>
+                  <div class="col-xs-7">
+                      <input type="text" onkeyup="enterSearch();" class="form-control" id="search-goodsValue" name="search-createDept" placeholder="">
+                  </div>
+              </div>
           </div>
           <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="search-createDept" class="col-sm-4 control-label">创建部门</label>
+              <div class="form-group">
+              <label for="search-insureCompanyName" class="col-sm-4 control-label">保险公司名称</label>
               <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="search-createDept" name="search-createDept" placeholder="">
+                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-insureCompanyName" name="search-createDept" placeholder="">
               </div>
             </div>
+              <div class="form-group">
+                  <label for="search-premium" class="col-sm-4 control-label">保险费</label>
+                  <div class="col-xs-7">
+                      <input type="text" onkeyup="enterSearch();" class="form-control" id="search-premium" name="search-editor" placeholder="">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-6 control-label" style="margin-left: -95px">投保日期 </label>
+                  <div class="input-group">
+                      <input type="date" class="input-sm form-control" id="search-insureDateBegin" title="" onkeydown="" onkeyup="enterSearch()"/>
+                      <span class="input-group-addon">-</span>
+                      <input type="date" class="input-sm form-control" id="search-insureDateEnd" title="" onkeydown="" onkeyup="enterSearch()"/>
+                  </div>
+
+              </div>
           </div>
           <div class="form-horizontal col-md-3">
-            <div class="form-group">
-              <label for="search-editor" class="col-sm-4 control-label">修改人</label>
-              <div class="col-xs-7">
-                <input type="text" onkeyup="searchData();" class="form-control" id="search-editor" name="search-editor" placeholder="">
+              <div class="form-group">
+                  <label class="col-sm-6 control-label" style="margin-left: -95px">审批日期 </label>
+                  <div class="input-group">
+                      <input type="date" class="input-sm form-control" id="search-approvalDateBegin" title="" onkeydown="" onkeyup="enterSearch()"/>
+                      <span class="input-group-addon">-</span>
+                      <input type="date" class="input-sm form-control" id="search-approvalDateEnd" title="" onkeydown="" onkeyup="enterSearch()"/>
+                  </div>
+
               </div>
-            </div>
           </div>
         </div>
       </div>

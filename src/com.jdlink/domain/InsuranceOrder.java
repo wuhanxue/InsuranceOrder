@@ -30,6 +30,16 @@ public class InsuranceOrder {
      */
     private Date approvalDate;
     /**
+     * 审批日期开始日期
+     */
+    private Date approvalDateBegin;
+
+    /**
+     * 审批日期结束日期
+     */
+    private Date approvalDateEnd;
+
+    /**
      * 被投保人姓名
      */
     private String insuredPersonName;
@@ -147,6 +157,33 @@ public class InsuranceOrder {
 
     /*明细*/
     private InsuranceOrderItem insuranceOrderItem;
+
+    /*关键字*/
+    private String keywords;
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public Date getApprovalDateBegin() {
+        return approvalDateBegin;
+    }
+
+    public void setApprovalDateBegin(Date approvalDateBegin) {
+        this.approvalDateBegin = approvalDateBegin;
+    }
+
+    public Date getApprovalDateEnd() {
+        return approvalDateEnd;
+    }
+
+    public void setApprovalDateEnd(Date approvalDateEnd) {
+        this.approvalDateEnd = approvalDateEnd;
+    }
 
     public InsuranceOrderItem getInsuranceOrderItem() {
         return insuranceOrderItem;

@@ -15,4 +15,10 @@ public interface InsuranceOrderService {
 
     /*获取订单总数*/
     int getTotalInsuranceOrder();
+
+    /*订单查询*/
+    List<InsuranceOrder>searchInsuranceOrder(InsuranceOrder insuranceOrder);
+
+    /*订单查询总数*/
+    int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder);
 }

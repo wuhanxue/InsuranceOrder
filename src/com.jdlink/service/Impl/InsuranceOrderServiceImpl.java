@@ -28,4 +28,14 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService {
     public int getTotalInsuranceOrder() {
         return insuranceOrderMapper.getTotalInsuranceOrder();
     }
+
+    @Override
+    public List<InsuranceOrder> searchInsuranceOrder(InsuranceOrder insuranceOrder) {
+        return insuranceOrderMapper.searchInsuranceOrder(insuranceOrder);
+    }
+
+    @Override
+    public int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder) {
+        return insuranceOrderMapper.searchInsuranceOrderTotal(insuranceOrder);
+    }
 }
