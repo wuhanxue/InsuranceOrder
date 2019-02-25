@@ -1,6 +1,7 @@
 package com.jdlink.controller;
 
 import com.jdlink.domain.InsuranceOrder;
+import com.jdlink.domain.InsuranceOrderItem;
 import com.jdlink.domain.Page;
 import com.jdlink.service.InsuranceOrderService;
 import net.sf.json.JSONArray;
@@ -113,4 +114,93 @@ public class InsuranceOrderController {
         return insuranceOrderService.searchInsuranceOrderTotal(insuranceOrder);
     }
 
+
+    /*根据订单信息查询信息*/
+    @RequestMapping("getInsuranceOrderItemById")
+    @ResponseBody
+    public String getInsuranceOrderItemById(String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            InsuranceOrderItem insuranceOrderItem=insuranceOrderService.getInsuranceOrderItemById(id);
+            res.put("status", "success");
+            res.put("message", "查看保单信息成功");
+            res.put("data", insuranceOrderItem);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "查看保单信息失败");
+
+        }
+
+        return res.toString();
+    }
+
+    /*修改保单(明细)信息*/
+    @RequestMapping("updateInsuranceOrderItem")
+    @ResponseBody
+    public String updateInsuranceOrderItemById(@RequestBody InsuranceOrderItem insuranceOrderItem){
+        JSONObject res=new JSONObject();
+
+        try {
+              insuranceOrderService.updateInsuranceOrderItem(insuranceOrderItem);
+            res.put("status", "success");
+            res.put("message", "保单修改成功");
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "保单修改失败");
+        }
+
+        return res.toString();
+    }
+
+
+    /*删除保单*/
+    @RequestMapping("deleteInsuranceOrderItemById")
+    @ResponseBody
+    public String deleteInsuranceOrderItemById(String id){
+        JSONObject res=new JSONObject();
+
+       try {
+           insuranceOrderService.deleteInsuranceOrderItemById(id);
+           res.put("status", "success");
+           res.put("message", "删除保单信息成功");
+       }
+       catch (Exception e){
+           e.printStackTrace();
+           res.put("status", "fail");
+           res.put("message", "删除保单信息失败");
+
+       }
+
+
+        return res.toString();
+    }
+
+    /*添加保单*/
+    @RequestMapping("addInsuranceOrderItem")
+    @ResponseBody
+    public String addInsuranceOrderItem(@RequestBody InsuranceOrderItem insuranceOrderItem){
+        JSONObject res=new JSONObject();
+
+        try {
+            insuranceOrderService.addInsuranceOrderItem(insuranceOrderItem);
+            res.put("status", "success");
+            res.put("message", "添加保单成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "添加保单失败");
+        }
+
+
+        return res.toString();
+
+
+    }
 }
