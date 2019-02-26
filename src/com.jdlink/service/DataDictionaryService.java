@@ -23,4 +23,6 @@ public interface DataDictionaryService {
      * @param dataDictionary
      */
     void modifyDictionaryData(DataDictionary dataDictionary);
+
+    List<DataDictionaryItem> getDataDictionaryByParentId(String parentId);
 }

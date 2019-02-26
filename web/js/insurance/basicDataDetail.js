@@ -13,6 +13,7 @@ function addNewLine(item) {
     }
     // 克隆tr，每次遍历都可以产生新的tr
     var clonedTr = tr.clone();
+    clonedTr.attr("class","newLine");
     // 克隆后清空新克隆出的行数据
     clonedTr.children().find("input").val("");
     clonedTr.insertAfter(tr);
@@ -40,9 +41,9 @@ function delLine(e) {
 function modifyDetail() {
     var data = {};
     // 获取最新数据
-    data.id = parseInt($("#dictionaryId").text());
-    data.name = $("#dictionaryName").val();
-    data.type = $("#dictionaryType").val();
+    data.id = parseInt($.trim($("#dictionaryId").text()));
+    data.name = $.trim($("#dictionaryName").val());
+    data.code = $.trim($("#dictionaryCode").val());
     var dataDictionaryItemList = [];  // 详细数据集合
     for(var index in delIdList) {   // 将要删除的数据存储到集合中
         var dataDictionaryItem = {};
@@ -53,15 +54,21 @@ function modifyDetail() {
     $($("#plus").prevAll()).each(function () {  // 遍历所有数据行
         var dataDictionaryItem = {};
         // 获取详细条目数据
-        var itemId = $(this).children().find("input[name='id']").val();
-        if(itemId === "") { // 新增数据设置ID为-1
-            dataDictionaryItem.id = "-1";
+        var itemId = $.trim($(this).children().find("input[name='id']").val());
+        if(itemId === "") { // 判断ID是否为空
+            alert("明细编号不能为空！");
         }else { // 需要修改的数据
             dataDictionaryItem.id = itemId;
         }
+        if($(this).attr("class") === "newLine") { // 新增数据设置creator为-1
+            dataDictionaryItem.creator = "-1";
+        }else { // 旧数据设置旧ID
+            dataDictionaryItem.oldId = $.trim($(this).children().find("input[name='oldId']").val());
+        }
         dataDictionaryItem.dataDictionaryId = data.id;  // 外键
-        dataDictionaryItem.name = $(this).children().find("input[name='name']").val();
-        dataDictionaryItem.type = $(this).children().find("input[name='type']").val();
+        dataDictionaryItem.name = $.trim($(this).children().find("input[name='name']").val());
+        dataDictionaryItem.code = $.trim($(this).children().find("input[name='code']").val());
+        dataDictionaryItem.parentId = $.trim($(this).children().find("input[name='parentId']").val());
         dataDictionaryItemList.push(dataDictionaryItem);
     });
     data.dataDictionaryItemList = dataDictionaryItemList;

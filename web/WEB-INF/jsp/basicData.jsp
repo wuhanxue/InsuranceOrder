@@ -106,23 +106,7 @@
         <div class="panel panel-default" id="senior" style="display: none;">
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-horizontal col-md-3">
-                        <div class="form-group">
-                            <label for="number" class="col-sm-4 control-label">编号</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="number"
-                                       name="number" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="createTime" class="col-sm-4 control-label">创建时间</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="createTime"
-                                       name="createTime" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal col-md-3">
+                    <div class="form-horizontal col-md-4">
                         <div class="form-group">
                             <label for="code" class="col-sm-4 control-label">字典类型编码</label>
                             <div class="col-xs-7">
@@ -131,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal col-md-3">
+                    <div class="form-horizontal col-md-4">
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label">字典类型名称</label>
                             <div class="col-xs-7">
@@ -140,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal col-md-3">
+                    <div class="form-horizontal col-md-4">
                         <div class="form-group">
                             <label for="creator" class="col-sm-4 control-label">创建人</label>
                             <div class="col-xs-7">
@@ -180,7 +164,7 @@
                             </label>
                         </td>
                         <td class="text-center" name="id">${c.id}</td>
-                        <td class="text-center" name="type">${c.type}</td>
+                        <td class="text-center" name="code">${c.code}</td>
                         <td class="text-center" name="name">${c.name}</td>
                         <td class="text-center" name="creator">${c.creator}</td>
                         <td class="text-center" name="creationTime"><fmt:formatDate value="${c.creationTime}"

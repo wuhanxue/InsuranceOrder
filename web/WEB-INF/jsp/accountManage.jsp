@@ -24,7 +24,7 @@
     <script src="../../js/util.js"></script>
 
 </head>
-<body onload="setSelectDataList();">
+<body onload="setCompanySelectData();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -176,11 +176,10 @@
                                 <input type="text" class="form-control" id="password" name="password">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group department" hidden>
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." title="未选择" id="department" name="department">
+                                <select class="form-control" id="department" name="department" onchange="setTeamSelectData(this)">
                                 </select>
                             </div>
                         </div>
@@ -195,17 +194,15 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." id="company" name="company">
+                                <select class="form-control" id="company" name="company" onchange="setDepartmentSelectData(this)">
 
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group team" hidden>
                             <label for="name" class="col-sm-4 control-label">项目组 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." id="team" name="team">
+                                <select class="form-control" id="team" name="team">
                                 </select>
                             </div>
                         </div>
@@ -243,11 +240,10 @@
                                 <input type="text" class="form-control" id="add_password" name="password">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group department" hidden>
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." id="add_department" name="department">
+                                <select class="form-control" id="add_department" name="department" onchange="setTeamSelectData(this)">
 
                                 </select>
                             </div>
@@ -263,17 +259,15 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." id="add_company" name="company">
+                                <select class="form-control" id="add_company" name="company" onchange="setDepartmentSelectData(this)">
 
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group team" hidden>
                             <label for="name" class="col-sm-4 control-label">项目组 </label>
                             <div class="col-xs-8">
-                                <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                                        data-live-search-placeholder="搜索..." id="add_team" name="team">
+                                <select class="form-control" id="add_team" name="team">
 
                                 </select>
                             </div>
@@ -290,13 +284,6 @@
 </div>
 </body>
 <script>
-    // $(window).on('load', function () {
-    //     // 中文重写select 查询为空提示信息
-    //     $('.selectpicker').selectpicker({
-    //         language: 'zh_CN',
-    //         size: 4,
-    //         // title: '请选择'
-    //     });
-    // });
+
 </script>
 </html>

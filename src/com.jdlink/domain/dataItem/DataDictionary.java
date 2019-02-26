@@ -16,7 +16,7 @@ public class DataDictionary {
     /**
      * 字典类型编码
      */
-    private String type;
+    private String code;
     /**
      * 字典类型名称
      */
@@ -51,12 +51,12 @@ public class DataDictionary {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getCode() {
+        return code;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -111,7 +111,7 @@ public class DataDictionary {
     public String toString() {
         return "DataDictionary{" +
                 "id=" + id +
-                ", type='" + type + '\'' +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", creationTime=" + creationTime +
                 ", modifyTime=" + modifyTime +

@@ -13,13 +13,15 @@ public interface DataDictionaryMapper {
 
     DataDictionary getDataDictionaryById(Integer id);
 
-    void updateDataDictionaryTypeAndNameById(DataDictionary dataDictionary);
+    void updateDataDictionaryCodeAndNameById(DataDictionary dataDictionary);
 
     void deleteDataDictionaryItemById(DataDictionaryItem dataDictionaryItem);
 
     void addDataDictionaryItem(DataDictionaryItem dataDictionaryItem);
 
-    void updateDataDictionaryItemTypeAndNameById(DataDictionaryItem dataDictionaryItem);
+    void updateDataDictionaryItemCodeAndNameById(DataDictionaryItem dataDictionaryItem);
 
     String getMaxItemId();
+
+    List<DataDictionaryItem> getDataDictionaryByParentId(String parentId);
 }
