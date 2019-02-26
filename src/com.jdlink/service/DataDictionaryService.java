@@ -17,4 +17,12 @@ public interface DataDictionaryService {
     List<DataDictionary> listDataDictionary();
 
     DataDictionary getDataDictionaryById(Integer id);
+
+    /**
+     * 修改数据信息（包括详细条目的修改，新增，删除）
+     * @param dataDictionary
+     */
+    void modifyDictionaryData(DataDictionary dataDictionary);
+
+    List<DataDictionaryItem> getDataDictionaryByParentId(String parentId);
 }

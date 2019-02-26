@@ -1,6 +1,7 @@
 package com.jdlink.service;
 
 import com.jdlink.domain.InsuranceOrder;
+import com.jdlink.domain.InsuranceOrderItem;
 import com.jdlink.domain.Page;
 
 import java.util.List;
@@ -21,4 +22,17 @@ public interface InsuranceOrderService {
 
     /*订单查询总数*/
     int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder);
+
+    /*根据保险单号查看明细(保单)*/
+    InsuranceOrderItem getInsuranceOrderItemById(String id);
+
+    /*更新保单信息*/
+    void updateInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
+
+    /*删除保单信息*/
+    void deleteInsuranceOrderItemById(String id);
+
+    /*添加保单信息*/
+    void addInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
+
 }

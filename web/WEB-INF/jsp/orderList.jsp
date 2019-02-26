@@ -285,11 +285,14 @@
     </div>
 
 <div id="embed"></div>
-<div class="modal fade bs-example-modal-lg" id="insure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document" style="width: 60%">
+    <%--投保模态框--%>
+<div class="modal fade bs-example-modal-lg" id="insuranceOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" style="width: 80%">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>投保</h3>
+                <h3>保险订单号</h3><span id="insuranceOrderId"></span>
+
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-hover table-condensed">
@@ -308,31 +311,33 @@
                         <th class="text-center">操作</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <c:forEach items="${userList}" var="documents" varStatus="st">
+                    <tbody id="insuranceOrderItem">
                         <tr>
-                            <td class="text-center">${documents.companyName}</td>
-                            <td class="text-center">${documents.orderNo}</td>
-                            <td class="text-center">${documents.insureTime}</td>
-                            <td class="text-center">${documents.insureMoney}</td>
-                            <td class="text-center">${documents.file}</td>
-                            <td class="text-center"><fmt:formatDate value="${documents.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                            <td class="text-center">${documents.creator}</td>
-                            <td class="text-center"><fmt:formatDate value="${documents.editTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                            <td class="text-center">${documents.editor}</td>
-                            <td class="text-center">${documents.station}</td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
                             <td class="text-center">
-                                <a title="增加"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                <a onclick="showEditModal(this);" title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                                <a class="delete" title="删除"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                <a title="增加" onclick="addModal(this)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                                <a onclick="editModel(this)"title="修改"><span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                                <a class="delete" title="删除" onclick="deleteModel(this)"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                 <input type="button" id="upload2" value="上传电子保单">
                             </td>
                         </tr>
-                    </c:forEach>
+
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer"></div>
+            <div class="modal-footer text-center">
+                <a class="btn btn-primary" id="save" onclick="saveInsuranceOrderItem()">保存</a>
+                <a class="btn btn-danger" id="adjust" onclick="confirmAdjust()">修改</a>
+            </div>
         </div>
     </div>
 </div>
@@ -356,11 +361,15 @@
       function () {
           $("#file2").click();
       });
-  $("#insured").click(
-      function () {
-          $("#insure").modal('show')
-      }
-  )
+
 
 </script>
+<style>
+    .width1{
+        width: 10%;
+    }
+    .width2{
+        width: 5%;
+    }
+</style>
 </html>

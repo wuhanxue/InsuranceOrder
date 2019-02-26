@@ -19,11 +19,19 @@ public class DataDictionaryItem {
     /**
      * 明细类型编码
      */
-    private String type;
+    private String code;
     /**
      * 明细类型名称
      */
     private String name;
+    /**
+     * 父类编号（部分涉及）
+     */
+    private String parentId;
+    /**
+     * 旧ID（修改ID）
+     */
+    private String oldId;
     /**
      * 创建时间
      */
@@ -57,12 +65,12 @@ public class DataDictionaryItem {
         this.dataDictionaryId = dataDictionaryId;
     }
 
-    public String getType() {
-        return type;
+    public String getCode() {
+        return code;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -105,13 +113,31 @@ public class DataDictionaryItem {
         this.modifier = modifier;
     }
 
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getOldId() {
+        return oldId;
+    }
+
+    public void setOldId(String oldId) {
+        this.oldId = oldId;
+    }
+
     @Override
     public String toString() {
         return "DataDictionaryItem{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", dataDictionaryId=" + dataDictionaryId +
-                ", type='" + type + '\'' +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", oldId='" + oldId + '\'' +
                 ", creationTime=" + creationTime +
                 ", modifyTime=" + modifyTime +
                 ", creator='" + creator + '\'' +

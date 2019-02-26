@@ -25,7 +25,7 @@
         font-family: "微软雅黑", Georgia, Serif;
     }
 </style>
-<body onload="setData();">
+<body>
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -106,23 +106,7 @@
         <div class="panel panel-default" id="senior" style="display: none;">
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-horizontal col-md-3">
-                        <div class="form-group">
-                            <label for="number" class="col-sm-4 control-label">编号</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="number"
-                                       name="number" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="createTime" class="col-sm-4 control-label">创建时间</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="createTime"
-                                       name="createTime" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal col-md-3">
+                    <div class="form-horizontal col-md-4">
                         <div class="form-group">
                             <label for="code" class="col-sm-4 control-label">字典类型编码</label>
                             <div class="col-xs-7">
@@ -131,21 +115,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal col-md-3">
+                    <div class="form-horizontal col-md-4">
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label">字典类型名称</label>
                             <div class="col-xs-7">
                                 <input type="text" onkeyup="searchData();" class="form-control" id="name" name="name"
                                        placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal col-md-3">
-                        <div class="form-group">
-                            <label for="creator" class="col-sm-4 control-label">创建人</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="creator"
-                                       name="creator" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -157,28 +132,36 @@
             <div class="row">
                 <div class="col-md-6">
                     <p style="display: inline">字典类型编码:<input class="form-control" style="width: 35%;display: inline"
-                                                             id="dictionaryType" value="${data.type}"></p>
+                                                             id="dictionaryCode" value="${data.code}"></p>
                 </div>
                 <div class="col-md-6">
                     <p style="display: inline">字典类型名称:<input class="form-control" type="text"
                                                              style="width: 35%;display: inline" id="dictionaryName" value="${data.name}">
                     </p>
                 </div>
+                <span id="dictionaryId" hidden>${data.id}</span>
             </div>
             <table class="table table-striped table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th hidden>明细编号</th>
+                    <th>明细编号</th>
+                    <th hidden>旧明细编号</th>
                     <th>明细编码</th>
                     <th>明细名称</th>
+                    <th>父类编号</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${dataItemList}" var="c" varStatus="st">
                     <tr class="myClass">
-                        <td hidden name="id"><input class="form-control" name="id" value="${c.id}"></td>
-                        <td name="type"><input class="form-control" name="type" value="${c.type}"></td>
+                        <td name="id"><input class="form-control" name="id" value="${c.id}" required></td>
+                        <td name="oldId" hidden><input class="form-control" name="oldId" value="${c.id}" ></td>
+                        <td name="code"><input class="form-control" name="code" value="${c.code}"></td>
                         <td name="name"><input class="form-control" name="name" value="${c.name}"></td>
+                        <td name="parentId"><input class="form-control" name="parentId" value="${c.parentId}"></td>
+                        <td class="text-center"><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
+                            <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>
                     </tr>
                 </c:forEach>
                 <tr id="plus">
@@ -192,7 +175,7 @@
             </table>
             <div class="text-center">
                 <button type="button" class="btn btn-primary" onclick="modifyDetail();">修改</button>
-                <button type="button" class="btn btn-default" onclick="historyBack()">返回</button>
+                <button type="button" class="btn btn-danger" onclick="historyBack()">返回</button>
             </div>
         </div>
     </div>

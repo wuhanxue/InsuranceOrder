@@ -112,27 +112,24 @@
         </div>
         <div class="form-horizontal col-md-6">
           <div class="form-group">
-            <label for="department" class="col-sm-4 control-label">部门 </label>
-            <div class="col-xs-8">
-              <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                      data-live-search-placeholder="搜索..." title="未选择" id="department" name="department" >
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
             <label for="company" class="col-sm-4 control-label">公司 </label>
             <div class="col-xs-8">
-              <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                      data-live-search-placeholder="搜索..." id="company" name="company">
+              <select class="form-control" id="company" name="company" onchange="setDepartmentSelectData(this)">
 
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group department">
+            <label for="department" class="col-sm-4 control-label">部门 </label>
+            <div class="col-xs-8">
+              <select class="form-control" id="department" name="department" onchange="setTeamSelectData(this)">
+              </select>
+            </div>
+          </div>
+          <div class="form-group team">
             <label for="team" class="col-sm-4 control-label">项目组 </label>
             <div class="col-xs-8">
-              <select class="selectpicker input-xlarge form-control" data-live-search="true"
-                      data-live-search-placeholder="搜索..." id="team" name="team">
+              <select class="form-control" id="team" name="team">
               </select>
               </select>
             </div>
@@ -151,14 +148,19 @@
      * 加载初始数据
      */
     function loadAccountData() {
-        setSelectDataList();   // 填充下拉框数据
+        setCompanySelectData();   // 填充下拉框数据
         // 设置下拉框选中
-        if("${user.companyDataItem}" != null)
-            $("#company").selectpicker('val',"${user.companyDataItem.id}");
-        if("${user.departmentDataItem}" != null)
-            $("#department").selectpicker('val',"${user.departmentDataItem.id}");
-        if("${user.teamDataItem}" != null)
-            $("#team").selectpicker('val',"${user.teamDataItem.id}");
+        if("${user.companyDataItem}" != null){
+            $("#company").val("${user.companyDataItem.id}");
+        }
+        if("${user.departmentDataItem}" != null){
+            setDepartmentSelectData($("#company"));  // 设置部门下拉框数据
+            $("#department").val("${user.departmentDataItem.id}");
+        }
+        if("${user.teamDataItem}" != null){
+            setTeamSelectData($("#department"));   // 设置项目组下拉框数据
+            $("#team").val("${user.teamDataItem.id}");
+        }
     }
 </script>
 </html>
