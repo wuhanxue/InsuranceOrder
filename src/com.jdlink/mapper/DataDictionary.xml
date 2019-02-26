@@ -31,4 +31,27 @@
         select * from data_dictionary where id=#{id};
     </select>
 
+     <select id="getMaxItemId" resultType="String">
+         select MAX(id) from data_dictionary_item;
+     </select>
+
+    <update id="updateDataDictionaryTypeAndNameById" >
+        update data_dictionary set name=#{name},type=#{type},modifier=#{modifier},modify_time=NOW() where id=#{id};
+    </update>
+
+    <update id="updateDataDictionaryItemTypeAndNameById" >
+        update data_dictionary_item set name=#{name},type=#{type},modify_time=NOW(),modifier=#{modifier} where id=#{id};
+    </update>
+
+    <insert id="addDataDictionaryItem" >
+        insert into data_dictionary_item (id,dataDictionaryId, type, name, creation_time, modify_time, creator, modifier)
+        values (#{id},#{dataDictionaryId},#{type},#{name},NOW(),NOW(),#{creator},#{modifier});
+    </insert>
+
+    <delete id="deleteDataDictionaryItemById" >
+        delete from data_dictionary_item where id=#{id};
+    </delete>
+
+
+
 </mapper>

@@ -12,4 +12,14 @@ public interface DataDictionaryMapper {
     List<DataDictionary> listDataDictionary();
 
     DataDictionary getDataDictionaryById(Integer id);
+
+    void updateDataDictionaryTypeAndNameById(DataDictionary dataDictionary);
+
+    void deleteDataDictionaryItemById(DataDictionaryItem dataDictionaryItem);
+
+    void addDataDictionaryItem(DataDictionaryItem dataDictionaryItem);
+
+    void updateDataDictionaryItemTypeAndNameById(DataDictionaryItem dataDictionaryItem);
+
+    String getMaxItemId();
 }

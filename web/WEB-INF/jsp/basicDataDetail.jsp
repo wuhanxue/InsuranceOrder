@@ -87,6 +87,13 @@
         </div>
         <div class="row">
             <div>
+                <!--操作按钮-->
+                <div class="pull-left">
+                    <button class="btn btn-primary btn-xs" type="button" onclick="importExcelModal();" href=""><span
+                            class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></span> 导入
+                    </button>
+                </div>
                 <!--查询框-->
                 <div class="input-group col-md-4 pull-right">
                     <input type="text" class="form-control" placeholder="搜索..." id="searchContent"
@@ -164,6 +171,7 @@
                                                              style="width: 35%;display: inline" id="dictionaryName" value="${data.name}">
                     </p>
                 </div>
+                <span id="dictionaryId" hidden>${data.id}</span>
             </div>
             <table class="table table-striped table-hover table-condensed">
                 <thead>
@@ -180,7 +188,7 @@
                         <td hidden name="id"><input class="form-control" name="id" value="${c.id}"></td>
                         <td name="type"><input class="form-control" name="type" value="${c.type}"></td>
                         <td name="name"><input class="form-control" name="name" value="${c.name}"></td>
-                        <td ><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
+                        <td class="text-center"><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
                             <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>
                     </tr>
                 </c:forEach>
@@ -195,7 +203,7 @@
             </table>
             <div class="text-center">
                 <button type="button" class="btn btn-primary" onclick="modifyDetail();">修改</button>
-                <button type="button" class="btn btn-default" onclick="historyBack()">返回</button>
+                <button type="button" class="btn btn-danger" onclick="historyBack()">返回</button>
             </div>
         </div>
     </div>
