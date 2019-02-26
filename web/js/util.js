@@ -246,3 +246,20 @@ function getNumber(num,n) {
         return parseFloat(num).toFixed(n);
     }
 }
+
+/**
+ * 密码修改提示
+ */
+function passwordModifyMark() {
+    if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+        $(".navbar-right").addClass("wrap");
+        var div = "<div class=\"notice\">1</div>";
+        $(".navbar-right").after(div);
+        $(".navbar-right").find(".dropdown-menu").children().eq(0).prepend(div);
+        $(".navbar-right").find(".dropdown-menu").children().eq(0).find("a").addClass("wrap1");
+    }else { // 如果没有则删除之前提醒
+        $(".wrap").removeClass("wrap");
+        $(".wrap1").removeClass("wrap1");
+        $(".notice").remove();
+    }
+}
