@@ -27,6 +27,29 @@
   table{
     font-family: "微软雅黑",Georgia,Serif;
   }
+  .wrap {
+      width:50px;
+      margin-bottom:10px;
+      position:relative;
+  }
+  .wrap1 {
+      /*width:50px;*/
+      margin-bottom:10px;
+      position:relative;/*相对定位*/
+  }
+  .notice {
+      width:20px;
+      height:20px;/*notice宽高*/
+      line-height:20px;/*行高*/
+      font-size:10px;
+      color:#fff;
+      text-align:center;
+      background-color:#f00;
+      border-radius:50%;/*notice弧度大小*/
+      position:absolute;/*绝对定位*/
+      right:10px;
+      /*top:10px;*/
+  }
 </style>
 <body onload="loadAccountData()">
 <!--导航条-->
@@ -50,15 +73,16 @@
       </ul>
     </div><!--/.nav-collapse -->
   </div>
-  <ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
+  <ul class="nav navbar-nav navbar-right wrap" style="height: 50px;width: 50px">
+    <li class="dropdown" style="height: 50px;width: 50px">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><a href="/account">账号管理</a></li>
+        <li><div class="notice">1</div><a class="wrap1" href="/account">账号管理</a></li>
         <li><a href="/signin">注销</a></li>
       </ul>
     </li>
   </ul>
+  <div class="notice">1</div>
 </nav>
 
 <div class="container-fluid">
@@ -140,6 +164,9 @@
       <a type="button" class="btn btn-primary" onclick="updateUser()">保存</a>
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
+      <div>
+          <span class="pull-left hidden" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全！</span>
+      </div>
   </div>
 </div>
 </body>
