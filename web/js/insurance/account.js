@@ -47,6 +47,7 @@ function updateUser() {
     var teamDataItem = {};
     teamDataItem.id = $("#team").find("option:selected").val();
     data.teamDataItem = teamDataItem;
+    console.log(data);
     $.ajax({
         type: "POST",                       // 方法类型
         url: "updateUserById",                  // url

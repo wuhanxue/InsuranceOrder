@@ -138,6 +138,7 @@ function historyBack() {
  * 设置公司下拉框数据
  */
 function setCompanySelectData() {
+    passwordModifyMark();
     $(".department").hide();  // 隐藏部门下拉框数据
     $(".team").hide();  // 隐藏项目组下拉框数据
     $.ajax({

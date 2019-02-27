@@ -16,6 +16,7 @@
     <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
     <script src="../../js/3.3.6/bootstrap.min.js"></script>
     <link href="../../css/navbar.css" rel="stylesheet">
+    <link href="../../css/util/mark.css">
     <script src="../../js/navbar.js"></script>
     <script src="../../js/util.js"></script>
     <script src="../../js/insurance/basicDataDetail.js"></script>
@@ -25,7 +26,7 @@
         font-family: "微软雅黑", Georgia, Serif;
     }
 </style>
-<body>
+<body onload="passwordModifyMark();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
