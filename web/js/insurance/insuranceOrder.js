@@ -16,32 +16,14 @@ function insuranceOrderLoad(page,data) {
      }
 
       //普通加载
-     if(!isSearch){
-         initisSearch(false);
-         //根据url获取总页数
-         TotalPage('getTotalInsuranceOrder');
-         $.ajax({
-             type:"POST",
-             url:"listInsuranceOrder",
-             async: false,
-             data:JSON.stringify(page),
-             dataType:"json",
-             contentType: "application/json; charset=utf-8",
-             success:function (result) {
-                 if (result != undefined && result.status == "success"){
-                     console.log(result);
-                     //删除子元素
-                     $('#insuranceOrderList').empty();
-                     setInsuranceOrderList(result)
-                 }
-             },
-             error:function (result) {
+      if(data==null||data==undefined){
+          var data={};
+          data.page=page;
+      }
 
-             }
-         });
-     }
-     //查询加载
-     if(isSearch){
+
+         //根据url获取总页数
+         // TotalPage('getTotalInsuranceOrder');
          $.ajax({
              type:"POST",
              url:"searchInsuranceOrder",
@@ -60,10 +42,10 @@ function insuranceOrderLoad(page,data) {
              error:function (result) {
 
              }
-         })
+         });
 
          TotalPage("searchInsuranceOrderTotal",data);//算查询总数
-     }
+
 
 }
 
@@ -315,11 +297,16 @@ function addModal(item) {
                       var tdArray=$(insuranceOrderItem).find('tr').children('td');
                       var input="<input class='form-control'>";
                       var dateInput="<input class='form-control' type='date'>";
+                      var readOnly="<input class='form-control' readonly='readonly'>";
                       $.each(tdArray,function (index,item) {
                           if(index<=8){
-                              if(index==2||index==5||index==7){
+                              if(index==2||index==5){
                                   $(this).html((dateInput));
                               }
+                               else if (index==4||index==7||index==8){
+                                  $(this).html((readOnly));
+                              }
+
                               else {
                                   $(this).html((input));
                               }
@@ -367,7 +354,7 @@ function editModel(item) {
                     var tdArray=$(insuranceOrderItem).find('tr').children('td');
                     var input="<input class='form-control'>";
                     var dateInput="<input class='form-control' type='date'>";
-
+                    var readOnly="<input class='form-control' readonly='readonly'>";
                     if($(tdArray[0]).find('input').length>0){//有input元素
                         $.each(tdArray,function (index,item) {
 
@@ -382,14 +369,18 @@ function editModel(item) {
                         $('#adjust').hide();
                         $('#save').hide();
                     }
-                    //没有inout
+                    //没有input
                     else {
                         $.each(tdArray,function (index,item) {
                             if(index<=8){
                                 //日期页面
-                                if(index==2||index==5||index==7){
+                                if(index==2||index==7){
                                     var contentDate=$(this).html();
                                     $(this).html($(dateInput).val(contentDate));
+                                }
+                                else if(index==4||index==5||index==6){
+                                    var contentReadOnly=$(this).html();
+                                    $(this).html($(readOnly).val(contentReadOnly));
                                 }
                                 else {
                                     var content=$(this).html();
@@ -520,4 +511,44 @@ function saveInsuranceOrderItem() {
             alert("服务器异常!")
         }
     })
+}
+
+
+//打开上传电子保单模态框
+function showUploadInsurancePolicy(item) {
+    $('#InsuranceOrderItemId').val($(item).parent().parent().children('td').eq(1).html())
+    $("#insuranceOrderFile").modal('show');
+
+}
+//电子保单上传
+function insuranceOrderFile() {
+
+    //文件对象
+    var formData = new FormData();
+    formData.append("id", $('#InsuranceOrderItemId').val());
+    formData.append("multipartFile",document.getElementById("file").files[0]);
+  if(document.getElementById("file").files[0]==undefined){
+      alert("文件为空！")
+  }
+  else {
+      $.ajax({
+          url: "uploadInsurancePolicy",
+          type: "POST",
+          data: formData,
+          contentType: false,//必须false才会自动加上正确的Content-Type
+          processData: false,//必须false才会避开jQuery对 formdata 的默认处理XMLHttpRequest会对 formdata 进行正确的处理
+          success:function (result) {
+              alert("文件上传成功");
+              window.location.reload();
+          },
+          error:function (result) {
+              alert("服务器异常!")
+          }
+      })
+  }
+
+
+
+
+
 }

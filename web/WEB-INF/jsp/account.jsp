@@ -11,17 +11,17 @@
 <head>
   <meta charset="UTF-8">
   <title>基础数据</title>
-  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <link href="../../css/bootstrap-select.min.css">
-  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-  <script src="../../js/3.3.6/bootstrap.min.js"></script>
-  <script src="../../js/bootstrap-select.min.js"></script>
-  <link href="../../css/navbar.css" rel="stylesheet">
-  <link href="../../css/util/mark.css">
-  <script src="../../js/navbar.js"></script>
-  <script src="../../js/util.js"></script>
-  <script src="../../js/insurance/account.js"></script>
+  <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-select.min.css">
+  <script src="js/jquery/2.0.0/jquery.min.js"></script>
+  <script src="js/3.3.6/bootstrap.min.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <link href="css/navbar.css" rel="stylesheet">
+  <link href="css/util/mark.css">
+  <script src="js/navbar.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/insurance/account.js"></script>
 
 </head>
 <style type="text/css">
