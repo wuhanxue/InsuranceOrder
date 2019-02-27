@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>基础数据</title>
-    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
     <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <script src="js/jquery/2.0.0/jquery.min.js"></script>
     <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -206,7 +206,7 @@
             <span>条记录</span>
         </form>
     </div>
-    <script src="../../js/page.js" type="text/javascript"></script>
+    <script src="js/page.js" type="text/javascript"></script>
 </div>
 </body>
 </html>

@@ -23,7 +23,7 @@
 </style>
 <body>
 <!--登录表单-->
-<form class="form-signin gap" id="loginForm" method="post" action="/CheckUserInfo">
+<form class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
   <h2 class="form-signin-heading">保险登录</h2>
   <label for="inputAccount" class="sr-only">账号</label>
   <input type="text" id="inputAccount" class="form-control" name="userName" placeholder="账号" required autofocus>

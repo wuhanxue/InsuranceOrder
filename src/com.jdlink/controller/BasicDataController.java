@@ -25,7 +25,7 @@ public class BasicDataController {
      *
      * @return
      */
-    @RequestMapping("/basicData")
+    @RequestMapping("basicData")
     public ModelAndView listDataList() {
         ModelAndView mav = new ModelAndView("/basicData");
         return mav;
