@@ -12,6 +12,7 @@
 
     <resultMap id="dataDictionaryItemRM" type="DataDictionaryItem" autoMapping="true">
         <id column="id" property="id"/>
+        <result property="dataDictionaryId" column="data_dictionary_id" ></result>
         <result property="parentId" column="parent_id" ></result>
         <result property="creationTime" column="creation_time" ></result>
         <result property="modifyTime" column="modify_time" ></result>
@@ -19,7 +20,7 @@
 
     <!--根据外键ID获取数据列表-->
     <select id="getDataDictionaryItemListByDataDictionaryId" parameterType="int" resultMap="dataDictionaryItemRM">
-        select * from data_dictionary_item where dataDictionaryId=#{id} order by modify_time;
+        select * from data_dictionary_item where data_dictionary_id=#{id} order by modify_time;
     </select>
 
     <!--获取所有基础数据信息-->
@@ -45,20 +46,20 @@
     <select id="searchBasicData" resultMap="dataDictionaryRM">
         select * from data_dictionary
         <where>
-            <if test="keyword != null and keyword != ''">
+            <if test="keywords != null and keywords != ''">
                 or id like "%"#{keywords}"%"
                 or code like "%"#{keywords}"%"
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%m-%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%c-%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%c-%e') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%m%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%c%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%c%e') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%m.%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%c.%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%c.%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%e') like "%"#{keywords}"%"
             </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"
@@ -80,20 +81,20 @@
     <select id="searchBasicDataTotal" resultType="int" >
         select count(*) from data_dictionary
         <where>
-            <if test="keyword != null and keyword != ''">
+            <if test="keywords != null and keywords != ''">
                 or id like "%"#{keywords}"%"
                 or code like "%"#{keywords}"%"
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%m-%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%c-%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y-%c-%e') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%m%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%c%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y%c%e') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%m.%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%c.%d') like "%"#{keywords}"%"
-                or DATE_FORMAT(creationTime,'%Y.%c.%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%e') like "%"#{keywords}"%"
             </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"
@@ -111,7 +112,7 @@
     <select id="searchBasicDataDetail" resultMap="dataDictionaryItemRM">
         select * from data_dictionary_item
         <where>
-            <if test="keyword != null and keyword != ''">
+            <if test="keywords != null and keywords != ''">
                 or id like "%"#{keywords}"%"
                 or code like "%"#{keywords}"%"
                 or name like "%"#{keywords}"%"
@@ -122,6 +123,9 @@
             </if>
             <if test="name != null and name !=''">
                 and name like "%"#{name}"%"
+            </if>
+            <if test="dataDictionaryId != null and dataDictionaryId != ''">
+                and data_dictionary_id =#{dataDictionaryId}
             </if>
         </where>
         order by modify_time desc
@@ -134,7 +138,7 @@
     <select id="searchBasicDataDetailTotal" resultType="int">
         select count(*) from data_dictionary_item
         <where>
-            <if test="keyword != null and keyword != ''">
+            <if test="keywords != null and keywords != ''">
                 or id like "%"#{keywords}"%"
                 or code like "%"#{keywords}"%"
                 or name like "%"#{keywords}"%"
@@ -145,6 +149,9 @@
             </if>
             <if test="name != null and name !=''">
                 and name like "%"#{name}"%";
+            </if>
+            <if test="dataDictionaryId != null and dataDictionaryId != ''">
+                and data_dictionary_id =#{dataDictionaryId}
             </if>
         </where>
     </select>
@@ -158,7 +165,7 @@
     </update>
 
     <insert id="addDataDictionaryItem" >
-        insert into data_dictionary_item (id,dataDictionaryId, code, name,parent_id, creation_time, modify_time, creator, modifier)
+        insert into data_dictionary_item (id,data_dictionary_id, code, name,parent_id, creation_time, modify_time, creator, modifier)
         values (#{id},#{dataDictionaryId},#{code},#{name},#{parentId},NOW(),NOW(),#{creator},#{modifier});
     </insert>
 
