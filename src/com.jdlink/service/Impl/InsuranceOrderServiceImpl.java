@@ -62,4 +62,9 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     public void addInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem) {
         insuranceOrderMapper.addInsuranceOrderItem(insuranceOrderItem);
     }
+
+    @Override
+    public void setInsurancePolicyFileUrl(InsuranceOrderItem insuranceOrderItem) {
+        insuranceOrderMapper.setInsurancePolicyFileUrl(insuranceOrderItem);
+    }
 }

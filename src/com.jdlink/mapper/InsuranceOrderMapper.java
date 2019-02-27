@@ -25,4 +25,6 @@ public interface InsuranceOrderMapper {
     void deleteInsuranceOrderItemById(String id);
 
     void addInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
+
+    void setInsurancePolicyFileUrl(InsuranceOrderItem insuranceOrderItem);
 }

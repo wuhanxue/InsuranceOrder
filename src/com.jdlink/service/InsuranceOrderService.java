@@ -35,4 +35,8 @@ public interface InsuranceOrderService {
     /*添加保单信息*/
     void addInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
 
+    /*设置保单的路径名*/
+    void setInsurancePolicyFileUrl(InsuranceOrderItem insuranceOrderItem);
+
+
 }

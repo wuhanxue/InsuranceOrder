@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -198,6 +201,47 @@ public class InsuranceOrderController {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "添加保单失败");
+        }
+
+
+        return res.toString();
+
+
+    }
+
+    /*上传电子保单*/
+    @RequestMapping("uploadInsurancePolicy")
+    @ResponseBody
+    public String uploadInsurancePolicy(MultipartFile multipartFile, HttpServletRequest request,String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            if(multipartFile==null){
+                res.put("status", "nullFile");
+                res.put("message", "文件为空!");
+            }
+            else {
+                String path = "InsuranceOrderFiles/InsurancePolicy";
+                String fileName = multipartFile.getOriginalFilename();
+                File dir = new File(path,fileName);
+                if(!dir.exists()){
+                    dir.mkdirs();
+                }
+                multipartFile.transferTo(dir);
+                InsuranceOrderItem insuranceOrderItem=new InsuranceOrderItem();
+                insuranceOrderItem.setId(id);
+                insuranceOrderItem.setFileUrl(path+"/"+fileName);
+                //文件路径更新
+                insuranceOrderService.setInsurancePolicyFileUrl(insuranceOrderItem);
+                res.put("status", "success");
+                res.put("message", "文件上传成功");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "文件上传失败");
+
         }
 
 
