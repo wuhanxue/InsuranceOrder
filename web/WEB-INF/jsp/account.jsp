@@ -164,7 +164,7 @@
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
       <div>
-          <span class="pull-left hidden" id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全！</span>
+          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全，及时修改密码！</span>
       </div>
   </div>
 </div>
@@ -175,6 +175,12 @@
      */
     function loadAccountData() {
         passwordModifyMark();
+        if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+            $("#passwordModifyNotice").show();  // 显示提示
+            $("#password").focus();  // 聚焦密码框
+        }else {
+            $("#passwordModifyNotice").hide();  // 隐藏提示
+        }
         setCompanySelectData();   // 填充下拉框数据
         // 设置下拉框选中
         if("${user.companyDataItem}" != null){

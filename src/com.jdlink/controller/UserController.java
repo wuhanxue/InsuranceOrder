@@ -234,18 +234,6 @@ public class UserController {
         return res.toString();
     }
 
-//    /**
-//     * 修改方法(暂不用)
-//     *
-//     * @param
-//     * @return
-//     */
-//    @RequestMapping(value = "/updateUserById/{id}", method = RequestMethod.PUT)
-//    public ModelAndView updateUserById(User user, HttpSession session) {
-//        ModelAndView mav = new ModelAndView("redirect:/accountManage");
-//        return mav;
-//    }
-
     /**
      * 修改用户数据
      *
