@@ -1,5 +1,7 @@
 package com.jdlink.domain.dataItem;
 
+import com.jdlink.domain.Page;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +44,22 @@ public class DataDictionary {
      * 字典明细列表
      */
     private List<DataDictionaryItem> dataDictionaryItemList=new ArrayList<>();
+    /**
+     * 分页
+     */
+    private Page page;
+    /**
+     * 粗查询
+     */
+    private String keyword;
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 
     public Integer getId() {
         return id;
@@ -105,6 +123,14 @@ public class DataDictionary {
 
     public void setDataDictionaryItemList(List<DataDictionaryItem> dataDictionaryItemList) {
         this.dataDictionaryItemList = dataDictionaryItemList;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 
     @Override

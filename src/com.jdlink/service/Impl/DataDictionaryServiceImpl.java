@@ -51,4 +51,16 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     @Override
     public List<DataDictionaryItem> getDataDictionaryByParentId(String parentId) { return dataDictionaryMapper.getDataDictionaryByParentId(parentId); }
+
+    @Override
+    public List<DataDictionary> searchBasicData(DataDictionary dataDictionary) { return dataDictionaryMapper.searchBasicData(dataDictionary); }
+
+    @Override
+    public int searchBasicDataTotal(DataDictionary dataDictionary) { return dataDictionaryMapper.searchBasicDataTotal(dataDictionary); }
+
+    @Override
+    public List<DataDictionaryItem> searchBasicDataDetail(DataDictionaryItem dataDictionaryItem) { return dataDictionaryMapper.searchBasicDataDetail(dataDictionaryItem); }
+
+    @Override
+    public int searchBasicDataDetailTotal(DataDictionaryItem dataDictionaryItem) { return dataDictionaryMapper.searchBasicDataDetailTotal(dataDictionaryItem); }
 }
