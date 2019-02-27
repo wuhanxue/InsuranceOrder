@@ -118,6 +118,9 @@
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
             </if>
+            <if test="id != null and id !=''">
+                and id like "%"#{id}"%"
+            </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"
             </if>
@@ -143,6 +146,9 @@
                 or code like "%"#{keywords}"%"
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
+            </if>
+            <if test="id != null and id !=''">
+                and id like "%"#{id}"%"
             </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"

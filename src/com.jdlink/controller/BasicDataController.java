@@ -68,7 +68,7 @@ public class BasicDataController {
      * 跳转基础数据编辑页面
      * @return
      */
-    @RequestMapping("/basicDataDetail")
+    @RequestMapping("basicDataDetail")
     public ModelAndView basicDataDetail() {
         ModelAndView mav = new ModelAndView("/basicDataDetail");
         return mav;

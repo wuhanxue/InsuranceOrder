@@ -52,8 +52,8 @@
             <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/account">账号管理</a></li>
-                <li><a href="/signin">注销</a></li>
+                <li><a href="account">账号管理</a></li>
+                <li><a href="signin">注销</a></li>
             </ul>
         </li>
     </ul>
@@ -67,13 +67,13 @@
                 <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span
                         class="sr-only">(current)</span></a></li>
-                <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
                                                                       aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal"
+                <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span
                         class="iright pull-right">&gt;</span></a></li>
             </ul>

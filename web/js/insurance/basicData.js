@@ -158,5 +158,6 @@ function jumpToDetail(e) {
     localStorage.dataDictionaryId = $(e).parent().prevAll().find("td[name='id']").text();  // 设置外键
     localStorage.dataDictionaryCode = $(e).parent().prevAll().find("td[name='code']").text();  // 设置外键
     localStorage.dataDictionaryName = $(e).parent().prevAll().find("td[name='name']").text();  // 设置外键
+
     window.location.href = "/basicDataDetail";
 }
