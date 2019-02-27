@@ -11,22 +11,23 @@
 <head>
     <meta charset="UTF-8">
     <title>基础数据</title>
-    <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-    <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-    <script src="../../js/3.3.6/bootstrap.min.js"></script>
-    <link href="../../css/navbar.css" rel="stylesheet">
-    <link href="../../css/util/mark.css">
-    <script src="../../js/navbar.js"></script>
-    <script src="../../js/util.js"></script>
-    <script src="../../js/insurance/basicDataDetail.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
+    <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/3.3.6/bootstrap.min.js"></script>
+    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/util/mark.css">
+    <script src="js/navbar.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/insurance/basicDataDetail.js"></script>
 </head>
 <style type="text/css">
     table {
         font-family: "微软雅黑", Georgia, Serif;
     }
 </style>
-<body onload="passwordModifyMark();">
+<body onload="passwordModifyMark();onLoadBasicDataDetailList();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -91,7 +92,7 @@
                 <!--查询框-->
                 <div class="input-group col-md-4 pull-right">
                     <input type="text" class="form-control" placeholder="搜索..." id="searchContent"
-                           onkeyup="searchData();">
+                           onkeyup="enterSearch();">
                     <span class="input-group-btn">
               <a class="btn btn-default" onclick="searchData();"><span class="glyphicon glyphicon-search"
                                                                        aria-hidden="true"></span> 查询</a>
@@ -109,18 +110,20 @@
                 <div class="row">
                     <div class="form-horizontal col-md-4">
                         <div class="form-group">
-                            <label for="code" class="col-sm-4 control-label">字典类型编码</label>
+                            <label for="search_code" class="col-sm-4 control-label">字典类型编码</label>
                             <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="code" name="code"
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_code"
+                                       name="code"
                                        placeholder="">
                             </div>
                         </div>
                     </div>
                     <div class="form-horizontal col-md-4">
                         <div class="form-group">
-                            <label for="name" class="col-sm-4 control-label">字典类型名称</label>
+                            <label for="search_name" class="col-sm-4 control-label">字典类型名称</label>
                             <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="name" name="name"
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_name"
+                                       name="name"
                                        placeholder="">
                             </div>
                         </div>
@@ -133,14 +136,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <p style="display: inline">字典类型编码:<input class="form-control" style="width: 35%;display: inline"
-                                                             id="dictionaryCode" value="${data.code}"></p>
+                                                             id="dictionaryCode" value=""></p>
                 </div>
                 <div class="col-md-6">
                     <p style="display: inline">字典类型名称:<input class="form-control" type="text"
-                                                             style="width: 35%;display: inline" id="dictionaryName" value="${data.name}">
+                                                             style="width: 35%;display: inline" id="dictionaryName"
+                                                             value="">
                     </p>
                 </div>
-                <span id="dictionaryId" hidden>${data.id}</span>
+                <span id="dictionaryId" hidden></span>
             </div>
             <table class="table table-striped table-hover table-condensed">
                 <thead>
@@ -153,18 +157,16 @@
                     <th>操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach items="${dataItemList}" var="c" varStatus="st">
-                    <tr class="myClass">
-                        <td name="id"><input class="form-control" name="id" value="${c.id}" required></td>
-                        <td name="oldId" hidden><input class="form-control" name="oldId" value="${c.id}" ></td>
-                        <td name="code"><input class="form-control" name="code" value="${c.code}"></td>
-                        <td name="name"><input class="form-control" name="name" value="${c.name}"></td>
-                        <td name="parentId"><input class="form-control" name="parentId" value="${c.parentId}"></td>
-                        <td class="text-center"><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
-                            <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>
-                    </tr>
-                </c:forEach>
+                <tbody id="tBody">
+                <tr class="myClass">
+                    <td name="id"><input class="form-control" name="id" value="" required></td>
+                    <td name="oldId" hidden><input class="form-control" name="oldId" value=""></td>
+                    <td name="code"><input class="form-control" name="code" value=""></td>
+                    <td name="name"><input class="form-control" name="name" value=""></td>
+                    <td name="parentId"><input class="form-control" name="parentId" value=""></td>
+                    <td class="text-center"><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>
+                        <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>
+                </tr>
                 <tr id="plus">
                     <td>
                         <a class="btn btn-default btn-xs" onclick="addNewLine(this);"><span
@@ -180,6 +182,35 @@
             </div>
         </div>
     </div>
+</div>
+<%--分页--%>
+<div class="content row" style="height: 50px">
+    <div class="demo">
+        <div id="demo3"></div>
+        <br>
+        <form class="form-inline">
+            <div class="form-group" style="width: 20%">
+                <a class="btn btn-primary" onclick="jump()" style="height: 30px;width: 60px">跳转</a>
+                <input type="text" style="width:30%" id="jumpPage">
+                <span>页</span>
+            </div>
+
+            <span>当前第</span>
+            <span id="currentPage" style="color: green">1</span>
+            <span>页</span>
+            <span style="display: inline-block">每页显示</span>
+            <select id="count" style="display: inline-block" onchange="switchPageNumber(onLoadBasicDataDetailList);">
+                <option value=1>1</option>
+                <option selected value=15>15</option>
+                <option value=50>50</option>
+            </select>
+            <span style="display: inline-block">条记录</span>
+            <span>总共</span>
+            <span id="totalRecord" style="color: red"></span>
+            <span>条记录</span>
+        </form>
+    </div>
+    <script src="../../js/page.js" type="text/javascript"></script>
 </div>
 </body>
 </html>
