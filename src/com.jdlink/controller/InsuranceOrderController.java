@@ -69,7 +69,7 @@ public class InsuranceOrderController {
 
 
     /*根据订单号获取明细*/
-    @RequestMapping("/viewInsuranceOrder")
+    @RequestMapping("viewInsuranceOrder")
     public ModelAndView viewInsuranceOrder(ModelAndView modelAndView, @Param(value = "id") String id) {
 
         try {
