@@ -76,7 +76,7 @@ function setInsuranceOrderList(result) {
                    +"<td class='text-center'>"+getDataFromDate(item.departmentDataItem)+"</td>"+"<td class='text-center'>"+insureDate+"</td>"
                    +"<td class='text-center'>"+getDateStr(item.approvalDate)+"<td class='text-center'>"+item.insuredPersonName+"</td>"+"<td class='text-center'>"+getNumber(item.goodsValue,3)+"</td>"
                    +"<td class='text-center'>"+insureCompanyName+"</td>" +"<td class='text-center'>"+getNumber(premium,3)+"</td>"
-                   +"<td class='text-center'>"+"<a href='/viewInsuranceOrder?id="+item.id+"' title='查看'>" +
+                   +"<td class='text-center'>"+"<a href='viewInsuranceOrder?id="+item.id+"' title='查看'>" +
                    "<span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>" +
                    "<a href='orderDetail'  title='接单'><span class='glyphicon glyphicon-check' aria-hidden='true'></span></a>" +
                    "<a href='#'  title='投保' onclick='InsureModel(this)'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>" +
