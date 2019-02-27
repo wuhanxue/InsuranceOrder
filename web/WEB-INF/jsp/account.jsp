@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <title>基础数据</title>
-  <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <script src=js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
   <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-select.min.css">
   <script src="js/jquery/2.0.0/jquery.min.js"></script>
