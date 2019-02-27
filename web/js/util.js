@@ -134,11 +134,12 @@ function historyBack() {
     history.back();
 }
 
-
 /**
- * 设置公司部门项目组下拉框数据
+ * 设置公司下拉框数据
  */
-function setSelectDataList(){
+function setCompanySelectData() {
+    $(".department").hide();  // 隐藏部门下拉框数据
+    $(".team").hide();  // 隐藏项目组下拉框数据
     $.ajax({
         type: "POST",                       // 方法类型
         url: "getCompanyAndDepartmentAndTeamList",                  // url
@@ -146,32 +147,14 @@ function setSelectDataList(){
         dataType: "json",
         success: function (result) {
             if (result != undefined && result.status === "success") {
-                var company =$("select[name='company']");
+                var company = $("select[name='company']");
                 company.children().remove();
                 $.each(result.companyList, function (index, item) {
                     var option = $('<option/>');
                     option.val(item.id);
-                    option.text(item.name);
+                    option.text(item.name + "(" + item.code + ")");
                     company.append(option);
                 });
-                var department =$("select[name='department']");
-                department.children().remove();
-                $.each(result.departmentList, function (index, item) {
-                    var option = $('<option/>');
-                    option.val(item.id);
-                    option.text(item.name);
-                    department.append(option);
-                });
-                var team =$("select[name='team']");
-                team.children().remove();
-                $.each(result.teamList, function (index, item) {
-                    var option = $('<option/>');
-                    option.val(item.id);
-                    option.text(item.name);
-                    team.append(option);
-                });
-                //   $('.bootstrap-select').find("button:first").remove();
-                $('.selectpicker').selectpicker('refresh');
 
             } else {
                 console.log(result.message);
@@ -181,9 +164,76 @@ function setSelectDataList(){
             console.log(result.message);
         }
     });
-    $('.selectpicker').selectpicker({
-        language: 'zh_CN',
-        size: 4,
+}
+
+/**
+ * 选择公司后设置部门下拉框数据
+ * @param e
+ */
+function setDepartmentSelectData(e) {
+    $(".department").show();  // 显示部门下拉框数据
+    $(".team").hide();  // 隐藏项目组下拉框数据
+    var parentId = $(e).find("option:selected").val();  // 获取选中公司下拉框选中数据ID
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getDataDictionaryByParentId",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        data:{
+            parentId : parentId
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                var department = $("select[name='department']");  // 设置部门下拉框数据
+                department.children().remove();
+                $.each(result.dataList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name + "(" + item.code + ")");
+                    department.append(option);
+                });
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
+    });
+}
+
+/**
+ * 选择部门后设置项目组下拉框数据
+ * @param e
+ */
+function setTeamSelectData(e) {
+    $(".team").show();  // 显示部门下拉框数据
+    var parentId = $(e).find("option:selected").val();  // 获取选中公司下拉框选中数据ID
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getDataDictionaryByParentId",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        data:{
+            parentId : parentId
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                var team = $("select[name='team']");  // 设置项目组下拉框数据
+                team.children().remove();
+                $.each(result.dataList, function (index, item) {
+                    var option = $('<option/>');
+                    option.val(item.id);
+                    option.text(item.name + "(" + item.code + ")");
+                    team.append(option);
+                });
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
     });
 }
 
@@ -194,5 +244,22 @@ function getNumber(num,n) {
     }
     else {
         return parseFloat(num).toFixed(n);
+    }
+}
+
+/**
+ * 密码修改提示
+ */
+function passwordModifyMark() {
+    if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+        $(".navbar-right").addClass("wrap");
+        var div = "<div class=\"notice\">1</div>";
+        $(".navbar-right").after(div);
+        $(".navbar-right").find(".dropdown-menu").children().eq(0).prepend(div);
+        $(".navbar-right").find(".dropdown-menu").children().eq(0).find("a").addClass("wrap1");
+    }else { // 如果没有则删除之前提醒
+        $(".wrap").removeClass("wrap");
+        $(".wrap1").removeClass("wrap1");
+        $(".notice").remove();
     }
 }

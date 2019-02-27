@@ -6,6 +6,8 @@ import com.jdlink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserById(User user) {
         userMapper.updateUserById(user);
+        userMapper.updatePasswordById(user);
     }
 
     @Override
@@ -43,6 +46,28 @@ public class UserServiceImpl implements UserService {
         if(user != null){
             return true;
         } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkUserPasswordModifyTimeIsLate(User user) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try
+        {
+            Date d1 = df.parse("2004-03-26 13:31:40");
+            Date d2 = df.parse("2004-01-02 11:30:24");
+            long diff = d1.getTime() - d2.getTime();//这样得到的差值是毫秒级别
+            long days = diff / (1000 * 60 * 60 * 24);  // 相差天数
+            // long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);  // 相差小时数
+           // long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);  // 相差分钟数
+            if(days >= 90) {
+                return true;
+            }else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

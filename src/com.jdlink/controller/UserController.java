@@ -113,22 +113,25 @@ public class UserController {
         return mav;
     }
 
-
+    /**
+     * 获取公司下拉框数据
+     * @return
+     */
     @RequestMapping("getCompanyAndDepartmentAndTeamList")
     @ResponseBody
     public String getCompanyAndDepartmentAndTeamList() {
         JSONObject res = new JSONObject();
         try {
             List<DataDictionaryItem> companyList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(1);
-            List<DataDictionaryItem> departmentList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(2);
-            List<DataDictionaryItem> teamList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(3);
+           // List<DataDictionaryItem> departmentList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(2);
+        //    List<DataDictionaryItem> teamList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(3);
             // 计算最后页位置
             JSONArray companyList1 = JSONArray.fromArray(companyList.toArray(new DataDictionaryItem[companyList.size()]));
-            JSONArray departmentList1 = JSONArray.fromArray(departmentList.toArray(new DataDictionaryItem[departmentList.size()]));
-            JSONArray teamList1 = JSONArray.fromArray(teamList.toArray(new DataDictionaryItem[teamList.size()]));
+          //  JSONArray departmentList1 = JSONArray.fromArray(departmentList.toArray(new DataDictionaryItem[departmentList.size()]));
+        //    JSONArray teamList1 = JSONArray.fromArray(teamList.toArray(new DataDictionaryItem[teamList.size()]));
             res.put("companyList", companyList1);
-            res.put("departmentList", departmentList1);
-            res.put("teamList", teamList1);
+         //   res.put("departmentList", departmentList1);
+         //   res.put("teamList", teamList1);
             res.put("status", "success");
             res.put("message", "下拉框数据获取成功!");
         } catch (Exception e) {
@@ -313,4 +316,27 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 根据父类ID获取基础数据
+     * @return
+     */
+    @RequestMapping("getDataDictionaryByParentId")
+    @ResponseBody
+    public String getDataDictionaryByParentId(String parentId) {
+        JSONObject res = new JSONObject();
+        try {
+            List<DataDictionaryItem> dataList = dataDictionaryService.getDataDictionaryByParentId(parentId);
+            JSONArray dataList1 = JSONArray.fromArray(dataList.toArray(new DataDictionaryItem[dataList.size()]));
+            res.put("dataList", dataList1);
+
+            res.put("status", "success");
+            res.put("message", "下拉框数据获取成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "下拉框数据获取失败！");
+        }
+        // 返回结果
+        return res.toString();
+    }
 }

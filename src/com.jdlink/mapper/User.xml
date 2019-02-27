@@ -9,6 +9,7 @@
         <result property="userName" column="user_name" ></result>
         <result property="creationTime" column="creation_time" ></result>
         <result property="modifyTime" column="modify_time" ></result>
+        <result property="passwordModifyTime" column="password_modify_time" ></result>
         <association property="companyDataItem" column="company_id" select="getCompanyDataItem"/>
         <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"/>
         <association property="teamDataItem" column="team_id" select="getTeamDataItem"/>
@@ -53,7 +54,7 @@
     <update id="updateUserById" >
         update user
         set
-        user_name=#{userName},password=#{password},name=#{name},modify_time=NOW()
+        user_name=#{userName},name=#{name},modify_time=NOW()
         <if test="companyDataItem != null and companyDataItem.id != null">
             ,company_id=#{companyDataItem.id}
         </if>
@@ -66,12 +67,16 @@
          WHERE id=#{id}
     </update>
 
+    <update id="updatePasswordById" >
+        update user set password=#{password},password_modify_time=NOW() WHERE id=#{id};
+    </update>
+
     <!--新增账号-->
     <insert id="add" >
         insert into user
-        (user_name, password, name, company_id, department_id, team_id, creator, creation_time, modify_time)
+        (user_name, password, name, company_id, department_id, team_id, creator, creation_time, modify_time,password_modify_time)
         values (#{userName},#{password},#{name},#{companyDataItem.id},#{departmentDataItem.id},#{teamDataItem.id},
-        #{creator},NOW(),NOW());
+        #{creator},NOW(),NOW(),NOW());
     </insert>
 
     <!--根据Id删除账号-->

@@ -12,13 +12,14 @@
 
     <resultMap id="dataDictionaryItemRM" type="DataDictionaryItem" autoMapping="true">
         <id column="id" property="id"/>
+        <result property="parentId" column="parent_id" ></result>
         <result property="creationTime" column="creation_time" ></result>
         <result property="modifyTime" column="modify_time" ></result>
     </resultMap>
 
     <!--根据外键ID获取数据列表-->
     <select id="getDataDictionaryItemListByDataDictionaryId" parameterType="int" resultMap="dataDictionaryItemRM">
-        select * from data_dictionary_item where dataDictionaryId=#{id};
+        select * from data_dictionary_item where dataDictionaryId=#{id} order by modify_time;
     </select>
 
     <!--获取所有基础数据信息-->
@@ -30,5 +31,33 @@
     <select id="getDataDictionaryById" parameterType="int" resultMap="dataDictionaryRM">
         select * from data_dictionary where id=#{id};
     </select>
+
+     <select id="getMaxItemId" resultType="String">
+         select MAX(id) from data_dictionary_item;
+     </select>
+
+    <!--根据父类编号parent_id获取数据-->
+    <select id="getDataDictionaryByParentId" parameterType="String" resultMap="dataDictionaryItemRM">
+        select * from data_dictionary_item where parent_id=#{parentId};
+    </select>
+
+    <update id="updateDataDictionaryCodeAndNameById" >
+        update data_dictionary set name=#{name},code=#{code},modifier=#{modifier},modify_time=NOW() where id=#{id};
+    </update>
+
+    <update id="updateDataDictionaryItemCodeAndNameById" >
+        update data_dictionary_item set id=#{id},name=#{name},code=#{code},parent_id=#{parentId},modify_time=NOW(),modifier=#{modifier} where id=#{oldId};
+    </update>
+
+    <insert id="addDataDictionaryItem" >
+        insert into data_dictionary_item (id,dataDictionaryId, code, name,parent_id, creation_time, modify_time, creator, modifier)
+        values (#{id},#{dataDictionaryId},#{code},#{name},#{parentId},NOW(),NOW(),#{creator},#{modifier});
+    </insert>
+
+    <delete id="deleteDataDictionaryItemById" >
+        delete from data_dictionary_item where id=#{id};
+    </delete>
+
+
 
 </mapper>

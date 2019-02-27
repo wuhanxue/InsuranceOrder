@@ -50,6 +50,10 @@ public class User {
      * 修改时间
      */
     private Date modifyTime;
+    /**
+     * 密码修改时间
+     */
+    private Date passwordModifyTime;
 
     public int getId() {
         return id;
@@ -131,6 +135,18 @@ public class User {
         this.modifyTime = modifyTime;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getPasswordModifyTime() {
+        return passwordModifyTime;
+    }
+
+    public void setPasswordModifyTime(Date passwordModifyTime) {
+        this.passwordModifyTime = passwordModifyTime;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -144,6 +160,7 @@ public class User {
                 ", creator='" + creator + '\'' +
                 ", creationTime=" + creationTime +
                 ", modifyTime=" + modifyTime +
+                ", passwordModifyTime=" + passwordModifyTime +
                 '}';
     }
 }
