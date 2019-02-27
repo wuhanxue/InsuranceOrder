@@ -19,4 +19,11 @@ public interface UserService {
     User getUserById(int id);
 
     boolean checkUserNameIsExist(String userName);
+
+    /**
+     * 检测账号密码是否超过90天未修改
+     * @param user
+     * @return
+     */
+    boolean checkUserPasswordModifyTimeIsLate(User user);
 }

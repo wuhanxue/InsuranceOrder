@@ -14,6 +14,8 @@ public interface UserMapper {
 
     void updateUserById(User user);
 
+    void updatePasswordById(User user);
+
     void deleteUserById(int id);
 
     User getUserById(int id);
