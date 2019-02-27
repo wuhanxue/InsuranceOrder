@@ -76,7 +76,7 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "/getCurrentUserInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getCurrentUserInfo", method = RequestMethod.GET)
     public ModelAndView getCurrentUserInfo(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         try {
@@ -156,7 +156,7 @@ public class UserController {
     /**
      * 导航栏跳转到账号管理页面
      */
-    @RequestMapping(value = "/checkUserIsAdministrator")
+    @RequestMapping(value = "checkUserIsAdministrator")
     public ModelAndView checkUserIsAdministrator(ModelAndView modelAndView, HttpSession session) {
         User user = (User) session.getAttribute("user");   // 获取用户信息
         if (user != null && user.getUserName().equals("root")) {
@@ -204,7 +204,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @RequestMapping("/deleteUserById/{id}")
+    @RequestMapping("deleteUserById/{id}")
     public ModelAndView deleteUserById(User user) {
         userService.deleteUserById(user.getId());
         ModelAndView mav = new ModelAndView("redirect:/accountManage");
@@ -290,7 +290,7 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping("/signin")
+    @RequestMapping("signin")
     public ModelAndView jumpToSignin() {
         ModelAndView mav = new ModelAndView("/signin");
         return mav;
@@ -302,7 +302,7 @@ public class UserController {
      * @param
      * @return
      */
-    @RequestMapping("/account")
+    @RequestMapping("account")
     public ModelAndView jumpToAccount(HttpSession session) {
         User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
         ModelAndView mav = new ModelAndView("/account");

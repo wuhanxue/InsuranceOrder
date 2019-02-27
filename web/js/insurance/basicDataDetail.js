@@ -64,8 +64,10 @@ function searchData() {
         data = {};//代表查询实体
         var code = $.trim($('#search_code').val());   // 编码
         var name = $.trim($('#search_name').val());   // 名称
+        var id = $.trim($('#search_id').val());   // 编号
         data.dataDictionaryId = localStorage.dataDictionaryId;  // 外键
         data.code = code;
+        data.id = id;
         data.name = name;
         data.page = page;
     } else {
