@@ -74,7 +74,7 @@
                 <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/checkUserIsAdministrator"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list"
                                                                                  aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal"
@@ -423,12 +423,28 @@
 
 </script>
 <style>
-    .width1 {
-        width: 10%;
+    .wrap {
+        width:50px;
+        margin-bottom:10px;
+        position:relative;
     }
-
-    .width2 {
-        width: 5%;
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom:10px;
+        position:relative;
+    }
+    .notice {
+        width:20px;
+        height:20px;
+        line-height:20px;/*行高*/
+        font-size:10px;
+        color:#fff;
+        text-align:center;
+        background-color:#f00;
+        border-radius:50%;
+        position:absolute;/*绝对定位*/
+        right:10px;
+        /*top:10px;*/
     }
 </style>
 </html>
