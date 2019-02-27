@@ -150,29 +150,29 @@
     </div>
     <div class="row">
       <div class="form-group">
-        <label class="col-md-2 control-label" style="margin-left: 30px">业务范围：</label>
+        <label class="col-md-1 control-label" style="margin-left: 30px">业务范围：</label>
         <div class="col-md-6">
           <label id="international">国际运输：</label>
-          <input type="radio" id="sea1" name="type" placeholder="">海运进口
-          <input type="radio" id="sea2" name="type" placeholder="">海运出口
-          <input type="radio" id="air1" name="type" placeholder="">空运进口
-          <input type="radio" id="air2" name="type" placeholder="">空运出口
-          <input type="radio" id="road1" name="type" placeholder="">陆运进口
-          <input type="radio" id="road2" name="type" placeholder="">陆运出口
-          <input type="radio" id="rail1" name="type" placeholder="">铁路进口
+          <input type="radio" id="sea1" name="type" placeholder="">海运进口&nbsp;&nbsp;
+          <input type="radio" id="sea2" name="type" placeholder="">海运出口&nbsp;&nbsp;
+          <input type="radio" id="air1" name="type" placeholder="">空运进口&nbsp;&nbsp;
+          <input type="radio" id="air2" name="type" placeholder="">空运出口&nbsp;&nbsp;
+          <input type="radio" id="road1" name="type" placeholder="">陆运进口&nbsp;&nbsp;
+          <input type="radio" id="road2" name="type" placeholder="">陆运出口&nbsp;&nbsp;
+          <input type="radio" id="rail1" name="type" placeholder="">铁路进口&nbsp;&nbsp;
           <input type="radio" id="rail2" name="type" placeholder="">铁路出口
         </div>
       </div>
     </div>
     <div class="row">
       <div class="form-group">
-        <label class="col-md-2 control-label" style="margin-left: 30px"></label>
+        <label class="col-md-1 control-label" style="margin-left: 30px"></label>
         <div class="col-md-6">
           <label id="domestic">国内运输：</label>
-          <input type="radio" id="address1" name="type" placeholder="">快递
-          <input type="radio" id="address2" name="type" placeholder="">水运
-          <input type="radio" id="address3" name="type" placeholder="">空运
-          <input type="radio" id="address4" name="type" placeholder="">陆运
+          <input type="radio" id="address1" name="type" placeholder="">快递&nbsp;&nbsp;
+          <input type="radio" id="address2" name="type" placeholder="">水运&nbsp;&nbsp;
+          <input type="radio" id="address3" name="type" placeholder="">空运&nbsp;&nbsp;
+          <input type="radio" id="address4" name="type" placeholder="">陆运&nbsp;&nbsp;
           <input type="radio" id="address5" name="type" placeholder="">铁路运输
         </div>
       </div>
@@ -262,7 +262,7 @@
           <label class="col-md-3 control-label">保险报价：</label>
           <div class="col-xs-4" style="display: inline-block">
             <label for="customer" style="display: inline-block">客户承担：</label>
-            <input type="text" style="width: 50px;display: inline-block" class="form-control" id="customer" name="customer" value="${insuranceOrder.truckShift}">
+            <input type="text" style="width: 60px;display: inline-block;padding: 2px" class="form-control" id="customer" name="customer" value="${insuranceOrder.truckShift}">
           </div>
           <span style="display: inline-block;margin-top: 5px">人民币</span>
         </div>

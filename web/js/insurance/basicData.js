@@ -63,7 +63,6 @@ function searchData() {
         data.name = name;
         data.creator = creator;
         data.page = page;
-        console.log(data);
     } else {
         var keywords = $.trim($("#searchContent").val());
         data = {
@@ -71,6 +70,8 @@ function searchData() {
             keywords: keywords
         }
     }
+    console.log("查询条件");
+    console.log(data);
     getData(data);   // 传递参数进加载函数
     //将要查询的元素穿个page页面
     /*查询的方法*/
@@ -87,10 +88,12 @@ function searchData() {
                 //删除子元素
                 $('#tBody').empty();
                 setDataList(result);
+            }else {
+                alert(result.message);
             }
         },
         error: function (result) {
-
+            alert(result.message);
         }
     });
     TotalPage("searchBasicDataTotal", data);//算查询总数
@@ -153,5 +156,7 @@ function setDataList(result) {
  */
 function jumpToDetail(e) {
     localStorage.dataDictionaryId = $(e).parent().prevAll().find("td[name='id']").text();  // 设置外键
+    localStorage.dataDictionaryCode = $(e).parent().prevAll().find("td[name='code']").text();  // 设置外键
+    localStorage.dataDictionaryName = $(e).parent().prevAll().find("td[name='name']").text();  // 设置外键
     window.location.href = "/basicDataDetail";
 }
