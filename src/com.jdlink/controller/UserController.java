@@ -40,8 +40,8 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/CheckUserInfo", method = RequestMethod.POST)
-    public ModelAndView CheckUserInfo(User user, HttpSession session, HttpServletRequest request) {
+    @RequestMapping(value = "CheckUserInfo", method = RequestMethod.POST)
+    public ModelAndView CheckUserInfo(User user, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         try {
             // 查询参数
@@ -97,7 +97,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/accountManage")
+    @RequestMapping("accountManage")
     public ModelAndView listUser(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         User user = (User) session.getAttribute("user");   // 获取用户信息
