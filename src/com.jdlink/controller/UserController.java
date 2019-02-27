@@ -97,19 +97,28 @@ public class UserController {
      * @return
      */
     @RequestMapping("/accountManage")
-    public ModelAndView listUser() {
+    public ModelAndView listUser(HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        try {
-            List<User> userList = userService.listUser();  // 获取所有用户
-            mav.addObject("status", "success");
-            mav.addObject("message", "获取成功！");
-            mav.addObject("userList", userList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            mav.addObject("status", "fail");
-            mav.addObject("message", "获取失败！");
+        User user = (User) session.getAttribute("user");   // 获取用户信息
+        if (user != null && user.getUserName().equals("root")) {
+            try {
+                List<User> userList = userService.listUser();  // 获取所有用户
+                mav.addObject("status", "success");
+                mav.addObject("message", "获取成功！");
+                mav.addObject("userList", userList);
+            } catch (Exception e) {
+                e.printStackTrace();
+                mav.addObject("status", "fail");
+                mav.addObject("message", "获取失败！");
+            }
+            mav.setViewName("accountManage");
+        } else if(user == null){
+            mav.setViewName("redirect:/signin");
+        }else{
+            //modelAndView.addObject("checkMessage","该账号无权限进入！");
+            mav.setViewName("redirect:/orderList");
         }
-        mav.setViewName("accountManage");
+
         return mav;
     }
 

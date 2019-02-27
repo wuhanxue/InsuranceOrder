@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try
         {
-            Date d1 = df.parse("2004-03-26 13:31:40");
-            Date d2 = df.parse("2004-01-02 11:30:24");
+            Date d1 = new Date();
+            Date d2 = user.getPasswordModifyTime();   //账号密码最近修改时间
             long diff = d1.getTime() - d2.getTime();//这样得到的差值是毫秒级别
             long days = diff / (1000 * 60 * 60 * 24);  // 相差天数
             // long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);  // 相差小时数
