@@ -1,6 +1,7 @@
 package com.jdlink.domain;
 
 import com.jdlink.domain.dataItem.OrderStateDataItem;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -38,6 +39,9 @@ public class InsuranceOrderItem {
      * 附件url
      */
     private String fileUrl;
+
+    /*附件对象*/
+    private MultipartFile  multipartFile;
     /**
      * 创建日期
      */
@@ -58,6 +62,14 @@ public class InsuranceOrderItem {
      *  保险单据状态
      */
     private OrderStateDataItem orderStateDataItem;
+
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
+    }
 
     public Date getInsureDateBegin() {
         return insureDateBegin;

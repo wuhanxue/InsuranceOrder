@@ -24,4 +24,12 @@ public interface DataDictionaryMapper {
     String getMaxItemId();
 
     List<DataDictionaryItem> getDataDictionaryByParentId(String parentId);
+
+    List<DataDictionary> searchBasicData(DataDictionary dataDictionary);
+
+    int searchBasicDataTotal(DataDictionary dataDictionary);
+
+    List<DataDictionaryItem> searchBasicDataDetail(DataDictionaryItem dataDictionaryItem);
+
+    int searchBasicDataDetailTotal(DataDictionaryItem dataDictionaryItem);
 }

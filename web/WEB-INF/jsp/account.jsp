@@ -11,16 +11,17 @@
 <head>
   <meta charset="UTF-8">
   <title>基础数据</title>
-  <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-  <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-  <link href="../../css/bootstrap-select.min.css">
-  <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-  <script src="../../js/3.3.6/bootstrap.min.js"></script>
-  <script src="../../js/bootstrap-select.min.js"></script>
-  <link href="../../css/navbar.css" rel="stylesheet">
-  <script src="../../js/navbar.js"></script>
-  <script src="../../js/util.js"></script>
-  <script src="../../js/insurance/account.js"></script>
+  <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-select.min.css">
+  <script src="js/jquery/2.0.0/jquery.min.js"></script>
+  <script src="js/3.3.6/bootstrap.min.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
+  <link href="css/navbar.css" rel="stylesheet">
+  <link href="css/util/mark.css">
+  <script src="js/navbar.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/insurance/account.js"></script>
 
 </head>
 <style type="text/css">
@@ -73,18 +74,16 @@
       </ul>
     </div><!--/.nav-collapse -->
   </div>
-  <ul class="nav navbar-nav navbar-right wrap" style="height: 50px;width: 50px">
+  <ul class="nav navbar-nav navbar-right" style="height: 50px;width: 50px">
     <li class="dropdown" style="height: 50px;width: 50px">
       <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
       <ul class="dropdown-menu">
-        <li><div class="notice">1</div><a class="wrap1" href="/account">账号管理</a></li>
+        <li><a href="/account">账号管理</a></li>
         <li><a href="/signin">注销</a></li>
       </ul>
     </li>
   </ul>
-  <div class="notice">1</div>
 </nav>
-
 <div class="container-fluid">
   <div class="row">
     <div class="sidebar">
@@ -165,7 +164,7 @@
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
       <div>
-          <span class="pull-left hidden" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全！</span>
+          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全，及时修改密码！</span>
       </div>
   </div>
 </div>
@@ -175,6 +174,13 @@
      * 加载初始数据
      */
     function loadAccountData() {
+        passwordModifyMark();
+        if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+            $("#passwordModifyNotice").show();  // 显示提示
+            $("#password").focus();  // 聚焦密码框
+        }else {
+            $("#passwordModifyNotice").hide();  // 隐藏提示
+        }
         setCompanySelectData();   // 填充下拉框数据
         // 设置下拉框选中
         if("${user.companyDataItem}" != null){

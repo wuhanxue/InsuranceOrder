@@ -41,6 +41,114 @@
         select * from data_dictionary_item where parent_id=#{parentId};
     </select>
 
+    <!--获取基础数据-->
+    <select id="searchBasicData" resultMap="dataDictionaryRM">
+        select * from data_dictionary
+        <where>
+            <if test="keyword != null and keyword != ''">
+                or id like "%"#{keywords}"%"
+                or code like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%c.%e') like "%"#{keywords}"%"
+            </if>
+            <if test="code != null and code !=''">
+                and code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="creator != null and creator !=''">
+                and creator like "%"#{creator}"%"
+            </if>
+        </where>
+        order by modify_time desc
+        <if test="page != null and page.start != null and page.count != null">
+            limit #{page.start}, #{page.count};
+        </if>
+    </select>
+
+    <!--获取基础数据数量-->
+    <select id="searchBasicDataTotal" resultType="int" >
+        select count(*) from data_dictionary
+        <where>
+            <if test="keyword != null and keyword != ''">
+                or id like "%"#{keywords}"%"
+                or code like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creationTime,'%Y.%c.%e') like "%"#{keywords}"%"
+            </if>
+            <if test="code != null and code !=''">
+                and code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="creator != null and creator !=''">
+                and creator like "%"#{creator}"%"
+            </if>
+        </where>
+    </select>
+
+    <!--获取基础数据条目-->
+    <select id="searchBasicDataDetail" resultMap="dataDictionaryItemRM">
+        select * from data_dictionary_item
+        <where>
+            <if test="keyword != null and keyword != ''">
+                or id like "%"#{keywords}"%"
+                or code like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+            </if>
+            <if test="code != null and code !=''">
+                and code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%"
+            </if>
+        </where>
+        order by modify_time desc
+        <if test="page != null and page.start != null and page.count != null">
+            limit #{page.start}, #{page.count};
+        </if>
+    </select>
+
+    <!--获取基础数据条目数量-->
+    <select id="searchBasicDataDetailTotal" resultType="int">
+        select count(*) from data_dictionary_item
+        <where>
+            <if test="keyword != null and keyword != ''">
+                or id like "%"#{keywords}"%"
+                or code like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+            </if>
+            <if test="code != null and code !=''">
+                and code like "%"#{code}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%";
+            </if>
+        </where>
+    </select>
+
     <update id="updateDataDictionaryCodeAndNameById" >
         update data_dictionary set name=#{name},code=#{code},modifier=#{modifier},modify_time=NOW() where id=#{id};
     </update>

@@ -1,5 +1,7 @@
 package com.jdlink.domain.dataItem;
 
+import com.jdlink.domain.Page;
+
 import java.util.Date;
 
 /**
@@ -48,6 +50,22 @@ public class DataDictionaryItem {
      * 修改人
      */
     private String modifier;
+    /**
+     * 分页
+     */
+    private Page page;
+    /**
+     * 粗查询
+     */
+    private String keyword;
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 
     public String getId() {
         return id;
@@ -127,6 +145,14 @@ public class DataDictionaryItem {
 
     public void setOldId(String oldId) {
         this.oldId = oldId;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 
     @Override

@@ -147,6 +147,17 @@ public class InsuranceOrder {
     /*分页*/
     private Page page;
 
+    /*保险报价*/
+    private Float quote;
+
+    public Float getQuote() {
+        return quote;
+    }
+
+    public void setQuote(Float quote) {
+        this.quote = quote;
+    }
+
     public Page getPage() {
         return page;
     }

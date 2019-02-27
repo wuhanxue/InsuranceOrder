@@ -12,11 +12,13 @@
 <head>
     <meta charset="UTF-8">
     <title>基础数据</title>
+    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
     <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
     <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
     <script src="../../js/3.3.6/bootstrap.min.js"></script>
     <link href="../../css/navbar.css" rel="stylesheet">
+    <link href="../../css/util/mark.css">
     <script src="../../js/navbar.js"></script>
     <script src="../../js/util.js"></script>
     <script src="../../js/insurance/basicData.js"></script>
@@ -26,7 +28,7 @@
         font-family: "微软雅黑", Georgia, Serif;
     }
 </style>
-<body>
+<body onload="passwordModifyMark();onLoadBasicDataList();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -90,7 +92,7 @@
                 <!--查询框-->
                 <div class="input-group col-md-4 pull-right">
                     <input type="text" class="form-control" placeholder="搜索..." id="searchContent"
-                           onkeyup="searchData();">
+                           onkeyup="enterSearch();">
                     <span class="input-group-btn">
               <a class="btn btn-default" onclick="searchData();"><span class="glyphicon glyphicon-search"
                                                                        aria-hidden="true"></span> 查询</a>
@@ -108,27 +110,27 @@
                 <div class="row">
                     <div class="form-horizontal col-md-4">
                         <div class="form-group">
-                            <label for="code" class="col-sm-4 control-label">字典类型编码</label>
+                            <label for="search_code" class="col-sm-4 control-label">字典类型编码</label>
                             <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="code" name="code"
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_code" name="code"
                                        placeholder="">
                             </div>
                         </div>
                     </div>
                     <div class="form-horizontal col-md-4">
                         <div class="form-group">
-                            <label for="name" class="col-sm-4 control-label">字典类型名称</label>
+                            <label for="search_name" class="col-sm-4 control-label">字典类型名称</label>
                             <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="name" name="name"
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_name" name="name"
                                        placeholder="">
                             </div>
                         </div>
                     </div>
                     <div class="form-horizontal col-md-4">
                         <div class="form-group">
-                            <label for="creator" class="col-sm-4 control-label">创建人</label>
+                            <label for="search_creator" class="col-sm-4 control-label">创建人</label>
                             <div class="col-xs-7">
-                                <input type="text" onkeyup="searchData();" class="form-control" id="creator"
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_creator"
                                        name="creator" placeholder="">
                             </div>
                         </div>
@@ -154,8 +156,7 @@
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach items="${dataList}" var="c" varStatus="st">
+                <tbody id="tBody">
                     <tr>
                         <td class="text-center">
                             <label>
@@ -163,22 +164,49 @@
                                        aria-label="...">
                             </label>
                         </td>
-                        <td class="text-center" name="id">${c.id}</td>
-                        <td class="text-center" name="code">${c.code}</td>
-                        <td class="text-center" name="name">${c.name}</td>
-                        <td class="text-center" name="creator">${c.creator}</td>
-                        <td class="text-center" name="creationTime"><fmt:formatDate value="${c.creationTime}"
-                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td class="text-center" name="id"></td>
+                        <td class="text-center" name="code"></td>
+                        <td class="text-center" name="name"></td>
+                        <td class="text-center" name="creator"></td>
+                        <td class="text-center" name="creationTime"></td>
                         <td class="text-center">
-                            <a href="getBasicDataById/${c.id}" title="编辑" ><span
+                            <a onclick="jumpToDetail()" title="编辑" ><span
                                     class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                         </td>
                     </tr>
-                </c:forEach>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+<%--分页--%>
+<div class="content row" style="height: 50px">
+    <div class="demo">
+        <div id="demo3"></div>
+        <br>
+        <form class="form-inline">
+            <div class="form-group" style="width: 20%">
+                <a class="btn btn-primary" onclick="jump()" style="height: 30px;width: 60px">跳转</a>
+                <input type="text" style="width:30%" id="jumpPage">
+                <span>页</span>
+            </div>
+
+            <span>当前第</span>
+            <span id="currentPage" style="color: green">1</span>
+            <span>页</span>
+            <span style="display: inline-block">每页显示</span>
+            <select id="count" style="display: inline-block" onchange="switchPageNumber(onLoadBasicDataList);">
+                <option value=1>1</option>
+                <option selected value=15>15</option>
+                <option value=50>50</option>
+            </select>
+            <span style="display: inline-block">条记录</span>
+            <span>总共</span>
+            <span id="totalRecord" style="color: red"></span>
+            <span>条记录</span>
+        </form>
+    </div>
+    <script src="../../js/page.js" type="text/javascript"></script>
 </div>
 </body>
 </html>

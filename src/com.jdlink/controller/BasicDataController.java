@@ -27,19 +27,84 @@ public class BasicDataController {
      */
     @RequestMapping("/basicData")
     public ModelAndView listDataList() {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("/basicData");
+        return mav;
+    }
+
+    /**
+     * 根据条件获取基础数据集合
+     * @param dataDictionary
+     * @return
+     */
+    @RequestMapping("searchBasicData")
+    @ResponseBody
+    public String listBasicDataList(@RequestBody DataDictionary dataDictionary) {
+        JSONObject res = new JSONObject();
         try {
-            List<DataDictionary> dataList = dataDictionaryService.listDataDictionary();  // 获取所有用户
-            mav.addObject("status", "success");
-            mav.addObject("message", "获取成功！");
-            mav.addObject("dataList", dataList);
+            List<DataDictionary> dataList = dataDictionaryService.searchBasicData(dataDictionary);
+            res.put("data", dataList);
+            res.put("status", "success");
+            res.put("message", "获取数据成功！");
         } catch (Exception e) {
             e.printStackTrace();
-            mav.addObject("status", "fail");
-            mav.addObject("message", "获取失败！");
+            res.put("status", "fail");
+            res.put("message", "获取数据失败！");
         }
-        mav.setViewName("/basicData");
+        return res.toString();
+    }
+
+    /**
+     * 根据条件获取基础数据总数
+     * @param dataDictionary
+     * @return
+     */
+    @RequestMapping("searchBasicDataTotal")
+    @ResponseBody
+    public int searchBasicDataTotal(@RequestBody DataDictionary dataDictionary) {
+        return dataDictionaryService.searchBasicDataTotal(dataDictionary);
+    }
+
+    /**
+     * 跳转基础数据编辑页面
+     * @return
+     */
+    @RequestMapping("/basicDataDetail")
+    public ModelAndView basicDataDetail() {
+        ModelAndView mav = new ModelAndView("/basicDataDetail");
         return mav;
+    }
+
+    /**
+     * 根据条件获取基础数据明细数据集合
+     * @param dataDictionaryItem
+     * @return
+     */
+    @RequestMapping("searchBasicDataDetail")
+    @ResponseBody
+    public String listBasicDataDetailList(@RequestBody DataDictionaryItem dataDictionaryItem) {
+        JSONObject res = new JSONObject();
+        try {
+            List<DataDictionaryItem> dataList = dataDictionaryService.searchBasicDataDetail(dataDictionaryItem);
+            res.put("data", dataList);
+            res.put("status", "success");
+            res.put("message", "数据获取成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "数据获取失败！");
+        }
+        return res.toString();
+    }
+
+    /**
+     * 根据条件获取基础数据明细总数
+     * @param dataDictionary
+     * @return
+     */
+    @RequestMapping("searchBasicDataDetailTotal")
+    @ResponseBody
+    public int searchBasicDataDetailTotal(@RequestBody DataDictionaryItem dataDictionaryItem) {
+        return dataDictionaryService.searchBasicDataDetailTotal(dataDictionaryItem);
     }
 
     /**

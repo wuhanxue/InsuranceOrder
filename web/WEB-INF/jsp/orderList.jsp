@@ -12,16 +12,16 @@
 <head>
     <meta charset="UTF-8">
     <title>订单列表</title>
-    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
-    <script src="../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
-    <script src="../../js/jquery/2.0.0/jquery.min.js"></script>
-    <link href="../../css/3.3.6/bootstrap.min.css" rel="stylesheet">
-    <script src="../../js/3.3.6/bootstrap.min.js"></script>
-    <link href="../../css/navbar.css" rel="stylesheet">
-    <link href="../../css/util/mark.css">
-    <script src="../../js/navbar.js"></script>
-    <script src="../../js/insurance/insuranceOrder.js"></script>
-    <script src="../../js/util.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
+    <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
+    <script src="js/3.3.6/bootstrap.min.js"></script>
+    <link href="css/navbar.css" rel="stylesheet">
+    <link href="css/util/mark.css">
+    <script src="js/navbar.js"></script>
+    <script src="js/insurance/insuranceOrder.js"></script>
+    <script src="js/util.js"></script>
 </head>
 <style type="text/css">
 
@@ -74,7 +74,7 @@
                 <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/checkUserIsAdministrator"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list"
                                                                                  aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal"
@@ -316,7 +316,7 @@
             <span id="currentPage" style="color: green">1</span>
             <span>页</span>
             <span style="display: inline-block">每页显示</span>
-            <select id="count" style="display: inline-block" onchange="switchPageNumber(insuranceOrderLoad);">
+            <select id="count" style="display: inline-block" onchange="switchPageNumber();">
                 <option value=1>1</option>
                 <option selected value=15>15</option>
                 <option value=50>50</option>
@@ -347,7 +347,7 @@
                             <th class="text-center">保单号</th>
                             <th class="text-center">投保日期</th>
                             <th class="text-center">保费</th>
-                            <th class="text-center">附件</th>
+                            <th class="text-center hidden">附件</th>
                             <th class="text-center">创建日期</th>
                             <th class="text-center">创建人</th>
                             <th class="text-center">修改日期</th>
@@ -362,7 +362,7 @@
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
-                            <td class="text-center"></td>
+                            <td class="text-center hidden"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
@@ -375,7 +375,8 @@
                                         class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                                 <a class="delete" title="删除" onclick="deleteModel(this)"><span
                                         class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                <input type="button" id="upload2" value="上传电子保单">
+                                <a  id="upload2" title="上传电子保单" onclick="showUploadInsurancePolicy(this)" ><span
+                                        class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
                             </td>
                         </tr>
 
@@ -385,16 +386,42 @@
                 <div class="modal-footer text-center">
                     <a class="btn btn-primary" id="save" onclick="saveInsuranceOrderItem()">保存</a>
                     <a class="btn btn-danger" id="adjust" onclick="confirmAdjust()">修改</a>
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="hidden">
-        <input type="file" id="file">
+
+   <%--文件上传模态框--%>
+    <div class="modal fade bs-example-modal-lg" id="insuranceOrderFile" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>电子保单上传</h3>
+                </div>
+                <div class="modal-body">
+                    <input id="InsuranceOrderItemId" class="hidden"/>
+                    <input type="file" name="" id="file"/>
+                </div>
+
+            <div class="modal-footer text-center">
+                <a class="btn btn-danger" data-dismiss="modal">取消上传</a>
+                <a class="btn btn-success" onclick='insuranceOrderFile()'>确认上传</a>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+
+
+
+    <div >
+        <%--<input type="file" id="file">--%>
         <input type="file" id="file2">
     </div>
 
-    <script src="../../js/page.js" type="text/javascript"></script>
+    <script src="js/page.js" type="text/javascript"></script>
 </div>
 </body>
 <script>
@@ -415,20 +442,33 @@
         function () {
             $("#file").click();
         });
-    $("#upload2").click(
-        function () {
-            $("#file2").click();
-        });
+
 
 
 </script>
 <style>
-    .width1 {
-        width: 10%;
+    .wrap {
+        width:50px;
+        margin-bottom:10px;
+        position:relative;
     }
-
-    .width2 {
-        width: 5%;
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom:10px;
+        position:relative;
+    }
+    .notice {
+        width:20px;
+        height:20px;
+        line-height:20px;/*行高*/
+        font-size:10px;
+        color:#fff;
+        text-align:center;
+        background-color:#f00;
+        border-radius:50%;
+        position:absolute;/*绝对定位*/
+        right:10px;
+        /*top:10px;*/
     }
 </style>
 </html>
