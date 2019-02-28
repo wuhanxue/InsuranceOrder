@@ -47,6 +47,21 @@ function insuranceOrderLoad(page,data) {
          TotalPage("searchInsuranceOrderTotal",data);//算查询总数
 
     getDataToSelect();
+
+    $.ajax({
+        type:"POST",
+        url:"PushOperationTracking",
+        async: false,
+        dataType:"json",
+        contentType: "application/json; charset=utf-8",
+        success:function (result) {
+         console.log(JSON.stringify(result));
+
+        },
+        error:function (result) {
+
+        }
+    })
 }
 
 
