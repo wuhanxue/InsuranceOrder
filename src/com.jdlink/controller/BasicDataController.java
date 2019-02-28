@@ -151,4 +151,44 @@ public class BasicDataController {
         return res.toString();
     }
 
+    /*获取状态数据字典*/
+    @RequestMapping("getStateData")
+    @ResponseBody
+    public String getDataDictionaryById(){
+        JSONObject res=new JSONObject();
+
+        try {
+            List<DataDictionaryItem> dataItemList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(4);
+            res.put("data", dataItemList);
+            res.put("status", "success");
+            res.put("message", "状态数据字典获取成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "状态数据字典获取失败");
+        }
+        return res.toString();
+    }
+
+    /*获取申请部门数据字典*/
+    @RequestMapping("getDepartmentData")
+    @ResponseBody
+    public String getDepartmentData(){
+        JSONObject res=new JSONObject();
+
+        try {
+            List<DataDictionaryItem> dataItemList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(2);
+            res.put("data", dataItemList);
+            res.put("status", "success");
+            res.put("message", "状态数据字典获取成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "状态数据字典获取失败");
+        }
+        return res.toString();
+    }
+
 }

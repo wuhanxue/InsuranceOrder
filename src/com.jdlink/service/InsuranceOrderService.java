@@ -43,4 +43,10 @@ public interface InsuranceOrderService {
 
     /*作废*/
     void cancelById(String id);
+
+    /*投保*/
+    void insured(String id);
+
+    /*关闭*/
+    void shutDownById(String id);
 }
