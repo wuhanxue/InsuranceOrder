@@ -71,7 +71,7 @@
                 <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span
                         class="sr-only">(current)</span></a></li>
-                <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
@@ -91,19 +91,19 @@
                     <li class="active">订单列表</li>
                 </ol>
             </div>
-            <h4 class="sub-header">||数据列表</h4>
+            <h4 class="sub-header">数据列表</h4>
         </div>
         <div class="row">
             <div>
                 <!--操作按钮-->
-                <div class="pull-left col-md-6">
-                    <a class="btn btn-primary btn-xs" href="" id="function_-298" onclick=""><span
-                            class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</a>
-                    <a class="btn btn-primary btn-xs" href="" id="function_-299" onclick=""><span
-                            class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> 导入</a>
-                    <a class="btn btn-primary btn-xs" href="" id="function_-300" onclick=""><span
-                            class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> 导出</a>
-                </div>
+                <%--<div class="pull-left col-md-6">--%>
+                    <%--<a class="btn btn-primary btn-xs" href="" id="function_-298" onclick=""><span--%>
+                            <%--class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增</a>--%>
+                    <%--<a class="btn btn-primary btn-xs" href="" id="function_-299" onclick=""><span--%>
+                            <%--class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> 导入</a>--%>
+                    <%--<a class="btn btn-primary btn-xs" href="" id="function_-300" onclick=""><span--%>
+                            <%--class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> 导出</a>--%>
+                <%--</div>--%>
                 <!--查询框-->
                 <div class="input-group col-md-4 pull-right">
                     <input type="text" class="form-control" placeholder="搜索..." id="searchContent">
