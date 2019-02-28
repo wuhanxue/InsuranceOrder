@@ -63,27 +63,11 @@ public class User {
      */
     private Page page;
 
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public Page getPage() {
-        return page;
-    }
-
-    public void setPage(Page page) {
-        this.page = page;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -159,16 +143,28 @@ public class User {
         this.modifyTime = modifyTime;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Date getPasswordModifyTime() {
         return passwordModifyTime;
     }
 
     public void setPasswordModifyTime(Date passwordModifyTime) {
         this.passwordModifyTime = passwordModifyTime;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
     }
 
     @Override
@@ -185,6 +181,8 @@ public class User {
                 ", creationTime=" + creationTime +
                 ", modifyTime=" + modifyTime +
                 ", passwordModifyTime=" + passwordModifyTime +
+                ", keywords='" + keywords + '\'' +
+                ", page=" + page +
                 '}';
     }
 }

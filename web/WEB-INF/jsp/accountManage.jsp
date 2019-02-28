@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>账号管理</title>
+    <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
     <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css">
