@@ -25,6 +25,34 @@
     <script src="js/util.js"></script>
 
 </head>
+<style type="text/css">
+    table {
+        font-family: "微软雅黑", Georgia, Serif;
+    }
+    .wrap {
+        width:50px;
+        margin-bottom:10px;
+        position:relative;
+    }
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom:10px;
+        position:relative;/*相对定位*/
+    }
+    .notice {
+        width:20px;
+        height:20px;/*notice宽高*/
+        line-height:20px;/*行高*/
+        font-size:10px;
+        color:#fff;
+        text-align:center;
+        background-color:#f00;
+        border-radius:50%;/*notice弧度大小*/
+        position:absolute;/*绝对定位*/
+        right:10px;
+        /*top:10px;*/
+    }
+</style>
 <body onload="setCompanySelectData();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
