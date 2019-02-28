@@ -76,11 +76,11 @@ function setInsuranceOrderList(result) {
                    +"<td class='text-center'>"+getDataFromDate(item.departmentDataItem)+"</td>"+"<td class='text-center'>"+insureDate+"</td>"
                    +"<td class='text-center'>"+getDateStr(item.approvalDate)+"<td class='text-center'>"+item.insuredPersonName+"</td>"+"<td class='text-center'>"+getNumber(item.goodsValue,3)+"</td>"
                    +"<td class='text-center'>"+insureCompanyName+"</td>" +"<td class='text-center'>"+getNumber(premium,3)+"</td>"
-                   +"<td class='text-center'>"+"<a href='/viewInsuranceOrder?id="+item.id+"' title='查看'>" +
+                   +"<td class='text-center'>"+"<a href='viewInsuranceOrder?id="+item.id+"' title='查看'>" +
                    "<span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>" +
-                   "<a href='orderDetail'  title='接单'><span class='glyphicon glyphicon-check' aria-hidden='true'></span></a>" +
+                   "<a   title='接单' onclick='Receipt(this)'><span class='glyphicon glyphicon-check' aria-hidden='true'></span></a>" +
                    "<a href='#'  title='投保' onclick='InsureModel(this)'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>" +
-                   "<a href='orderDetail'  title='作废'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
+                   "<a   title='作废' onclick='cancel(this)'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
                    "<a href='orderDetail'  title='上传附件'><span class='glyphicon glyphicon-open' aria-hidden='true'></span></a>" +
                    "<a href='orderDetail'  title='查看附件'><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>" +
                    "<a href='orderDetail'  title='关闭'><span class='glyphicon glyphicon-off' aria-hidden='true'></span></a>" +
@@ -551,4 +551,64 @@ function insuranceOrderFile() {
 
 
 
+}
+
+/*接单*/
+function Receipt(item) {
+
+
+
+
+    if(confirm("确定接单?")){
+        //点击确定后操作
+        var id=$(item).parent().parent().children('td').eq(0).html();
+        $.ajax({
+            type:"POST",
+            url:"receiptById",
+            async: false,
+            data:{'id':id},
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+                            alert(result.message);
+                            window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
+    }
+
+}
+
+function cancel(item) {
+    if(confirm("确定作废该订单?")){
+        //点击确定后操作
+        var id=$(item).parent().parent().children('td').eq(0).html();
+        $.ajax({
+            type:"POST",
+            url:"cancelById",
+            async: false,
+            data:{'id':id},
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+                    alert(result.message);
+                    window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
+    }
 }

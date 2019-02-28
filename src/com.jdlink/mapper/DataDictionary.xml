@@ -118,6 +118,9 @@
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
             </if>
+            <if test="id != null and id !=''">
+                and id like "%"#{id}"%"
+            </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"
             </if>
@@ -144,11 +147,14 @@
                 or name like "%"#{keywords}"%"
                 or creator like "%"#{keywords}"%"
             </if>
+            <if test="id != null and id !=''">
+                and id like "%"#{id}"%"
+            </if>
             <if test="code != null and code !=''">
                 and code like "%"#{code}"%"
             </if>
             <if test="name != null and name !=''">
-                and name like "%"#{name}"%";
+                and name like "%"#{name}"%"
             </if>
             <if test="dataDictionaryId != null and dataDictionaryId != ''">
                 and data_dictionary_id =#{dataDictionaryId}

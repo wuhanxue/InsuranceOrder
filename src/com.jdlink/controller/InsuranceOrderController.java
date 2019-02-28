@@ -34,7 +34,7 @@ public class InsuranceOrderController {
     UserService userService;
 
 
-    @RequestMapping("/orderList")
+    @RequestMapping("orderList")
     public ModelAndView orderList(HttpSession session) {
         ModelAndView mav = new ModelAndView("orderList");
         User user = (User) session.getAttribute("user");   // 获取用户信息
@@ -69,7 +69,7 @@ public class InsuranceOrderController {
 
 
     /*根据订单号获取明细*/
-    @RequestMapping("/viewInsuranceOrder")
+    @RequestMapping("viewInsuranceOrder")
     public ModelAndView viewInsuranceOrder(ModelAndView modelAndView, @Param(value = "id") String id) {
 
         try {
@@ -249,4 +249,45 @@ public class InsuranceOrderController {
 
 
     }
+
+    /*接单*/
+   @RequestMapping("receiptById")
+    @ResponseBody
+    public String receiptById(String id){
+       JSONObject res=new JSONObject();
+
+    try {
+       insuranceOrderService.receiptById(id);
+       res.put("status", "success");
+        res.put("message", "接单成功");
+    }
+    catch (Exception e){
+       e.printStackTrace();
+       res.put("status", "fail");
+       res.put("message", "接单失败");
+   }
+
+      return res.toString();
+   }
+
+   /*作废*/
+   @RequestMapping("cancelById")
+   @ResponseBody
+   public String cancelById(String id){
+       JSONObject res=new JSONObject();
+
+       try {
+           insuranceOrderService.cancelById(id);
+           res.put("status", "success");
+           res.put("message", "订单作废成功");
+       }
+       catch (Exception e){
+           e.printStackTrace();
+           res.put("status", "fail");
+           res.put("message", "订单作废失败");
+       }
+
+       return res.toString();
+   }
+
 }

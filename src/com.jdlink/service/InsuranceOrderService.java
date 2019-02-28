@@ -38,5 +38,9 @@ public interface InsuranceOrderService {
     /*设置保单的路径名*/
     void setInsurancePolicyFileUrl(InsuranceOrderItem insuranceOrderItem);
 
+    /*接单*/
+    void receiptById(String id);
 
+    /*作废*/
+    void cancelById(String id);
 }

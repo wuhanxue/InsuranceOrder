@@ -28,8 +28,13 @@
     <result column="modify_time" property="modifyTime"></result>
     <result column="modifier" property="modifier"></result>
     <association property="insuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
+    <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"></association>
 </resultMap>
+
+    <select id="getOrderStateDataItem" resultType="OrderStateDataItem">
+        select * from data_dictionary_item where id=#{state_id};
+    </select>
 
     <select id="getDepartmentDataItem" resultType="DepartmentDataItem">
         select * from data_dictionary_item where id=#{department_id}
@@ -207,5 +212,15 @@
     <!--设置保单的路径名-->
     <update id="setInsurancePolicyFileUrl" parameterType="InsuranceOrderItem">
         update insurance_order_item set file_url=#{fileUrl} where id=#{id};
+    </update>
+
+    <!--接单-->
+    <update id="receiptById" parameterType="String">
+        update insurance_order set state_id=1,modify_time=NOW() where id=#{id};
+    </update>
+
+    <!--作废-->
+    <update id="cancelById" parameterType="String">
+          update insurance_order set state_id=4,modify_time=NOW() where id=#{id};
     </update>
 </mapper>

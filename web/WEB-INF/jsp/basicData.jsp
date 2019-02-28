@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>基础数据</title>
-    <link rel="stylesheet" type="text/css" href="/css/page/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
     <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <script src="js/jquery/2.0.0/jquery.min.js"></script>
     <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +26,29 @@
 <style type="text/css">
     table {
         font-family: "微软雅黑", Georgia, Serif;
+    }
+    .wrap {
+        width:50px;
+        margin-bottom:10px;
+        position:relative;
+    }
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom:10px;
+        position:relative;/*相对定位*/
+    }
+    .notice {
+        width:20px;
+        height:20px;/*notice宽高*/
+        line-height:20px;/*行高*/
+        font-size:10px;
+        color:#fff;
+        text-align:center;
+        background-color:#f00;
+        border-radius:50%;/*notice弧度大小*/
+        position:absolute;/*绝对定位*/
+        right:10px;
+        /*top:10px;*/
     }
 </style>
 <body onload="passwordModifyMark();onLoadBasicDataList();">
@@ -55,8 +78,8 @@
             <a href="#" title="我的" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/account">账号管理</a></li>
-                <li><a href="/signin">注销</a></li>
+                <li><a href="account">账号管理</a></li>
+                <li><a href="signin">注销</a></li>
             </ul>
         </li>
     </ul>
@@ -69,13 +92,13 @@
                 <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span
                         class="sr-only">(current)</span></a></li>
-                <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list"
+                <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
                                                                       aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal"
+                <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span
                         class="iright pull-right">&gt;</span></a></li>
             </ul>
@@ -206,7 +229,7 @@
             <span>条记录</span>
         </form>
     </div>
-    <script src="../../js/page.js" type="text/javascript"></script>
+    <script src="js/page.js" type="text/javascript"></script>
 </div>
 </body>
 </html>

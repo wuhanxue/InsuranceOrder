@@ -67,4 +67,14 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     public void setInsurancePolicyFileUrl(InsuranceOrderItem insuranceOrderItem) {
         insuranceOrderMapper.setInsurancePolicyFileUrl(insuranceOrderItem);
     }
+
+    @Override
+    public void receiptById(String id) {
+        insuranceOrderMapper.receiptById(id);
+    }
+
+    @Override
+    public void cancelById(String id) {
+        insuranceOrderMapper.cancelById(id);
+    }
 }
