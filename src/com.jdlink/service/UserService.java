@@ -26,4 +26,10 @@ public interface UserService {
      * @return
      */
     boolean checkUserPasswordModifyTimeIsLate(User user);
+
+    List<User> searchUser(User user);
+
+    int searchUserTotal(User user);
+
+
 }

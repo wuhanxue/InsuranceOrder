@@ -84,14 +84,9 @@
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
         <div class="row">
-            <div>
-                <ol class="breadcrumb">
-                    <li class="active">订单列表</li>
-                </ol>
-            </div>
-            <h4 class="sub-header">数据列表</h4>
+            <h4 class="sub-header">订单列表</h4>
         </div>
         <div class="row">
             <div>
@@ -137,13 +132,6 @@
                                         name="search-documentNumber" placeholder=""></select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="search-proposer" class="col-sm-4 control-label">申请人</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="enterSearch()" class="form-control" id="search-proposer"
-                                       name="search-documentNumber" placeholder="">
-                            </div>
-                        </div>
                     </div>
                     <div class="form-horizontal col-md-3">
                         <div class="form-group">
@@ -158,13 +146,6 @@
                             <div class="col-xs-7">
                                 <input type="text" onkeyup="enterSearch()" class="form-control"
                                        id="search-insuredPersonName" name="search-creator" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="search-goodsValue" class="col-sm-4 control-label">货物价值</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-goodsValue"
-                                       name="search-createDept" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -183,21 +164,28 @@
                                        name="search-editor" placeholder="">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label" style="margin-left: -95px">投保日期 </label>
-                            <div class="input-group">
-                                <input type="date" class="input-sm form-control" id="search-insureDateBegin" title=""
-                                       onkeydown="" onkeyup="enterSearch()"/>
-                                <span class="input-group-addon">-</span>
-                                <input type="date" class="input-sm form-control" id="search-insureDateEnd" title=""
-                                       onkeydown="" onkeyup="enterSearch()"/>
-                            </div>
-
-                        </div>
                     </div>
                     <div class="form-horizontal col-md-3">
                         <div class="form-group">
-                            <label class="col-sm-6 control-label" style="margin-left: -95px">审批日期 </label>
+                            <label for="search-proposer" class="col-sm-4 control-label">申请人</label>
+                            <div class="col-xs-7">
+                                <input type="text" onkeyup="enterSearch()" class="form-control" id="search-proposer"
+                                       name="search-documentNumber" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-goodsValue" class="col-sm-4 control-label">货物价值</label>
+                            <div class="col-xs-7">
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-goodsValue"
+                                       name="search-createDept" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-horizontal col-md-4 text-center">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">审批日期 </label>
                             <div class="input-group">
                                 <input type="date" class="input-sm form-control" id="search-approvalDateBegin" title=""
                                        onkeydown="" onkeyup="enterSearch()"/>
@@ -205,9 +193,22 @@
                                 <input type="date" class="input-sm form-control" id="search-approvalDateEnd" title=""
                                        onkeydown="" onkeyup="enterSearch()"/>
                             </div>
-
                         </div>
                     </div>
+                    <div class="form-horizontal col-md-2 pull-left"></div>
+                    <div class="form-horizontal col-md-4 pull-left">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">投保日期 </label>
+                            <div class="input-group">
+                                <input type="date" class="input-sm form-control" id="search-insureDateBegin" title=""
+                                       onkeydown="" onkeyup="enterSearch()"/>
+                                <span class="input-group-addon">-</span>
+                                <input type="date" class="input-sm form-control" id="search-insureDateEnd" title=""
+                                       onkeydown="" onkeyup="enterSearch()"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal col-md-2 pull-left"></div>
                 </div>
             </div>
         </div>
@@ -377,6 +378,8 @@
                                         class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                 <a  id="upload2" title="上传电子保单" onclick="showUploadInsurancePolicy(this)" ><span
                                         class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
+                                <a href="#" onclick="info2()" title="异常"><span class="glyphicon glyphicon-exclamation-sign"
+                                                                        aria-hidden="true"></span></a>
                             </td>
                         </tr>
 
@@ -391,7 +394,35 @@
             </div>
         </div>
     </div>
-
+<%--异常模态框--%>
+    <div class="modal fade bs-example" id="infoModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>异常</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="info row">
+                        <div class="form-group">
+                            <label for="abnormal" class="col-sm-4 control-label">异常负责人</label>
+                            <div class="col-xs-7">
+                                <input type="text" class="form-control" id="abnormal" name="abnormal" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="abnormalInfo" class="col-sm-4 control-label">异常信息</label>
+                            <div class="col-xs-7">
+                                <textarea class="form-control" id="abnormalInfo" name="abnormalInfo" style="resize: none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <a class="btn btn-primary" id="birth" onclick="">生成异常单</a>
+                </div>
+            </div>
+        </div>
+    </div>
    <%--文件上传模态框--%>
     <div class="modal fade bs-example-modal-lg" id="insuranceOrderFile" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document" >
@@ -411,10 +442,6 @@
         </div>
         </div>
         </div>
-
-
-
-
 
     <div >
         <%--<input type="file" id="file">--%>
@@ -442,7 +469,9 @@
         function () {
             $("#file").click();
         });
-
+    function info2() {
+        $("#infoModal").modal('show')
+    }
 
 
 </script>

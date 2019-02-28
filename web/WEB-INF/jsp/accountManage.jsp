@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>账号管理</title>
+    <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
     <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css">
@@ -25,7 +26,37 @@
     <script src="js/util.js"></script>
 
 </head>
-<body onload="setCompanySelectData();">
+<style type="text/css">
+    /*table {*/
+        /*font-family: "微软雅黑", Georgia, Serif;*/
+    /*}*/
+    .wrap {
+        width: 50px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom: 10px;
+        position: relative; /*相对定位*/
+    }
+
+    .notice {
+        width: 20px;
+        height: 20px; /*notice宽高*/
+        line-height: 20px; /*行高*/
+        font-size: 10px;
+        color: #fff;
+        text-align: center;
+        background-color: #f00;
+        border-radius: 50%; /*notice弧度大小*/
+        position: absolute; /*绝对定位*/
+        right: 10px;
+        /*top:10px;*/
+    }
+</style>
+<body onload="setCompanySelectData();onLoadAccountList();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
     <div class="main-title">
@@ -43,7 +74,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
             <ul class="nav navbar-nav">
-                <li><a href="">账号管理</a></li>
+                <li class="active"><a href="">账号管理</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -63,39 +94,70 @@
     <div class="row">
         <div class="sidebar">
             <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
-                <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
                 <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span
                         class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span
                         class="sr-only">(current)</span></a></li>
                 <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
-                                                                  aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
+                                                                 aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
-                                                                      aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
+                                                                     aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal"
-                                                                  aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span
+                                                                 aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span
                         class="iright pull-right">&gt;</span></a></li>
             </ul>
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
         <div class="row">
-            <div>
-                <ol class="breadcrumb"><!--历史记录导航栏-->
-
-                </ol>
-            </div>
             <h4 class="sub-header">账号列表</h4>
         </div>
-        <div>
-            <!--操作按钮-->
-            <div class="pull-left">
-                <button class="btn btn-primary btn-xs" type="button" onclick="showAddModal();" href=""><span
-                        class="glyphicon glyphicon-plus"
-                        aria-hidden="true"></span> 新增
-                </button>
+        <div class="row">
+                <!--操作按钮-->
+                <div class="pull-left col-md-6">
+                    <button class="btn btn-primary btn-xs" type="button" onclick="showAddModal();" href=""><span
+                            class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></span> 新增
+                    </button>
+                </div>
+                <!--查询框-->
+                <div class="input-group col-md-4 pull-right">
+                    <input type="text" class="form-control" placeholder="搜索..." id="searchContent">
+                    <span class="input-group-btn">
+              <a class="btn btn-default" onclick="searchData();"><span class="glyphicon glyphicon-search"
+                                                                       aria-hidden="true"></span> 查询</a>
+              <a class="btn btn-default" onclick="$('#senior').toggle();"><span class="glyphicon glyphicon-cog"
+                                                                                aria-hidden="true"></span> 高级查询</a>
+              <a class="btn btn-default" onclick="reset();"><span class="glyphicon glyphicon-cog"
+                                                                  aria-hidden="true"></span> 重置</a>
+          </span>
+                </div>
+        </div>
+        <br>
+        <div class="panel panel-default" id="senior" style="display: none;">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-horizontal col-md-4">
+                        <div class="form-group">
+                            <label for="search_userName" class="col-sm-4 control-label">账号</label>
+                            <div class="col-xs-7">
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_userName" name="code"
+                                       placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal col-md-4">
+                        <div class="form-group">
+                            <label for="search_name" class="col-sm-4 control-label">姓名</label>
+                            <div class="col-xs-7">
+                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search_name" name="name"
+                                       placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="table">
@@ -119,35 +181,32 @@
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach items="${userList}" var="c" varStatus="st">
-                    <tr>
-                        <td class="text-center">
-                            <label>
-                                <input class="checkbox" type="checkbox" value="option1" aria-label="..."
-                                       name="checkbox1">
-                            </label>
-                        </td>
-                        <td class="text-center">${c.id}</td>
-                        <td class="text-center">${c.userName}</td>
-                        <td class="text-center">${c.name}</td>
-                        <td class="text-center">${c.companyDataItem.name}</td>
-                        <td class="text-center">${c.departmentDataItem.name}</td>
-                        <td class="text-center">${c.teamDataItem.name}</td>
-                        <td class="text-center"><fmt:formatDate value="${c.creationTime}"
-                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                        <td class="text-center">${c.creator}</td>
-                        <td class="text-center">
-                            <button onclick="showEditModal(this);" type="button" href="" title="修改"><span
-                                    style="color: #2e6da4"
-                                    class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                            <button onclick="deleteById(); function deleteById(){if(confirm('确认删除？'))window.location.href='deleteUserById/${c.id}'}"
-                                    class="delete" title="删除"><span style="color: #2e6da4"
-                                                                    class="glyphicon glyphicon glyphicon-remove"
-                                                                    aria-hidden="true"></span></button>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <tbody id="tBody">
+                <tr>
+                    <td class="text-center">
+                        <label>
+                            <input class="checkbox" type="checkbox" value="option1" aria-label="..."
+                                   name="checkbox1">
+                        </label>
+                    </td>
+                    <td class="text-center" name="id"></td>
+                    <td class="text-center" name="userName"></td>
+                    <td class="text-center" name="name"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                    <td class="text-center">
+                        <button onclick="showEditModal(this);" type="button" href="" title="修改"><span
+                                style="color: #2e6da4"
+                                class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                        <button onclick="deleteById(this);"
+                                class="delete" title="删除"><span style="color: #2e6da4"
+                                                                class="glyphicon glyphicon glyphicon-remove"
+                                                                aria-hidden="true"></span></button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -180,7 +239,8 @@
                         <div class="form-group department" hidden>
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select class="form-control" id="department" name="department" onchange="setTeamSelectData(this)">
+                                <select class="form-control" id="department" name="department"
+                                        onchange="setTeamSelectData(this)">
                                 </select>
                             </div>
                         </div>
@@ -195,7 +255,8 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select class="form-control" id="company" name="company" onchange="setDepartmentSelectData(this)">
+                                <select class="form-control" id="company" name="company"
+                                        onchange="setDepartmentSelectData(this)">
 
                                 </select>
                             </div>
@@ -244,7 +305,8 @@
                         <div class="form-group department" hidden>
                             <label for="department" class="col-sm-4 control-label">部门 </label>
                             <div class="col-xs-8">
-                                <select class="form-control" id="add_department" name="department" onchange="setTeamSelectData(this)">
+                                <select class="form-control" id="add_department" name="department"
+                                        onchange="setTeamSelectData(this)">
 
                                 </select>
                             </div>
@@ -260,7 +322,8 @@
                         <div class="form-group">
                             <label for="company" class="col-sm-4 control-label">公司 </label>
                             <div class="col-xs-8">
-                                <select class="form-control" id="add_company" name="company" onchange="setDepartmentSelectData(this)">
+                                <select class="form-control" id="add_company" name="company"
+                                        onchange="setDepartmentSelectData(this)">
 
                                 </select>
                             </div>
@@ -282,6 +345,35 @@
             </div>
         </div>
     </div>
+</div>
+<%--分页--%>
+<div class="content row" style="height: 50px">
+    <div class="demo">
+        <div id="demo3"></div>
+        <br>
+        <form class="form-inline">
+            <div class="form-group" style="width: 20%">
+                <a class="btn btn-primary" onclick="jump()" style="height: 30px;width: 60px">跳转</a>
+                <input type="text" style="width:30%" id="jumpPage">
+                <span>页</span>
+            </div>
+
+            <span>当前第</span>
+            <span id="currentPage" style="color: green">1</span>
+            <span>页</span>
+            <span style="display: inline-block">每页显示</span>
+            <select id="count" style="display: inline-block" onchange="switchPageNumber(onLoadAccountList);">
+                <option value=1>1</option>
+                <option selected value=15>15</option>
+                <option value=50>50</option>
+            </select>
+            <span style="display: inline-block">条记录</span>
+            <span>总共</span>
+            <span id="totalRecord" style="color: red"></span>
+            <span>条记录</span>
+        </form>
+    </div>
+    <script src="js/page.js" type="text/javascript"></script>
 </div>
 </body>
 <script>

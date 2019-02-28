@@ -7,11 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>基础数据</title>
-  <script src=js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
+  <script src=../../js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
   <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-select.min.css">
   <script src="js/jquery/2.0.0/jquery.min.js"></script>
@@ -25,9 +26,9 @@
 
 </head>
 <style type="text/css">
-  table{
-    font-family: "微软雅黑",Georgia,Serif;
-  }
+  /*table{*/
+    /*font-family: "微软雅黑",Georgia,Serif;*/
+  /*}*/
   .wrap {
       width:50px;
       margin-bottom:10px;
@@ -164,7 +165,7 @@
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
       <div>
-          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全，及时修改密码！</span>
+          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已超过90天未更改密码，请注意账号安全，及时修改密码！</span>
       </div>
   </div>
 </div>

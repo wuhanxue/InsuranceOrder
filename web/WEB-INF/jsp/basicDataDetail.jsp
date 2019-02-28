@@ -26,6 +26,29 @@
     table {
         font-family: "微软雅黑", Georgia, Serif;
     }
+    .wrap {
+        width:50px;
+        margin-bottom:10px;
+        position:relative;
+    }
+    .wrap1 {
+        /*width:50px;*/
+        margin-bottom:10px;
+        position:relative;/*相对定位*/
+    }
+    .notice {
+        width:20px;
+        height:20px;/*notice宽高*/
+        line-height:20px;/*行高*/
+        font-size:10px;
+        color:#fff;
+        text-align:center;
+        background-color:#f00;
+        border-radius:50%;/*notice弧度大小*/
+        position:absolute;/*绝对定位*/
+        right:10px;
+        /*top:10px;*/
+    }
 </style>
 <body onload="passwordModifyMark();onLoadBasicDataDetailList();">
 <!--导航条-->
@@ -82,9 +105,8 @@
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
         <div class="row">
-            <br>
             <h4 class="sub-header">基础数据修改</h4>
         </div>
         <div class="row">

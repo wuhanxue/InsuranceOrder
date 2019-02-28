@@ -63,4 +63,8 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     @Override
     public int searchBasicDataDetailTotal(DataDictionaryItem dataDictionaryItem) { return dataDictionaryMapper.searchBasicDataDetailTotal(dataDictionaryItem); }
+
+    @Override
+    public DataDictionaryItem getDataDictionaryItemById(String id) { return dataDictionaryMapper.getDataDictionaryItemById(id); }
+
 }

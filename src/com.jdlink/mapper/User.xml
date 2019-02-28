@@ -50,6 +50,72 @@
          select * from user where user_name=#{userName};
     </select>
 
+    <!--获取账号信息-->
+    <select id="searchUser" resultMap="UserRM">
+        select * from user
+        <where>
+            <if test="keywords != null and keywords != ''">
+                or id like "%"#{keywords}"%"
+                or user_name like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+                or company_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or department_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or team_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or DATE_FORMAT(creation_time,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%e') like "%"#{keywords}"%"
+            </if>
+            <if test="userName != null and userName !=''">
+                and user_name like "%"#{userName}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%"
+            </if>
+        </where>
+        order by modify_time desc
+        <if test="page != null and page.start != null and page.count != null">
+            limit #{page.start}, #{page.count};
+        </if>
+    </select>
+
+    <!--获取账号信息总数-->
+    <select id="searchUserTotal" resultType="int">
+        select count(*) from user
+        <where>
+            <if test="keywords != null and keywords != ''">
+                or id like "%"#{keywords}"%"
+                or user_name like "%"#{keywords}"%"
+                or name like "%"#{keywords}"%"
+                or creator like "%"#{keywords}"%"
+                or company_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or department_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or team_id in (select id from data_dictionary_item where name like "%"#{keywords}"%")
+                or DATE_FORMAT(creation_time,'%Y-%m-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y-%c-%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%m%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y%c%e') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%m.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%d') like "%"#{keywords}"%"
+                or DATE_FORMAT(creation_time,'%Y.%c.%e') like "%"#{keywords}"%"
+            </if>
+            <if test="userName != null and userName !=''">
+                and user_name like "%"#{userName}"%"
+            </if>
+            <if test="name != null and name !=''">
+                and name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+
     <!--根据ID更新账号信息-->
     <update id="updateUserById" >
         update user

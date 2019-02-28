@@ -100,14 +100,9 @@
     </div>
   </div>
 
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
     <div class="row">
-      <div>
-        <ol class="breadcrumb">
-          <li class="active">订单列表</li>
-        </ol>
-      </div>
-      <h4 class="sub-header">||数据列表</h4>
+      <h4 class="sub-header">订单详细</h4>
     </div>
     <br>
     <div class="row">
@@ -460,7 +455,7 @@
       </div>
       <div class="form-horizontal col-md-4">
         <div class="form-group">
-          <div class="col-xs-7" style="display: inline-block">
+          <div class="col-xs-7" style="display: inline-block;margin-left: 100px">
             <span style="display: inline-block">国内货运：</span>
             <input style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticTrans" name="domesticTrans" placeholder="">
           </div>
