@@ -100,7 +100,7 @@ public class InsuranceOrder {
      */
     private Float goodsValue;
     /**
-     * 是否粤港台货物
+     * 是否粤港台货物(1是 0 不是)
      */
     private Boolean yHTGoods;
     /**

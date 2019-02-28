@@ -28,6 +28,29 @@
   .pull-left{
     float: left !important;
   }
+  .wrap {
+    width:50px;
+    margin-bottom:10px;
+    position:relative;
+  }
+  .wrap1 {
+    /*width:50px;*/
+    margin-bottom:10px;
+    position:relative;/*相对定位*/
+  }
+  .notice {
+    width:20px;
+    height:20px;/*notice宽高*/
+    line-height:20px;/*行高*/
+    font-size:10px;
+    color:#fff;
+    text-align:center;
+    background-color:#f00;
+    border-radius:50%;/*notice弧度大小*/
+    position:absolute;/*绝对定位*/
+    right:10px;
+    /*top:10px;*/
+  }
 </style>
 <body>
 <!--导航条-->
@@ -99,9 +122,20 @@
         <div class="form-group">
           <label class="col-sm-4 control-label">货物类别：</label>
           <div class="col-xs-7">
-            <input type="radio" id="type1" name="type" placeholder="">普通货物
+            <input type="radio" id="type1" name="type" placeholder="" >普通货物
             <input type="radio" id="type2" name="type" placeholder="">特殊货物
           </div>
+          <c:if test="${insuranceOrder.goodsType==1}">
+            <script>
+                $('#type1').attr('checked','checked');
+            </script>
+          </c:if>
+
+          <c:if test="${insuranceOrder.goodsType==2}">
+            <script>
+                $('#type2').attr('checked','checked');
+            </script>
+          </c:if>
         </div>
       </div>
       <div class="form-horizontal col-md-3">
@@ -145,6 +179,21 @@
             <input type="radio" id="person1" name="person" placeholder="">我司
             <input type="radio" id="person2" name="person" placeholder="">供方
             <input type="radio" id="person3" name="person" placeholder="">第三方
+           <c:if test="${insuranceOrder.actualCarrier==1}">
+            <script>
+              $('#person1').attr('checked','checked');
+            </script>
+           </c:if>
+            <c:if test="${insuranceOrder.actualCarrier==2}">
+              <script>
+                  $('#person2').attr('checked','checked');
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.actualCarrier==3}">
+              <script>
+                  $('#person3').attr('checked','checked');
+              </script>
+            </c:if>
           </div>
         </div>
       </div>
@@ -154,14 +203,57 @@
         <label class="col-md-1 control-label" style="margin-left: 30px">业务范围：</label>
         <div class="col-md-6">
           <label id="international">国际运输：</label>
-          <input type="radio" id="sea1" name="type" placeholder="">海运进口&nbsp;&nbsp;
-          <input type="radio" id="sea2" name="type" placeholder="">海运出口&nbsp;&nbsp;
-          <input type="radio" id="air1" name="type" placeholder="">空运进口&nbsp;&nbsp;
-          <input type="radio" id="air2" name="type" placeholder="">空运出口&nbsp;&nbsp;
-          <input type="radio" id="road1" name="type" placeholder="">陆运进口&nbsp;&nbsp;
-          <input type="radio" id="road2" name="type" placeholder="">陆运出口&nbsp;&nbsp;
-          <input type="radio" id="rail1" name="type" placeholder="">铁路进口&nbsp;&nbsp;
-          <input type="radio" id="rail2" name="type" placeholder="">铁路出口
+
+          <input type="radio" id="sea1" name="type1" placeholder="">海运进口&nbsp;&nbsp;
+          <input type="radio" id="sea2" name="type1" placeholder="">海运出口&nbsp;&nbsp;
+          <input type="radio" id="air1" name="type1" placeholder="">空运进口&nbsp;&nbsp;
+          <input type="radio" id="air2" name="type1" placeholder="">空运出口&nbsp;&nbsp;
+          <input type="radio" id="road1" name="type1" placeholder="">陆运进口&nbsp;&nbsp;
+          <input type="radio" id="road2" name="type1" placeholder="">陆运出口&nbsp;&nbsp;
+          <input type="radio" id="rail1" name="type1" placeholder="">铁路进口&nbsp;&nbsp;
+          <input type="radio" id="rail2" name="type1" placeholder="">铁路出口
+         <c:if test="${insuranceOrder.internationalFreightDataItem!=null}">
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='003'}">
+            <script>
+                $('#sea1').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='004'}">
+            <script>
+                $('#sea2').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='001'}">
+            <script>
+                $('#air1').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='002'}">
+            <script>
+                $('#air2').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='005'}">
+            <script>
+                $('#road1').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='006'}">
+            <script>
+                $('#road2').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='011'}">
+            <script>
+                $('#rail1').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.internationalFreightDataItem.id=='012'}">
+            <script>
+                $('#rail2').attr('checked','checked');
+            </script>
+          </c:if>
+         </c:if>
         </div>
       </div>
     </div>
@@ -170,11 +262,38 @@
         <label class="col-md-1 control-label" style="margin-left: 30px"></label>
         <div class="col-md-6">
           <label id="domestic">国内运输：</label>
-          <input type="radio" id="address1" name="type" placeholder="">快递&nbsp;&nbsp;
-          <input type="radio" id="address2" name="type" placeholder="">水运&nbsp;&nbsp;
-          <input type="radio" id="address3" name="type" placeholder="">空运&nbsp;&nbsp;
-          <input type="radio" id="address4" name="type" placeholder="">陆运&nbsp;&nbsp;
-          <input type="radio" id="address5" name="type" placeholder="">铁路运输
+          <input type="radio" id="address1" name="type2" placeholder="">快递&nbsp;&nbsp;
+          <input type="radio" id="address2" name="type2" placeholder="">水运&nbsp;&nbsp;
+          <input type="radio" id="address3" name="type2" placeholder="">空运&nbsp;&nbsp;
+          <input type="radio" id="address4" name="type2" placeholder="">陆运&nbsp;&nbsp;
+          <input type="radio" id="address5" name="type2" placeholder="">铁路运输
+          <c:if test="${insuranceOrder.domesticFreightDataItem!=null}">
+            <c:if test="${insuranceOrder.domesticFreightDataItem.id=='200005'}">
+              <script>
+                  $('#address5').attr('checked','checked');
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.domesticFreightDataItem.id=='200003'}">
+              <script>
+                  $('#address2').attr('checked','checked');
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.domesticFreightDataItem.id=='200002'}">
+              <script>
+                  $('#address3').attr('checked','checked');
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.domesticFreightDataItem.id=='200001'}">
+              <script>
+                  $('#address4').attr('checked','checked');
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.domesticFreightDataItem.id=='200004'}">
+              <script>
+                  $('#address5').attr('checked','checked');
+              </script>
+            </c:if>
+          </c:if>
         </div>
       </div>
     </div>
@@ -235,9 +354,19 @@
         <div class="form-group">
           <label class="col-sm-4 control-label">港澳台货物：</label>
           <div class="col-xs-7">
-            <input type="radio" id="goods1" name="goods" placeholder="">是
+            <input type="radio" id="goods1" name="goods" placeholder="" >是
             <input type="radio" id="goods2" name="goods" placeholder="">否
           </div>
+          <c:if test="${insuranceOrder.yHTGoods==true}">
+                <script>
+                  $('#goods1').attr("checked","checked");
+                </script>
+          </c:if>
+          <c:if test="${insuranceOrder.yHTGoods==false}">
+            <script>
+                $('#goods2').attr("checked","checked");
+            </script>
+          </c:if>
         </div>
       </div>
       <div class="form-horizontal col-md-3">
@@ -311,6 +440,16 @@
             <input type="radio" id="insurance1" name="insurance" placeholder="">吊装险
             <input type="radio" id="insurance2" name="insurance" placeholder="">其他险种
           </div>
+          <c:if test="${insuranceOrder.fileInsurance==1}">
+            <script>
+              $('#insurance1').attr('checked','checked');
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.fileInsurance==2}">
+            <script>
+                $('#insurance2').attr('checked','checked');
+            </script>
+          </c:if>
         </div>
         <div class="form-group">
           <label for="insuranceCompanyName" class="col-sm-4 control-label">保险公司名称：</label>
@@ -349,8 +488,23 @@
             <input type="radio" id="radio1" name="radio" placeholder="">正本
             <input type="radio" id="radio2" name="radio" placeholder="">复印
             <input type="radio" id="radio3" name="radio" placeholder="">不需要
-            <input type="button" id="invoice" name="invoice" value="发票上传" placeholder="">
-            <input type="button" id="packingList" name="packingList" value="箱单上传" placeholder="">
+            <input type="button" id="invoice" name="invoice" value="发票下载" placeholder="">
+            <input type="button" id="packingList" name="packingList" value="箱单下载" placeholder="">
+          <c:if test="${insuranceOrder.insuranceOrderRequirement==1}">
+            <script>
+              $('#radio1').attr('checked','checked')
+            </script>
+          </c:if>
+            <c:if test="${insuranceOrder.insuranceOrderRequirement==2}">
+              <script>
+                  $('#radio2').attr('checked','checked')
+              </script>
+            </c:if>
+            <c:if test="${insuranceOrder.insuranceOrderRequirement==3}">
+              <script>
+                  $('#radio3').attr('checked','checked')
+              </script>
+            </c:if>
           </div>
         </div>
         <div class="form-group">

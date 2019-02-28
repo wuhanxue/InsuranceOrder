@@ -27,11 +27,23 @@
     <result column="creation_time" property="creationTime"></result>
     <result column="modify_time" property="modifyTime"></result>
     <result column="modifier" property="modifier"></result>
+    <result property="goodsType" column="goods_type"></result>
+    <result property="actualCarrier" column="actual_carrier"></result>
+    <result property="fileInsurance" column="file_insurance"></result>
+    <result property="insuranceOrderRequirement" column="insurance_order_requirement"></result>
+    <association property="internationalFreightDataItem" column="international_freight_id" select="getInternationalFreightDataItem"></association>
+    <association property="domesticFreightDataItem" column="domestic_freight_id" select="getDomesticFreightDataItem"></association>
     <association property="insuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
     <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"></association>
 </resultMap>
 
+    <select id="getInternationalFreightDataItem" resultType="FreightDataItem">
+        select * from data_dictionary_item where id=#{international_freight_id};
+    </select>
+    <select id="getDomesticFreightDataItem" resultType="FreightDataItem">
+        select * from data_dictionary_item where id=#{domestic_freight_id};
+    </select>
     <select id="getOrderStateDataItem" resultType="OrderStateDataItem">
         select * from data_dictionary_item where id=#{state_id};
     </select>
@@ -53,6 +65,7 @@
         <result column="creator" property="creator"></result>
         <result column="modify_time" property="modifyTime"></result>
         <result column="modifier" property="modifier"></result>
+        <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     </resultMap>
 
     <select id="getInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
@@ -83,6 +96,7 @@
                 or proposer like "%"#{keywords}"%"
                 or FORMAT(goods_value,3) like binary"%"#{keywords}"%"
                 or approval_date like binary"%"#{keywords}"%"
+                or state_id in(select id from data_dictionary_item where data_dictionary_item.name like binary"%"#{keywords}"%")
                 or department_id in(select id from data_dictionary_item where data_dictionary_item.name like binary"%"#{keywords}"%")
                 or id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{keywords}"%")
                 or id in(select order_id from insurance_order_item where premium like binary"%"#{keywords}"%")
@@ -124,6 +138,15 @@
                     <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
                 </if>
 
+            </if>
+            <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
+                and state_id=#{orderStateDataItem.id}
+            </if>
+            <if test="orderStateDataItem==null or orderStateDataItem.id==null">
+                and state_id!=4
+            </if>
+            <if test="departmentDataItem!=null and departmentDataItem.id!=null">
+                and department_id=#{departmentDataItem.id}
             </if>
         </where>
             <if test="page!=null">
@@ -141,6 +164,7 @@
                 or proposer like "%"#{keywords}"%"
                 or FORMAT(goods_value,3) like binary"%"#{keywords}"%"
                 or approval_date like binary"%"#{keywords}"%"
+                or state_id in(select id from data_dictionary_item where data_dictionary_item.name like binary"%"#{keywords}"%")
                 or department_id in(select id from data_dictionary_item where data_dictionary_item.name like binary"%"#{keywords}"%")
                 or id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{keywords}"%")
                 or id in(select order_id from insurance_order_item where premium like binary"%"#{keywords}"%")
@@ -182,6 +206,15 @@
                     <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
                 </if>
 
+            </if>
+            <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
+                and state_id=#{orderStateDataItem.id}
+            </if>
+            <if test="orderStateDataItem==null or orderStateDataItem.id==null">
+                and state_id!=4
+            </if>
+            <if test="departmentDataItem!=null and departmentDataItem.id!=null">
+                and department_id=#{departmentDataItem.id}
             </if>
         </where>
     </select>
@@ -222,5 +255,15 @@
     <!--作废-->
     <update id="cancelById" parameterType="String">
           update insurance_order set state_id=4,modify_time=NOW() where id=#{id};
+    </update>
+
+    <!--已投保-->
+    <update id="insured" parameterType="String">
+        update insurance_order_item set  state_id=3,modify_time=NOW() where id=#{id};
+    </update>
+
+    <!--关闭-->
+    <update id="shutDownById" parameterType="String">
+          update insurance_order set state_id=5,modify_time=NOW() where id=#{id};
     </update>
 </mapper>

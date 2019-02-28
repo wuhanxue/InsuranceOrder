@@ -46,7 +46,7 @@ function insuranceOrderLoad(page,data) {
 
          TotalPage("searchInsuranceOrderTotal",data);//算查询总数
 
-
+    getDataToSelect();
 }
 
 
@@ -81,9 +81,9 @@ function setInsuranceOrderList(result) {
                    "<a   title='接单' onclick='Receipt(this)'><span class='glyphicon glyphicon-check' aria-hidden='true'></span></a>" +
                    "<a href='#'  title='投保' onclick='InsureModel(this)'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>" +
                    "<a   title='作废' onclick='cancel(this)'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
-                   "<a href='orderDetail'  title='上传附件'><span class='glyphicon glyphicon-open' aria-hidden='true'></span></a>" +
-                   "<a href='orderDetail'  title='查看附件'><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>" +
-                   "<a href='orderDetail'  title='关闭'><span class='glyphicon glyphicon-off' aria-hidden='true'></span></a>" +
+                   // "<a href='orderDetail'  title='上传附件'><span class='glyphicon glyphicon-open' aria-hidden='true'></span></a>" +
+                   "<a   title='查看附件'><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>" +
+                   "<a  title='关闭' onclick='ShutDown(this)'><span class='glyphicon glyphicon-off' aria-hidden='true'></span></a>" +
                    "</td></tr>";
         $('#insuranceOrderList').append(tr)
     })
@@ -137,7 +137,14 @@ function searchData() {
         var approvalDateBegin=$('#search-approvalDateBegin').val();
         /*审批日期结束日期*/
         var approvalDateEnd=$('#search-approvalDateEnd').val();
-
+        /*状态*/
+        var orderStateDataItem={};
+        orderStateDataItem.id=$('#search-state').val();
+        data.orderStateDataItem=orderStateDataItem;
+        /*申请部门*/
+        var departmentDataItem={};
+        departmentDataItem.id=$('#search-department').val();
+        data.departmentDataItem=departmentDataItem;
         data.id=id;
         var insuranceOrderItem={};
         insuranceOrderItem.insureCompanyName=insureCompanyName;
@@ -273,7 +280,7 @@ else {
      //修改人
     $(tdArray).eq(8).html(obj.modifier);
     //状态
-
+    $(tdArray).eq(9).html(getDataFromDate(obj.orderStateDataItem));
 }
 
 }
@@ -586,6 +593,7 @@ function Receipt(item) {
 
 }
 
+/*作废*/
 function cancel(item) {
     if(confirm("确定作废该订单?")){
         //点击确定后操作
@@ -611,4 +619,96 @@ function cancel(item) {
             }
         })
     }
+}
+
+/*关闭*/
+function ShutDown(item) {
+    if(confirm("确定关闭该订单?")){
+        //点击确定后操作
+        var id=$(item).parent().parent().children('td').eq(0).html();
+        $.ajax({
+            type:"POST",
+            url:"shutDownById",
+            async: false,
+            data:{'id':id},
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+                    alert(result.message);
+                    window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
+    }
+}
+
+/*获取数据字典做成下拉框*/
+function getDataToSelect() {
+
+    /*状态*/
+    $.ajax({
+        type:"POST",
+        url:"getStateData",
+        async: false,
+        dataType:"json",
+        contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            if (result != undefined && result.status == "success"){
+             console.log(result)
+                if(result.data!=null){
+                 var state=$('#search-state');
+                    state.empty();
+                    for(var i in result.data){
+                        if(result.data[i].id!=3&&result.data[i].id!=6&&result.data[i].id!=7&&result.data[i].id!=8&&result.data[i].id!=9){
+
+
+                                           state.append("<option value="+result.data[i].id+">"+result.data[i].name+"</option>>")
+                        }
+                    }
+                    state.get(0).selectedIndex=-1;
+                    }
+            }
+            else {
+
+            }
+        },
+        error:function (result) {
+            alert("服务器异常!")
+        }
+    })
+
+    /*部门*/
+    $.ajax({
+        type:"POST",
+        url:"getDepartmentData",
+        async: false,
+        dataType:"json",
+        contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            if (result != undefined && result.status == "success"){
+                console.log(result)
+                if(result.data!=null){
+                    var department=$('#search-department');
+                    department.empty();
+                    for(var i in result.data){
+                        department.append("<option value="+result.data[i].id+">"+result.data[i].name+"</option>>")
+                    }
+                    department.get(0).selectedIndex=-1;
+                }
+            }
+            else {
+
+            }
+        },
+        error:function (result) {
+            alert("服务器异常!")
+        }
+    })
 }
