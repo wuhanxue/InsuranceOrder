@@ -16,28 +16,28 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-<!--请求路径处理-->
+    <!--请求路径处理-->
     <mvc:annotation-driven/><!--为@Controllers分发请求并提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。-->
 
     <mvc:default-servlet-handler/><!--如果请求的是静态资源，转由默认的Servlet处理，如果不是静态资源，才由Dispatcher继续处理-->
 
     <!--配置拦截器, 多个拦截器,顺序执行 -->
     <!--<mvc:interceptors>-->
-        <!--&lt;!&ndash;登录拦截器&ndash;&gt;-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**.html"/>-->
-            <!--<bean class="com.jdlink.controller.CommonInterceptor"/>-->
-        <!--</mvc:interceptor>-->
+    <!--&lt;!&ndash;登录拦截器&ndash;&gt;-->
+    <!--<mvc:interceptor>-->
+    <!--<mvc:mapping path="/**.html"/>-->
+    <!--<bean class="com.jdlink.controller.CommonInterceptor"/>-->
+    <!--</mvc:interceptor>-->
 
     <!--</mvc:interceptors>-->
 
     <!-- 时间转换 -->
     <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
-        <!--<property name="converters">-->
-            <!--<set>-->
-                <!--<bean class="com.jdlink.util.StringToDateConverter"/>-->
-            <!--</set>-->
-        <!--</property>-->
+    <!--<property name="converters">-->
+    <!--<set>-->
+    <!--<bean class="com.jdlink.util.StringToDateConverter"/>-->
+    <!--</set>-->
+    <!--</property>-->
     <!--</bean>-->
 
     <!-- 文件处理 -->
@@ -45,7 +45,7 @@
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
-                  value="org.springframework.web.servlet.view.JstlView" />
+                  value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
     </bean>

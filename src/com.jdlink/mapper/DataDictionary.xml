@@ -154,7 +154,7 @@
                 and code like "%"#{code}"%"
             </if>
             <if test="name != null and name !=''">
-                and name like "%"#{name}"%";
+                and name like "%"#{name}"%"
             </if>
             <if test="dataDictionaryId != null and dataDictionaryId != ''">
                 and data_dictionary_id =#{dataDictionaryId}
