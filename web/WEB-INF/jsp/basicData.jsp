@@ -105,9 +105,8 @@
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
         <div class="row">
-            <br>
             <h4 class="sub-header">数据列表</h4>
         </div>
         <div class="row">
