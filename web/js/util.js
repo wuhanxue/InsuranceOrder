@@ -156,7 +156,7 @@ function setCompanySelectData() {
                     option.text(item.name + "(" + item.code + ")");
                     company.append(option);
                 });
-
+                $("select[name='company']").val(-1);  // 设置初始选中
             } else {
                 console.log(result.message);
             }
@@ -193,6 +193,7 @@ function setDepartmentSelectData(e) {
                     option.text(item.name + "(" + item.code + ")");
                     department.append(option);
                 });
+                $("select[name='department']").val(-1);
             } else {
                 console.log(result.message);
             }
@@ -228,6 +229,7 @@ function setTeamSelectData(e) {
                     option.text(item.name + "(" + item.code + ")");
                     team.append(option);
                 });
+                $("select[name='team']").val(-1);
             } else {
                 console.log(result.message);
             }
@@ -263,4 +265,31 @@ function passwordModifyMark() {
         $(".wrap1").removeClass("wrap1");
         $(".notice").remove();
     }
+}
+
+/**
+ * 根据ID获取字典明细数据
+ */
+function getDataDictionaryItemById(id) {
+    var data = {};
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getDataDictionaryItemById",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        data:{
+            id : id
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                data = result.data;
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
+    });
+    return data;
 }

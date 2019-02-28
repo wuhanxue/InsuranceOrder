@@ -165,7 +165,7 @@
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
       <div>
-          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已90天未更改密码，请注意账号安全，及时修改密码！</span>
+          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已超过90天未更改密码，请注意账号安全，及时修改密码！</span>
       </div>
   </div>
 </div>

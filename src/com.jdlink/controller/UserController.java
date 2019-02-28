@@ -18,10 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -93,7 +90,7 @@ public class UserController {
     }
 
     /**
-     * 获取用户管理页面数据
+     * 检验用户是否为管理员root
      *
      * @return
      */
@@ -102,25 +99,46 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         User user = (User) session.getAttribute("user");   // 获取用户信息
         if (user != null && user.getUserName().equals("root")) {
-            try {
-                List<User> userList = userService.listUser();  // 获取所有用户
-                mav.addObject("status", "success");
-                mav.addObject("message", "获取成功！");
-                mav.addObject("userList", userList);
-            } catch (Exception e) {
-                e.printStackTrace();
-                mav.addObject("status", "fail");
-                mav.addObject("message", "获取失败！");
-            }
             mav.setViewName("accountManage");
         } else if(user == null){
             mav.setViewName("redirect:/signin");
         }else{
-            //modelAndView.addObject("checkMessage","该账号无权限进入！");
             mav.setViewName("redirect:/orderList");
         }
-
         return mav;
+    }
+
+    /**
+     * 根据条件获取账号数据集合
+     * @param user
+     * @return
+     */
+    @RequestMapping("searchAccountData")
+    @ResponseBody
+    public String searchAccountData(@RequestBody User user) {
+        JSONObject res = new JSONObject();
+        try {
+            List<User> dataList = userService.searchUser(user);
+            res.put("data", dataList);
+            res.put("status", "success");
+            res.put("message", "数据获取成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "数据获取失败！");
+        }
+        return res.toString();
+    }
+
+    /**
+     * 根据条件获取账号数据总数
+     * @param user
+     * @return
+     */
+    @RequestMapping("searchAccountDataTotal")
+    @ResponseBody
+    public int searchAccountDataTotal(@RequestBody User user) {
+        return userService.searchUserTotal(user);
     }
 
     /**
@@ -154,7 +172,7 @@ public class UserController {
     }
 
     /**
-     * 导航栏跳转到账号管理页面
+     * 导航栏跳转到账号管理页面(暂不用)
      */
     @RequestMapping(value = "checkUserIsAdministrator")
     public ModelAndView checkUserIsAdministrator(ModelAndView modelAndView, HttpSession session) {
@@ -178,15 +196,15 @@ public class UserController {
      */
     @RequestMapping("addUser")
     @ResponseBody
-    public String addUser(@RequestBody User user, HttpSession session) {
+    public String addUser(@RequestBody User user) {
         JSONObject res = new JSONObject();
         try {
-            User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
-            if (user1 != null){
-                user.setCreator(user1.getName());
-            }else{
-                user.setCreator("未登陆");
-            }
+//            User user1 = (User) session.getAttribute("user");   // 获取登陆用户信息
+//            if (user1 != null){
+//                user.setCreator(user1.getName());
+//            }else{
+//                user.setCreator("未登陆");
+//            }
             userService.add(user);
             res.put("status", "success");
             res.put("message", "新增成功！");
@@ -198,17 +216,26 @@ public class UserController {
         return res.toString();
     }
 
+
     /**
-     * 根据ID删除用户
-     *
-     * @param user
+     * 根据ID删除账号
+     * @param id
      * @return
      */
-    @RequestMapping("deleteUserById/{id}")
-    public ModelAndView deleteUserById(User user) {
-        userService.deleteUserById(user.getId());
-        ModelAndView mav = new ModelAndView("redirect:/accountManage");
-        return mav;
+    @RequestMapping("deleteUserById")
+    @ResponseBody
+    public String deleteUserById(Integer id) {
+        JSONObject res = new JSONObject();
+        try {
+            userService.deleteUserById(id);
+            res.put("status", "success");
+            res.put("message", "删除成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "删除失败！");
+        }
+        return res.toString();
     }
 
     /**
@@ -337,4 +364,5 @@ public class UserController {
         // 返回结果
         return res.toString();
     }
+
 }

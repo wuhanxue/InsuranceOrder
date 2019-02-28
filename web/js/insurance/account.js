@@ -38,15 +38,24 @@ function updateUser() {
         alert("姓名不能为空！");
         return false;
     }
-    var companyDataItem = {};
-    companyDataItem.id = $("#company").find("option:selected").val();
-    data.companyDataItem = companyDataItem;
-    var departmentDataItem = {};
-    departmentDataItem.id = $("#department").find("option:selected").val();
-    data.departmentDataItem = departmentDataItem;
-    var teamDataItem = {};
-    teamDataItem.id = $("#team").find("option:selected").val();
-    data.teamDataItem = teamDataItem;
+    var companyId = $("#company").find("option:selected").val();
+    if(companyId !== undefined) {
+        var companyDataItem = {};
+        companyDataItem.id = companyId;
+        data.companyDataItem = companyDataItem;
+    }
+    var departmentId = $("#department").find("option:selected").val();
+    if(departmentId !== undefined) {
+        var departmentDataItem = {};
+        departmentDataItem.id = departmentId;
+        data.departmentDataItem = departmentDataItem;
+    }
+    var teamId = $("#team").find("option:selected").val();
+    if(teamId !== undefined) {
+        var teamDataItem = {};
+        teamDataItem.id = teamId;
+        data.teamDataItem = teamDataItem;
+    }
     console.log(data);
     $.ajax({
         type: "POST",                       // 方法类型
@@ -58,7 +67,7 @@ function updateUser() {
         success: function (result) {
             if (result !== undefined && result.status === "success") {
                 alert("修改成功!");
-                window.location.href="/signin";  // 重新登录
+                window.location.href="signin";  // 重新登录
             } else {
                 alert(result.message);
             }

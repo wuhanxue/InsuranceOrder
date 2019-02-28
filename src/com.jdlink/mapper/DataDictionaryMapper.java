@@ -32,4 +32,6 @@ public interface DataDictionaryMapper {
     List<DataDictionaryItem> searchBasicDataDetail(DataDictionaryItem dataDictionaryItem);
 
     int searchBasicDataDetailTotal(DataDictionaryItem dataDictionaryItem);
+
+    DataDictionaryItem getDataDictionaryItemById(String id);
 }

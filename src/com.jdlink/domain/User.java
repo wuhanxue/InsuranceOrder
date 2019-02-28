@@ -54,6 +54,30 @@ public class User {
      * 密码修改时间
      */
     private Date passwordModifyTime;
+    /**
+     * 粗查询关键字
+     */
+    private String keywords;
+    /**
+     * 分页
+     */
+    private Page page;
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
 
     public int getId() {
         return id;
