@@ -71,4 +71,11 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+    @Override
+    public List<User> searchUser(User user) { return userMapper.searchUser(user); }
+
+    @Override
+    public int searchUserTotal(User user) { return userMapper.searchUserTotal(user); }
+
 }

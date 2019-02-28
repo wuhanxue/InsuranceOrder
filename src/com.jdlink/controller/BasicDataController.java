@@ -108,7 +108,7 @@ public class BasicDataController {
     }
 
     /**
-     * 根据ID获取字典明细数据列表
+     * 根据ID获取字典明细数据列表(暂不用)
      *
      * @param user
      * @return
@@ -129,7 +129,7 @@ public class BasicDataController {
      * @param session
      * @return
      */
-    @RequestMapping("/modifyDictionaryData")
+    @RequestMapping("modifyDictionaryData")
     @ResponseBody
     public String modifyDictionaryData(@RequestBody DataDictionary dataDictionary, HttpSession session) {
         JSONObject res = new JSONObject();
@@ -191,4 +191,26 @@ public class BasicDataController {
         return res.toString();
     }
 
+    /**
+     * 根据明细ID获取基础数据明细信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("getDataDictionaryItemById")
+    @ResponseBody
+    public String getDataDictionaryItemById(String id) {
+        JSONObject res = new JSONObject();
+        try {
+            DataDictionaryItem dataDictionaryItem = dataDictionaryService.getDataDictionaryItemById(id);
+            JSONObject data = JSONObject.fromBean(dataDictionaryItem);
+            res.put("status", "success");
+            res.put("message", "获取成功");
+            res.put("data", data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "获取失败");
+        }
+        return res.toString();
+    }
 }

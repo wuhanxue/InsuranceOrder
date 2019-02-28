@@ -162,6 +162,11 @@
         </where>
     </select>
 
+    <!--根据ID获取明细信息-->
+    <select id="getDataDictionaryItemById" parameterType="String" resultMap="dataDictionaryItemRM">
+        select * from data_dictionary_item where id=#{id};
+    </select>
+
     <update id="updateDataDictionaryCodeAndNameById" >
         update data_dictionary set name=#{name},code=#{code},modifier=#{modifier},modify_time=NOW() where id=#{id};
     </update>
