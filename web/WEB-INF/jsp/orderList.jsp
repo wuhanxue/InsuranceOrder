@@ -43,7 +43,7 @@
     </div>
     <div class="container navbar-left" style="width: 800px;">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><img src="image/logo.jpg"></a>
+            <a class="navbar-brand" href="#"><img src="image/logo1.png"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse" style="margin-left: 150px;">
             <ul class="nav navbar-nav">
@@ -476,6 +476,9 @@
 
 </script>
 <style>
+    .table-hover > tbody > tr:hover {
+        background-color: #8ec9ff;
+    }
     .wrap {
         width:50px;
         margin-bottom:10px;

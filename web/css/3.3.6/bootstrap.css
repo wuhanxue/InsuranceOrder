@@ -2322,7 +2322,7 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #59cdbd;
+  background-color: #8ec9ff;/*59cdbd(初始颜色)*/
 }
 table col[class*="col-"] {
   position: static;
