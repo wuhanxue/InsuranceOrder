@@ -110,13 +110,8 @@
         </div>
     </div>
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
         <div class="row">
-            <div>
-                <ol class="breadcrumb"><!--历史记录导航栏-->
-
-                </ol>
-            </div>
             <h4 class="sub-header">账号列表</h4>
         </div>
         <div class="row">

@@ -100,14 +100,9 @@
     </div>
   </div>
 
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top: 2%">
     <div class="row">
-      <div>
-        <ol class="breadcrumb">
-          <li class="active">订单列表</li>
-        </ol>
-      </div>
-      <h4 class="sub-header">||数据列表</h4>
+      <h4 class="sub-header">订单详细</h4>
     </div>
     <br>
     <div class="row">
