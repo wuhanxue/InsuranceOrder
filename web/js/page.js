@@ -349,7 +349,7 @@ function TotalPage(url, data) {
 
         count: totalPage,//总页数(动态)
 
-        start: data.page.start+1,//起始页码
+        start: (data.page.start/data.page.count)+1,  //起始页码
 
         display: 5,
 
