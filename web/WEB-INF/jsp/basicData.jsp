@@ -24,9 +24,9 @@
     <script src="js/insurance/basicData.js"></script>
 </head>
 <style type="text/css">
-    table {
-        font-family: "微软雅黑", Georgia, Serif;
-    }
+    /*table {*/
+        /*font-family: "微软雅黑", Georgia, Serif;*/
+    /*}*/
     .wrap {
         width:50px;
         margin-bottom:10px;

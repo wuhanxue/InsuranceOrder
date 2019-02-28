@@ -460,7 +460,7 @@
       </div>
       <div class="form-horizontal col-md-4">
         <div class="form-group">
-          <div class="col-xs-7" style="display: inline-block">
+          <div class="col-xs-7" style="display: inline-block;margin-left: 100px">
             <span style="display: inline-block">国内货运：</span>
             <input style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticTrans" name="domesticTrans" placeholder="">
           </div>
