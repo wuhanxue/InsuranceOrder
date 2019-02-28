@@ -476,6 +476,9 @@
 
 </script>
 <style>
+    .table-hover > tbody > tr:hover {
+        background-color: #8ec9ff;
+    }
     .wrap {
         width:50px;
         margin-bottom:10px;
