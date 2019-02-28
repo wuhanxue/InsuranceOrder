@@ -31,4 +31,8 @@ public interface InsuranceOrderMapper {
     void receiptById(String id);
 
     void cancelById(String id);
+
+    void insured(String id);
+
+    void shutDownById(String id);
 }

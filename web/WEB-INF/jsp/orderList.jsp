@@ -133,7 +133,7 @@
                         <div class="form-group">
                             <label for="search-state" class="col-sm-4 control-label">状态</label>
                             <div class="col-xs-7">
-                                <select type="text" onchange="" class="form-control" id="search-state"
+                                <select type="text" onchange="searchData()" class="form-control" id="search-state"
                                         name="search-documentNumber" placeholder=""></select>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                         <div class="form-group">
                             <label for="search-department" class="col-sm-4 control-label">申请部门</label>
                             <div class="col-xs-7">
-                                <select type="text" onchange="" class="form-control" id="search-department"
+                                <select type="text" onchange="searchData()" class="form-control" id="search-department"
                                         name="search-creator" placeholder=""></select>
                             </div>
                         </div>
@@ -470,5 +470,6 @@
         right:10px;
         /*top:10px;*/
     }
+
 </style>
 </html>

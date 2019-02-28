@@ -77,4 +77,14 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     public void cancelById(String id) {
         insuranceOrderMapper.cancelById(id);
     }
+
+    @Override
+    public void insured(String id) {
+        insuranceOrderMapper.insured(id);
+    }
+
+    @Override
+    public void shutDownById(String id) {
+        insuranceOrderMapper.shutDownById(id);
+    }
 }

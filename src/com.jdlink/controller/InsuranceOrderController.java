@@ -233,6 +233,7 @@ public class InsuranceOrderController {
                 insuranceOrderItem.setFileUrl(path+"/"+fileName);
                 //文件路径更新
                 insuranceOrderService.setInsurancePolicyFileUrl(insuranceOrderItem);
+                insuranceOrderService.insured(id);
                 res.put("status", "success");
                 res.put("message", "文件上传成功");
             }
@@ -290,4 +291,24 @@ public class InsuranceOrderController {
        return res.toString();
    }
 
+
+    /*关闭*/
+    @RequestMapping("shutDownById")
+    @ResponseBody
+    public String shutDownById(String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            insuranceOrderService.shutDownById(id);
+            res.put("status", "success");
+            res.put("message", "订单关闭成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "订单关闭失败");
+        }
+
+        return res.toString();
+    }
 }
