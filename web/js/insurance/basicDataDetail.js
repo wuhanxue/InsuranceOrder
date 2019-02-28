@@ -18,9 +18,10 @@ function onLoadBasicDataDetailList(page, data) {
         data = {};
         data.dataDictionaryId = localStorage.dataDictionaryId; // 外键
         data.page = page;
+    }else if(data.dataDictionaryId == null || data.dataDictionaryId === ""){
+        data.dataDictionaryId = localStorage.dataDictionaryId; // 外键
     }
     // 赋值
-    console.log(localStorage.dataDictionaryName+"-"+localStorage.dataDictionaryCode+"-"+localStorage.dataDictionaryId);
     $("#dictionaryName").val(localStorage.dataDictionaryName);
     $("#dictionaryCode").val(localStorage.dataDictionaryCode);
     $("#dictionaryId").text(localStorage.dataDictionaryId);
@@ -37,7 +38,7 @@ function onLoadBasicDataDetailList(page, data) {
             if (result != undefined && result.status == "success") {
                 console.log(result);
                 //删除子元素
-                $('#tBody').find(".myClass").remove();
+                $(".myClass").remove();
                 setDataList(result);
             } else {
                 alert(result.message);
@@ -93,7 +94,7 @@ function searchData() {
             if (result != undefined && result.status == "success") {
                 console.log(result);
                 //删除子元素
-                $('#tBody').find(".myClass").remove();
+                $(".myClass").remove();
                 setDataList(result);
             }else {
                 alert(result.message);
