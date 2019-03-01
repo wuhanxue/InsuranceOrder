@@ -57,7 +57,7 @@
                aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="account">账号管理</a></li>
-                <li><a href="signin">注销</a></li>
+                <li><a href="cleanUserInfo">注销</a></li>
             </ul>
         </li>
     </ul>
