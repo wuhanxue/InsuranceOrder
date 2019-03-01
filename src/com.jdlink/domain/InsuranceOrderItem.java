@@ -63,6 +63,28 @@ public class InsuranceOrderItem {
      */
     private OrderStateDataItem orderStateDataItem;
 
+    /*异常负责人*/
+    private String abnormalPerson;
+
+    /*异常信息*/
+    private String abnormalInfo;
+
+    public String getAbnormalPerson() {
+        return abnormalPerson;
+    }
+
+    public void setAbnormalPerson(String abnormalPerson) {
+        this.abnormalPerson = abnormalPerson;
+    }
+
+    public String getAbnormalInfo() {
+        return abnormalInfo;
+    }
+
+    public void setAbnormalInfo(String abnormalInfo) {
+        this.abnormalInfo = abnormalInfo;
+    }
+
     public MultipartFile getMultipartFile() {
         return multipartFile;
     }

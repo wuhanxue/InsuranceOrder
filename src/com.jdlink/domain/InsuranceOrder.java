@@ -150,6 +150,29 @@ public class InsuranceOrder {
     /*保险报价*/
     private Float quote;
 
+
+    /*发票附件url*/
+    private String invoiceUrl;
+
+    /*箱单附件url*/
+    private String boxUrl;
+
+    public String getInvoiceUrl() {
+        return invoiceUrl;
+    }
+
+    public void setInvoiceUrl(String invoiceUrl) {
+        this.invoiceUrl = invoiceUrl;
+    }
+
+    public String getBoxUrl() {
+        return boxUrl;
+    }
+
+    public void setBoxUrl(String boxUrl) {
+        this.boxUrl = boxUrl;
+    }
+
     public Float getQuote() {
         return quote;
     }

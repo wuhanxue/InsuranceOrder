@@ -322,7 +322,9 @@ function getCurrentUser() {
     return data;
 }
 
-/*订单反馈接口*/
+/*订单反馈接口
+* id 仅是订单号
+* */
 function PushOperationTracking(id) {
     var user=getCurrentUser();
     console.log(user)
