@@ -390,4 +390,17 @@ public class UserController {
         return res.toString();
     }
 
+    /**
+     * 账号注销功能
+     * @param session
+     * @return
+     */
+    @RequestMapping("cleanUserInfo")
+    public ModelAndView cleanUserInfo(HttpSession session) {
+        session.removeAttribute("user");   // 删除session中账号信息
+        session.invalidate();
+        ModelAndView mav = new ModelAndView("/signin");
+        return mav;
+    }
+
 }
