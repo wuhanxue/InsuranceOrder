@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -38,25 +40,42 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "CheckUserInfo", method = RequestMethod.POST)
-    public ModelAndView CheckUserInfo(User user, HttpSession session) {
+    public ModelAndView CheckUserInfo(User user, HttpSession session, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
         try {
             // 查询参数
-            if (user.getUserName().equals("") || user.getPassword().equals("")) {
+            if (user.getUserName().equals("")) {  // 参数是否为空
                 mav.addObject("status", "fail");
-                mav.addObject("message", "账号或用户名为空！");
-            }
-            List<User> userList = userService.getUserByUserNameAndPassword(user);
-            // 更新用户，通过数据查询后得到的用户为准
-            if (userList.size() > 0) {
-                user = userList.get(0);
-                session.setAttribute("user", user); // 将登陆账户存储到session中
-                // 放入jsp路径
-                mav.setViewName("redirect:/orderList");
-            } else {
-                mav.addObject("status", "fail");
-                mav.addObject("message", "账号或密码错误！");
+                mav.addObject("message", "账号为空！");
                 mav.setViewName("signin");
+            }else if(user.getPassword().equals("")) {
+                mav.addObject("status", "fail");
+                mav.addObject("message", "密码为空！");
+                mav.setViewName("signin");
+            }else {
+                Integer remember = user.getRemember();  // 是否记住密码
+                List<User> userList = userService.getUserByUserNameAndPassword(user);
+                // 更新用户，通过数据查询后得到的用户为准
+                if (userList.size() > 0) {
+                    user = userList.get(0);
+                    session.setAttribute("user", user); // 将登陆账户存储到session中
+                    if(remember != null) {
+                        //创建两个Cookie对象
+                        Cookie nameCookie = new Cookie("userName", user.getUserName());
+                        //设置Cookie的有效期为3天
+                        nameCookie.setMaxAge(60 * 60 * 24 * 3);
+                        Cookie pwdCookie = new Cookie("password", user.getPassword());
+                        pwdCookie.setMaxAge(60 * 60 * 24 * 3);
+                        response.addCookie(nameCookie);
+                        response.addCookie(pwdCookie);
+                    }
+                    // 放入jsp路径
+                    mav.setViewName("redirect:/orderList");
+                } else {
+                    mav.addObject("status", "fail");
+                    mav.addObject("message", "账号或密码错误！");
+                    mav.setViewName("signin");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
