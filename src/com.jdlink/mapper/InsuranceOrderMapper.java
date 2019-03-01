@@ -35,4 +35,6 @@ public interface InsuranceOrderMapper {
     void insured(String id);
 
     void shutDownById(String id);
+
+    void getAbnormal(InsuranceOrderItem insuranceOrderItem);
 }

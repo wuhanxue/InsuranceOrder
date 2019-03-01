@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.*;
 
 import static com.jdlink.controller.Util.*;
@@ -86,6 +88,26 @@ public class InsuranceOrderController {
     }
 
 
+    @RequestMapping("getInsuranceOrderById")
+    @ResponseBody
+    public String getInsuranceOrderById(String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+            res.put("data", insuranceOrder);
+            res.put("status", "success");
+            res.put("message", "更新成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "更新失败");
+        }
+
+        return res.toString();
+
+    }
     /*获取订单总数*/
     @RequestMapping("getTotalInsuranceOrder")
     @ResponseBody
@@ -408,6 +430,65 @@ public class InsuranceOrderController {
         return res.toString();
     }
 
+    /*生成异常单*/
+    @RequestMapping("getAbnormal")
+    @ResponseBody
+    public String getAbnormal(@RequestBody InsuranceOrderItem insuranceOrderItem){
+        JSONObject res=new JSONObject();
+        try {
+            insuranceOrderService.getAbnormal(insuranceOrderItem);
+            res.put("status", "success");
+            res.put("message", "异常单生成成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "异常单生成失败");
+        }
+
+        return res.toString();
+    }
+
+    /**
+     * 文件下载功能
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping( value = "downloadFile")
+    @ResponseBody
+    public String down(HttpServletRequest request,HttpServletResponse response,String fileName) throws Exception{
+        JSONObject res=new JSONObject();
+
+        try {
+            //获取输入流
+            String path = request.getSession().getServletContext().getRealPath("statics\\upload")+"\\"+fileName;
+            InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+            //转码，免得文件名中文乱码
+            fileName = URLEncoder.encode(fileName,"UTF-8");
+            //设置文件下载头
+            response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+            //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+            response.setContentType("multipart/form-data");
+            BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+            int len = 0;
+            while((len = bis.read()) != -1){
+                out.write(len);
+                out.flush();
+            }
+            out.close();
+            res.put("status", "success");
+            res.put("message", "更新成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "更新失败");
+        }
+
+        return res.toString();
 
 
-}
+    }
+
+    }

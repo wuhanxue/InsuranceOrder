@@ -49,4 +49,7 @@ public interface InsuranceOrderService {
 
     /*关闭*/
     void shutDownById(String id);
+
+    /*生成异常单*/
+    void getAbnormal(InsuranceOrderItem insuranceOrderItem);
 }

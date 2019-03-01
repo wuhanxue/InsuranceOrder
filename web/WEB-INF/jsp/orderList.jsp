@@ -379,7 +379,7 @@
                                         class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                 <a  id="upload2" title="上传电子保单" onclick="showUploadInsurancePolicy(this)" ><span
                                         class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
-                                <a href="#" onclick="info2()" title="异常"><span class="glyphicon glyphicon-exclamation-sign"
+                                <a href="#" onclick="info2(this)" title="异常"><span class="glyphicon glyphicon-exclamation-sign"
                                                                         aria-hidden="true"></span></a>
                             </td>
                         </tr>
@@ -401,6 +401,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>异常</h3>
+                    <span class="hidden" id="abnormalId"></span>
                 </div>
                 <div class="modal-body">
                     <div class="info row">
@@ -419,7 +420,7 @@
                     </div>
                 </div>
                 <div class="modal-footer text-center">
-                    <a class="btn btn-primary" id="birth" onclick="">生成异常单</a>
+                    <a class="btn btn-primary" id="birth" onclick="getAbnormal()">生成异常单</a>
                 </div>
             </div>
         </div>
@@ -443,7 +444,49 @@
         </div>
         </div>
         </div>
+<%--文件下载模态框--%>
+    <div class="modal fade bs-example" id="downLoadModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 20%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>文件下载</h3>
+                </div>
+                <div class="modal-body">
+                    <table style="border: 0;width: 100%">
+                        <tr><td class="text-center">发票</td><td >  <input class="hidden" id="invoiceUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a>
+                        </td></tr>
+                        <tr><td class="text-center">箱单</td><td ><input class="hidden" id="boxUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td></tr>
+                        <tr><td class="text-center"> 电子保单</td><td ><input class="hidden" id="fileUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td></tr>
+                    </table>
+                  <%--<div class="row">--%>
+                      <%--<div class="form-group">--%>
+                          <%--<label for="search-id" class="col-sm-6 control-label text-center">发票</label>--%>
+                          <%--<input class="hidden" id="invoiceUrl">--%>
+                          <%--<div class="col-xs-6">--%>
+                          <%--</div>--%>
+                      <%--</div>--%>
+                      <%--<div class="form-group">--%>
+                          <%--<label for="search-id" class="col-sm-6 control-label text-center">箱单</label>--%>
 
+                          <%--<div class="col-xs-6">--%>
+                              <%--<a  title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a>--%>
+                          <%--</div>--%>
+                      <%--</div>--%>
+                      <%--<div class="form-group">--%>
+                          <%--<label for="search-id" class="col-sm-6 control-label text-center">电子保单</label>--%>
+
+                          <%--<div class="col-xs-6">--%>
+                              <%--<a  title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a>--%>
+                          <%--</div>--%>
+                      <%--</div>--%>
+                  <%--</div>--%>
+                </div>
+                <div class="modal-footer text-center">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div >
         <%--<input type="file" id="file">--%>
         <input type="file" id="file2">
@@ -452,9 +495,7 @@
     <script src="js/page.js" type="text/javascript"></script>
 </div>
 
-<div id="get">
 
-</div>
 </body>
 <script>
     /**
@@ -474,9 +515,7 @@
         function () {
             $("#file").click();
         });
-    function info2() {
-        $("#infoModal").modal('show')
-    }
+
 
 
 </script>

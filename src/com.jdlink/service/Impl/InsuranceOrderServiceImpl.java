@@ -87,4 +87,9 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     public void shutDownById(String id) {
         insuranceOrderMapper.shutDownById(id);
     }
+
+    @Override
+    public void getAbnormal(InsuranceOrderItem insuranceOrderItem) {
+        insuranceOrderMapper.getAbnormal(insuranceOrderItem);
+    }
 }

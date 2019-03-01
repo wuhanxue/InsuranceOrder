@@ -94,7 +94,7 @@ function setInsuranceOrderList(result) {
                    "<a href='#'  title='投保' onclick='InsureModel(this)'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>" +
                    "<a   title='作废' onclick='cancel(this)'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>" +
                    // "<a href='orderDetail'  title='上传附件'><span class='glyphicon glyphicon-open' aria-hidden='true'></span></a>" +
-                   "<a   title='查看附件'><span class='glyphicon glyphicon-zoom-in' aria-hidden='true'></span></a>" +
+                   "<a onclick='downLoadModal(this)' title='下载附件'><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a>" +
                    "<a  title='关闭' onclick='ShutDown(this)'><span class='glyphicon glyphicon-off' aria-hidden='true'></span></a>" +
                    "</td></tr>";
         $('#insuranceOrderList').append(tr)
@@ -221,47 +221,60 @@ function enterSearch() {
 
 /*点击投保按钮*/
 function InsureModel(item) {
+    var state=$(item).parent().parent().children('td').eq(1).html();
 
-   $('#save').hide();
-    $('#adjust').hide();
-    /*清空数据内容*/
-    var insuranceOrderItem=$('#insuranceOrderItem');
-    var tdArray=$(insuranceOrderItem).find('tr').children('td');
-    $.each(tdArray,function (index,item) {
-        if(index<=8){
-                $(this).html("");
-        }
-    })
-
-
-    var id=$(item).parent().parent().children('td').eq(0).html();
-
-     $('#insuranceOrderId').text(id);
-
-    $("#insuranceOrder").modal('show');
+     if(state=='已作废'){
+        alert("该订单已作废,无法投保")
+    }
+    else  if(state=='关闭'){
+        alert("该订单已关闭,无法接单")
+    }
+    else {
+         $('#save').hide();
+         $('#adjust').hide();
 
 
-     $.ajax({
-         type:"POST",
-         url:"getInsuranceOrderItemById",
-         async: false,
-         data:{"id":id},
-         dataType:"json",
-         // contentType: "application/json; charset=utf-8",
-         success:function (result) {
-             if (result != undefined && result.status == "success"){
-              console.log(result);
-                 setOrderDetail(result);
-
+         /*清空数据内容*/
+         var insuranceOrderItem=$('#insuranceOrderItem');
+         var tdArray=$(insuranceOrderItem).find('tr').children('td');
+         $.each(tdArray,function (index,item) {
+             if(index<=8){
+                 $(this).html("");
              }
-             else {
+         })
 
+
+         var id=$(item).parent().parent().children('td').eq(0).html();
+
+         $('#insuranceOrderId').text(id);
+
+         $("#insuranceOrder").modal('show');
+
+
+         $.ajax({
+             type:"POST",
+             url:"getInsuranceOrderItemById",
+             async: false,
+             data:{"id":id},
+             dataType:"json",
+             // contentType: "application/json; charset=utf-8",
+             success:function (result) {
+                 if (result != undefined && result.status == "success"){
+                     console.log(result);
+                     setOrderDetail(result);
+
+                 }
+                 else {
+
+                 }
+             },
+             error:function (result) {
+                 alert("服务器异常!")
              }
-         },
-         error:function (result) {
-             alert("服务器异常!")
-         }
-     })
+         })
+     }
+
+
 }
 
 /*设置保单信息*/
@@ -481,6 +494,7 @@ function deleteModel(item) {
             success:function (result) {
                 if (result != undefined && result.status == "success"){
                     alert(result.message);
+                    PushOperationTracking($('#insuranceOrderId').text());
                     window.location.reload()
                 }
                 else {
@@ -520,6 +534,7 @@ function saveInsuranceOrderItem() {
         success:function (result) {
             if (result != undefined && result.status == "success"){
               alert(result.message)
+                PushOperationTracking($('#insuranceOrderId').text());
                 window.location.reload()
             }
             else {
@@ -558,6 +573,7 @@ function insuranceOrderFile() {
           processData: false,//必须false才会避开jQuery对 formdata 的默认处理XMLHttpRequest会对 formdata 进行正确的处理
           success:function (result) {
               alert("文件上传成功");
+              PushOperationTracking($('#insuranceOrderId').text());
               window.location.reload();
           },
           error:function (result) {
@@ -581,27 +597,41 @@ function Receipt(item) {
     if(confirm("确定接单?")){
         //点击确定后操作
         var id=$(item).parent().parent().children('td').eq(0).html();
-        $.ajax({
-            type:"POST",
-            url:"receiptById",
-            async: false,
-            data:{'id':id},
-            dataType:"json",
-            // contentType: "application/json; charset=utf-8",
-            success:function (result) {
-                if (result != undefined && result.status == "success"){
-                            alert(result.message);
-                    PushOperationTracking(id);
-                            window.location.reload();
-                }
-                else {
+        var state=$(item).parent().parent().children('td').eq(1).html();
+        if(state=='已接单'){
+            alert("该订单已接单")
+        }
+       else if(state=='已作废'){
+            alert("该订单已作废,无法接单")
+        }
+        else  if(state=='关闭'){
+            alert("该订单已关闭,无法接单")
+        }
+        else {
+            $.ajax({
+                type:"POST",
+                url:"receiptById",
+                async: false,
+                data:{'id':id},
+                dataType:"json",
+                // contentType: "application/json; charset=utf-8",
+                success:function (result) {
+                    if (result != undefined && result.status == "success"){
+                        alert(result.message);
+                        PushOperationTracking(id);
+                        window.location.reload();
+                    }
+                    else {
 
+                    }
+                },
+                error:function (result) {
+                    alert("服务器异常!")
                 }
-            },
-            error:function (result) {
-                alert("服务器异常!")
-            }
-        })
+            })
+        }
+
+
     }
 
 }
@@ -609,56 +639,72 @@ function Receipt(item) {
 /*作废*/
 function cancel(item) {
     if(confirm("确定作废该订单?")){
-        //点击确定后操作
-        var id=$(item).parent().parent().children('td').eq(0).html();
-        $.ajax({
-            type:"POST",
-            url:"cancelById",
-            async: false,
-            data:{'id':id},
-            dataType:"json",
-            // contentType: "application/json; charset=utf-8",
-            success:function (result) {
-                if (result != undefined && result.status == "success"){
-                    alert(result.message);
-                    window.location.reload();
-                }
-                else {
+        var state=$(item).parent().parent().children('td').eq(1).html();
+        if(state=='关闭'){
+            alert('该订单已关闭，无法作废')
+        }
+        else {
+            //点击确定后操作
+            var id=$(item).parent().parent().children('td').eq(0).html();
+            $.ajax({
+                type:"POST",
+                url:"cancelById",
+                async: false,
+                data:{'id':id},
+                dataType:"json",
+                // contentType: "application/json; charset=utf-8",
+                success:function (result) {
+                    if (result != undefined && result.status == "success"){
+                        alert(result.message);
+                        PushOperationTracking(id)
+                        window.location.reload();
+                    }
+                    else {
 
+                    }
+                },
+                error:function (result) {
+                    alert("服务器异常!")
                 }
-            },
-            error:function (result) {
-                alert("服务器异常!")
-            }
-        })
+            })
+        }
+
     }
 }
 
 /*关闭*/
 function ShutDown(item) {
     if(confirm("确定关闭该订单?")){
-        //点击确定后操作
-        var id=$(item).parent().parent().children('td').eq(0).html();
-        $.ajax({
-            type:"POST",
-            url:"shutDownById",
-            async: false,
-            data:{'id':id},
-            dataType:"json",
-            // contentType: "application/json; charset=utf-8",
-            success:function (result) {
-                if (result != undefined && result.status == "success"){
-                    alert(result.message);
-                    window.location.reload();
-                }
-                else {
+        var state=$(item).parent().parent().children('td').eq(1).html();
+        if(state=='已作废'){
+            alert('改订单已作废，无法关闭')
+        }
+        else {
+            //点击确定后操作
+            var id=$(item).parent().parent().children('td').eq(0).html();
+            $.ajax({
+                type:"POST",
+                url:"shutDownById",
+                async: false,
+                data:{'id':id},
+                dataType:"json",
+                // contentType: "application/json; charset=utf-8",
+                success:function (result) {
+                    if (result != undefined && result.status == "success"){
+                        alert(result.message);
+                        PushOperationTracking(id);
+                        window.location.reload();
+                    }
+                    else {
 
+                    }
+                },
+                error:function (result) {
+                    alert("服务器异常!")
                 }
-            },
-            error:function (result) {
-                alert("服务器异常!")
-            }
-        })
+            })
+        }
+
     }
 }
 
@@ -724,4 +770,156 @@ function getDataToSelect() {
             alert("服务器异常!")
         }
     })
+}
+
+/*显示异常框*/
+function info2(item) {
+    var id=$("#insuranceOrderId").text();//订单号
+    var InsuranceOrderItemId=$(item).parent().parent().children('td').eq(1).html();//保单号
+      $('#abnormalId').text(InsuranceOrderItemId)
+    //根据保单号获取保单信息
+    $.ajax({
+        type:"POST",
+        url:"getInsuranceOrderItemById",
+        async: false,
+        data:{"id":id},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            if (result != undefined && result.status == "success"){
+                        console.log(result);
+                        $('#abnormal').val(result.data.abnormalInfo);
+                     $('#abnormalInfo').val(result.data.abnormalPerson);
+            }
+            else {
+
+            }
+        },
+        error:function (result) {
+            alert("服务器异常!")
+        }
+    })
+
+    $("#infoModal").modal('show');
+   
+    $.ajax({
+        type:"POST",
+        url:"getStateData",
+        async: false,
+        dataType:"json",
+        contentType: "application/json; charset=utf-8",
+        success:function (result) {
+
+        },
+        error:function (result) {
+            
+        }
+    })
+    
+   
+    
+    
+}
+
+function getAbnormal() {
+
+    if(confirm("确定生成异常单?")){
+        //点击确定后操作
+       var id=$('#abnormalId').text();
+       var abnormalPerson= $('#abnormal').val();
+       var abnormalInfo= $('#abnormalInfo').val();
+        var data={};
+        data.id=id;
+        data.abnormalPerson=abnormalPerson;
+        data.abnormalInfo=abnormalInfo;
+        $.ajax({
+            type:"POST",
+            url:"getAbnormal",
+            data:JSON.stringify(data),
+            async: false,
+            dataType:"json",
+            contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+                    alert(result.message)
+                            PushOperationTracking($('#insuranceOrderId').text())
+                    window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
+
+    }
+
+}
+
+/*
+* 附件下载模态框
+* */
+function downLoadModal(item) {
+
+    var id=$(item).parent().parent().children('td').eq(0).html();
+
+    $.ajax({
+        type:"POST",
+        url:"getInsuranceOrderById",
+        async: false,
+        data:{"id":id},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            if (result != undefined && result.status == "success"){
+                         console.log(result)
+                              $('#invoiceUrl').val(result.data.invoiceUrl);
+                              $('#boxUrl').val(result.data.boxUrl)
+                if(result.data.insuranceOrderItem!=null){
+                    $('#fileUrl').val(result.data.insuranceOrderItem.fileUrl)
+                }
+            }
+            else {
+
+            }
+        },
+        error:function (result) {
+            alert("服务器异常!")
+        }
+    });
+
+   $('#downLoadModal').modal('show');
+
+
+
+}
+
+/*附件下载*/
+function downloadFile(item) {
+    var fileUrl=$(item).prev().val();
+    console.log(fileUrl);
+    if(fileUrl.length>0){
+        $.ajax({
+            type:"POST",
+            url:"downloadFile",
+            async: false,
+            data:{"fileName":fileUrl},
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
+    }
+
 }

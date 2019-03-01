@@ -463,9 +463,9 @@
         <div class="form-group">
           <label class="col-sm-4 control-label">电子保单查看：</label>
           <div class="col-xs-7">
-            <input type="button" id="view" name="view" value="查看" placeholder="">
+            <%--<input type="button" id="view" name="view" value="查看" placeholder="">--%>
             <input type="button" id="download" name="download" value="下载" placeholder="">
-            <input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">
+            <%--<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">--%>
           </div>
         </div>
         <div class="form-group">
@@ -514,23 +514,23 @@
 </div>
 <div class="hidden">
   <input type="file" id="file1" name="file1" value="文件上传" placeholder="">
-  <input type="file" id="file2" name="file2" value="发票上传" placeholder="">
-  <input type="file" id="file3" name="file3" value="箱单上传" placeholder="">
+  <input type="file" id="file2" name="file2" value="发票下载" placeholder="">
+  <input type="file" id="file3" name="file3" value="箱单下载" placeholder="">
 </div>
 <div id="embed"></div>
 </body>
-<script>
-  $("#fileUpload").click(
-      function file1Click() {
-          $("#file1").click();
-      })
-  $("#invoice").click(
-      function file1Click() {
-          $("#file2").click();
-      })
-  $("#packingList").click(
-      function file1Click() {
-          $("#file3").click();
-      })
-</script>
+<%--<script>--%>
+  <%--$("#fileUpload").click(--%>
+      <%--function file1Click() {--%>
+          <%--$("#file1").click();--%>
+      <%--})--%>
+  <%--$("#invoice").click(--%>
+      <%--function file1Click() {--%>
+          <%--$("#file2").click();--%>
+      <%--})--%>
+  <%--$("#packingList").click(--%>
+      <%--function file1Click() {--%>
+          <%--$("#file3").click();--%>
+      <%--})--%>
+<%--</script>--%>
 </html>
