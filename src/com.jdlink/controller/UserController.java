@@ -89,6 +89,31 @@ public class UserController {
         return mav;
     }
 
+
+    /**
+     * 获取当前登陆人信息 ajax
+     * @param session
+     * @return
+     */
+    @RequestMapping("getCurrentUser")
+    @ResponseBody
+    public String getCurrentUser(HttpSession session) {
+        JSONObject res = new JSONObject();
+        try {
+            User user = (User) session.getAttribute("user");   // 获取用户信息
+            JSONObject data = JSONObject.fromBean(user);
+            res.put("status", "success");
+            res.put("message", "获取信息成功");
+            res.put("data", data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "获取信息失败");
+        }
+        return res.toString();
+    }
+
+
     /**
      * 检验用户是否为管理员root
      *
