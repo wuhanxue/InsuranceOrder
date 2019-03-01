@@ -228,7 +228,7 @@
     <!--更新保单信息-->
     <update id="updateInsuranceOrderItem" parameterType="InsuranceOrderItem">
         update insurance_order_item set id=#{id},insure_company_name=#{insureCompanyName},insure_date=#{insureDate},
-        premium=#{premium},modify_time=#{modifyTime},modifier=#{modifier} where order_id=#{orderId}
+        premium=#{premium},modify_time=NOW(),modifier=#{modifier} where order_id=#{orderId}
     </update>
 
     <!--删除保单信息-->
@@ -238,8 +238,8 @@
 
     <!--添加保单信息-->
     <insert id="addInsuranceOrderItem" parameterType="InsuranceOrderItem">
-        insert into insurance_order_item (id,order_id,insure_company_name,insure_date,premium,creation_time,creator) values
-        (#{id},#{orderId},#{insureCompanyName},#{insureDate},#{premium},#{creationTime},#{creator});
+        insert into insurance_order_item (id,order_id,insure_company_name,insure_date,premium,creation_time,creator,modify_time,state_id) values
+        (#{id},#{orderId},#{insureCompanyName},#{insureDate},#{premium},#{creationTime},#{creator},NOW(),9);
     </insert>
 
     <!--设置保单的路径名-->
@@ -265,5 +265,11 @@
     <!--关闭-->
     <update id="shutDownById" parameterType="String">
           update insurance_order set state_id=5,modify_time=NOW() where id=#{id};
+    </update>
+
+    <!--生成异常单-->
+    <update id="getAbnormal" parameterType="InsuranceOrderItem">
+        update insurance_order_item set state_id=8,abnormalInfo=#{abnormalInfo},
+        abnormalPerson=#{abnormalPerson},modify_time=NOW() where id=#{id}
     </update>
 </mapper>
