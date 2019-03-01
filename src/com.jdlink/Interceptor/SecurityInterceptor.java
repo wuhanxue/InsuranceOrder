@@ -1,10 +1,13 @@
 package com.jdlink.Interceptor;
 
+import com.jdlink.domain.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 登陆拦截器
@@ -13,13 +16,21 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        System.out.println("登陆安全验证中。。。");
-        //这里可以根据session的用户来判断角色的权限，根据权限来转发不同的页面
-        if(request.getSession().getAttribute("user") == null) {
-            request.getRequestDispatcher("/signin").forward(request,response);
-            return false;
+        //获取请求的url
+        String url = request.getRequestURI();
+        //signin.jsp是可以公开访问的，其余的URL都进行拦截
+        if(url.indexOf("/signin") >=0 || url.indexOf("/CheckUserInfo") >=0 ) {
+            return true;
         }
-        return true;
+        //获取session
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        //判断session中是否有用户数据，如果有就返回true，继续向下执行
+        if(user != null) {
+            return true;
+        }
+        request.getRequestDispatcher("signin").forward(request, response);
+        return false;
     }
 
     @Override

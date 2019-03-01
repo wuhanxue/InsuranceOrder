@@ -27,11 +27,13 @@
   String password = "";
   //获取当前站点的所有Cookie
   Cookie[] cookies = request.getCookies();
-  for (int i = 0; i < cookies.length; i++) {//对cookies中的数据进行遍历，找到用户名、密码的数据
-    if ("userName".equals(cookies[i].getName())) {
-      userName = cookies[i].getValue();
-    } else if ("password".equals(cookies[i].getName())) {
-      password = cookies[i].getValue();
+  if(cookies != null && cookies.length > 0) {
+    for (int i = 0; i < cookies.length; i++) {//对cookies中的数据进行遍历，找到用户名、密码的数据
+      if ("userName".equals(cookies[i].getName())) {
+        userName = cookies[i].getValue();
+      } else if ("password".equals(cookies[i].getName())) {
+        password = cookies[i].getValue();
+      }
     }
   }
 %>
