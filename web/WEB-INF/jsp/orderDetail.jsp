@@ -364,6 +364,25 @@
           </c:if>
         </div>
       </div>
+      <div class="form-horizontal col-md-3">
+        <div class="form-group">
+          <label class="col-sm-4 control-label">费用承担：</label>
+          <div class="col-xs-7">
+            <input type="radio" id="customer" name="cost" placeholder="">客户承担
+            <input type="radio" id="depart" name="cost" placeholder="">部门承担
+          </div>
+          <c:if test="${}">
+            <script>
+                $('#customer').attr("checked","checked");
+            </script>
+          </c:if>
+          <c:if test="${}">
+            <script>
+                $('#depart').attr("checked","checked");
+            </script>
+          </c:if>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="form-horizontal col-md-3"></div>
@@ -390,45 +409,6 @@
         </table>
       </div>
       <div class="form-horizontal col-md-3"></div>
-    </div>
-    <div class="row">
-      <div class="form-horizontal col-md-4">
-        <div class="form-group">
-          <label class="col-md-3 control-label">保险报价：</label>
-          <div class="col-xs-4" style="display: inline-block">
-            <label for="customer" style="display: inline-block">客户承担：</label>
-            <input type="text" style="width: 60px;display: inline-block;padding: 2px" class="form-control" id="customer" name="customer" value="${insuranceOrder.truckShift}">
-          </div>
-          <span style="display: inline-block;margin-top: 5px">人民币</span>
-        </div>
-      </div>
-      <div class="form-horizontal col-md-4">
-        <%--<div class="form-group">--%>
-          <%--<span style="display: inline-block">货物价值*</span>--%>
-          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="rate" name="rate" placeholder="" >--%>
-          <%--<span style="display: inline-block">%(费率)*</span>--%>
-          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="exchangeRate" name="exchangeRate" placeholder="">--%>
-          <%--<span style="display: inline-block">汇率</span>--%>
-        <%--</div>--%>
-      </div>
-      <div class="form-horizontal col-md-4">
-        <%--<div class="form-group">--%>
-          <%--<span style="display: inline-block">(MIN：</span>--%>
-          <%--<input style="width: 50px;display: inline-block" type="text" class="form-control" id="RNB" name="RNB" placeholder="">--%>
-          <%--<span style="display: inline-block">人民币)</span>--%>
-        <%--</div>--%>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-horizontal col-md-4">
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-xs-10" style="margin-left: 25%">
-            <label style="display: inline-block">部门承担：</label>
-            <span style="display: inline-block">(以最终保单上成本结算)</span>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="form-horizontal col-md-4">
