@@ -25,7 +25,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    boolean checkUserPasswordModifyTimeIsLate(User user);
+    int checkUserPasswordModifyTimeIsLate(User user);
 
     List<User> searchUser(User user);
 

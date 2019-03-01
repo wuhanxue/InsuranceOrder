@@ -39,10 +39,9 @@ public class InsuranceOrderController {
     public ModelAndView orderList(HttpSession session) {
         ModelAndView mav = new ModelAndView("orderList");
         User user = (User) session.getAttribute("user");   // 获取用户信息
-        if (user != null)
-            if (userService.checkUserPasswordModifyTimeIsLate(user)) { // 检查登陆用户的账号密码是否90天未修改
-                mav.addObject("modifyPasswordMark", "yes");  // 如果是则返回true
-            }
+        if (user != null){  // 检测账号是否需要密码修改 2 强制修改，1 提示，0 不需要
+            mav.addObject("modifyPasswordMark", userService.checkUserPasswordModifyTimeIsLate(user));  // 如果是则返回true
+        }
         return mav;
     }
 

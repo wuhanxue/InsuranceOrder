@@ -127,6 +127,11 @@
               <input type="password" class="form-control" id="confirmPassword" value="${user.password}" onkeyup="checkPasswordIsSame()">
             </div>
           </div>
+          <div class="form-group" hidden>
+            <div class="col-xs-8">
+              <input type="password" class="form-control" hidden readonly id="oldPassword" value="${user.password}">
+            </div>
+          </div>
           <div class="form-group">
             <div  class="col-sm-4 "></div>
             <div class="col-xs-8">
@@ -165,7 +170,8 @@
       <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
     </div>
       <div>
-          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已超过90天未更改密码，请注意账号安全，及时修改密码！</span>
+          <span class="pull-left" hidden id="passwordModifyNotice" style="color: red;font-size: 20px">提示：该账号已超过60天未更改密码，请注意账号安全，及时修改密码！</span>
+          <span class="pull-left" hidden id="passwordMustModifyNotice" style="color: red;font-size: 20px">警告：该账号已超过90天未更改密码，请及时修改密码！</span>
       </div>
   </div>
 </div>
@@ -176,11 +182,15 @@
      */
     function loadAccountData() {
         passwordModifyMark();
-        if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+        if(localStorage.modifyPasswordMark === "1") {  // 如果超过就进行提醒
             $("#passwordModifyNotice").show();  // 显示提示
+            $("#password").focus();  // 聚焦密码框
+        }else if(localStorage.modifyPasswordMark === "2"){
+            $("#passwordMustModifyNotice").show();  //
             $("#password").focus();  // 聚焦密码框
         }else {
             $("#passwordModifyNotice").hide();  // 隐藏提示
+            $("#passwordMustModifyNotice").hide();  // 隐藏提示
         }
         setCompanySelectData();   // 填充下拉框数据
         // 设置下拉框选中

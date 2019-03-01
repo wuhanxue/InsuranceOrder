@@ -17,9 +17,24 @@ function checkPasswordIsSame() {
 }
 
 /**
+ * 检测密码是否和旧密码一样
+ */
+function checkPasswordIsModify() {
+    if($("#oldPassword").val() === $("#confirmPassword").val()) {
+        return true;
+    }else {
+        return false
+    }
+}
+
+/**
  * 更新账号信息
  */
 function updateUser() {
+    if(checkPasswordIsModify()){ // 检测密码是否和旧密码一样
+        alert("新密码不能和原密码一样！");
+        return false;
+    }
     if(!checkPasswordIsSame()){  // 检验两次输入的密码是否一致
         return false;
     }
