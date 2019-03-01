@@ -377,7 +377,7 @@ public class InsuranceOrderController {
         InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
 
         //如果保单号不存在,就反馈订单信息
-         if(insuranceOrder.getInsuranceOrderItem()==null){
+         if(insuranceOrder.getInsuranceOrderItemList()==null){
 //设置作业内容
              tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
              //设置作业类型
@@ -386,24 +386,24 @@ public class InsuranceOrderController {
              tracking.setENTRUSTORDERNO("");
          }
         //如果保单号存在,则比较修改时间，已最晚的那个为准
-         else {
-             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
-                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-             }
-             else {
-                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-             }
-
-
-         }
+//         else {
+//             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
+//                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+//                 //设置作业类型
+//                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+//                 //设置保单号
+//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+//             }
+//             else {
+//                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
+//                 //设置作业类型
+//                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
+//                 //设置保单号
+//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+//             }
+//
+//
+//         }
 
         //设置列ID
         tracking.setROWID(getGUID());
