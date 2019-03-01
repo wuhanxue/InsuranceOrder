@@ -327,9 +327,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="goodsCost" class="col-sm-4 control-label">货物价值：</label>
+          <label for="trains" class="col-sm-4 control-label">车次：</label>
           <div class="col-xs-7">
-            <input type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${insuranceOrder.goodsValue}">
+            <input type="text" class="form-control" id="trains" name="trains" placeholder="" value="${insuranceOrder.truckShift}">
           </div>
         </div>
       </div>
@@ -344,26 +344,6 @@
           <label for="flightNo" class="col-sm-4 control-label">航班号：</label>
           <div class="col-xs-7">
             <input type="text" onkeyup="searchData();" class="form-control" id="flightNo" name="flightNo" placeholder="" value="${insuranceOrder.flightNumber}">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="currency" class="col-sm-4 control-label">币种：</label>
-          <div class="col-xs-7">
-            <select class="form-control" id="currency" name="currency">
-              <option value="1">RNB</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-horizontal col-md-3">
-        <div class="form-group" style="height: 34px">
-          <label for="goodsCost" class="col-sm-4 control-label"></label>
-          <div class="col-xs-7"></div>
-        </div>
-        <div class="form-group">
-          <label for="trains" class="col-sm-4 control-label">车次：</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control" id="trains" name="trains" placeholder="" value="${insuranceOrder.truckShift}">
           </div>
         </div>
         <div class="form-group">
@@ -384,6 +364,32 @@
           </c:if>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="form-horizontal col-md-3"></div>
+      <div class="form-horizontal col-md-6">
+        <table class="table table-striped table-hover table-condensed">
+          <tr>
+            <td class="text-center" style="width: 25%">货物价值</td>
+            <td class="text-center" style="width: 25%">
+              <input type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${insuranceOrder.goodsValue}">
+            </td>
+            <td class="text-center" style="width: 25%">币种</td>
+            <td class="text-center" style="width: 25%">
+              <select class="form-control" id="currency" name="currency">
+                <option value="1">RNB</option>
+              </select>
+            </td>
+          </tr>
+          <tr id="CloneTr">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div class="form-horizontal col-md-3"></div>
     </div>
     <div class="row">
       <div class="form-horizontal col-md-4">
@@ -450,12 +456,6 @@
             </script>
           </c:if>
         </div>
-        <div class="form-group">
-          <label for="insuranceCompanyName" class="col-sm-4 control-label">保险公司名称：</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${insuranceOrder.insuranceOrderItem.insureCompanyName}">
-          </div>
-        </div>
       </div>
       <div class="form-horizontal col-md-4">
         <div class="form-group">
@@ -470,12 +470,6 @@
             <%--<input type="button" id="view" name="view" value="查看" placeholder="">--%>
             <input type="button" id="download" name="download" value="下载" placeholder="">
             <%--<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">--%>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="insuranceMoney" class="col-sm-4 control-label">保费：</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${insuranceOrder.insuranceOrderItem.premium}">
           </div>
         </div>
       </div>
@@ -506,13 +500,37 @@
             </c:if>
           </div>
         </div>
-        <div class="form-group">
-          <label for="insuranceNumber" class="col-sm-4 control-label">保单号：</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${insuranceOrder.insuranceOrderItem.id}">
-          </div>
-        </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="form-horizontal col-md-2"></div>
+      <div class="form-horizontal col-md-8">
+        <table class="table table-striped table-hover table-condensed">
+          <tr>
+            <td class="text-center" style="width: 17%">保险公司名称</td>
+            <td class="text-center" style="width: 17%">
+              <input type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${insuranceOrder.insuranceOrderItem.insureCompanyName}">
+            </td>
+            <td class="text-center" style="width: 16%">保费</td>
+            <td class="text-center" style="width: 16%">
+              <input type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${insuranceOrder.insuranceOrderItem.premium}">
+            </td>
+            <td class="text-center" style="width: 17%">保单号</td>
+            <td class="text-center" style="width: 17%">
+              <input type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${insuranceOrder.insuranceOrderItem.id}">
+            </td>
+          </tr>
+          <tr id="CloneTr2">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div class="form-horizontal col-md-2"></div>
     </div>
   </div>
 </div>
