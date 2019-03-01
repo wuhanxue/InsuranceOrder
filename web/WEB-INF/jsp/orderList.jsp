@@ -221,12 +221,13 @@
                     <th class="text-center">状态</th>
                     <th class="text-center">申请人</th>
                     <th class="text-center">申请部门</th>
-                    <th class="text-center">投保日期</th>
                     <th class="text-center">审批日期</th>
                     <th class="text-center">被投保人名称</th>
-                    <th class="text-center">货物价值</th>
-                    <th class="text-center">保险公司名称</th>
-                    <th class="text-center">保费</th>
+                    <th class="text-center">货物类别</th>
+                    <th class="text-center">实际承运人</th>
+                    <th class="text-center">港澳台货物</th>
+                    <th class="text-center">附加险</th>
+                    <th class="text-center">保单需求</th>
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>

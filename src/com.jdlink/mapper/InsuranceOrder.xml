@@ -124,20 +124,21 @@
             <if test="approvalDateEnd!=null">
                 <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
             </if>
-            <if test="insuranceOrderItem!=null">
-                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
-                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
+            <if test="insuranceOrderItemList!=null">
+                <if test="insuranceOrderItemList.size()>0">
+                    <if test="insuranceOrderItemList[0].insureCompanyName!='' and insuranceOrderItemList[0].insureCompanyName!=null">
+                        and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItemList[0].insureCompanyName}"%")
+                    </if>
+                    <if test="insuranceOrderItemList[0].premium!='' and  insuranceOrderItemList[0].premium!=null">
+                        and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItemList[0].premium})
+                    </if>
+                    <if test="insuranceOrderItemList[0].insureDateBegin!=null">
+                        <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItemList[0].insureDateBegin}, '%Y-%m-%d') ]]>
+                    </if>
+                    <if test="insuranceOrderItemList[0].insureDateEnd!=null">
+                        <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItemList[0].insureDateEnd}, '%Y-%m-%d') ]]>
+                    </if>
                 </if>
-                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
-                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
-                </if>
-                <if test="insuranceOrderItem.insureDateBegin!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
-                </if>
-                <if test="insuranceOrderItem.insureDateEnd!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
-                </if>
-
             </if>
             <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
                 and state_id=#{orderStateDataItem.id}
@@ -192,20 +193,21 @@
             <if test="approvalDateEnd!=null">
                 <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
             </if>
-            <if test="insuranceOrderItem!=null">
-                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
-                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
+            <if test="insuranceOrderItemList!=null">
+            <if test="insuranceOrderItemList.size()>0">
+                <if test="insuranceOrderItemList[0].insureCompanyName!='' and insuranceOrderItemList[0].insureCompanyName!=null">
+                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItemList[0].insureCompanyName}"%")
                 </if>
-                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
-                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
+                <if test="insuranceOrderItemList[0].premium!='' and  insuranceOrderItemList[0].premium!=null">
+                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItemList[0].premium})
                 </if>
-                <if test="insuranceOrderItem.insureDateBegin!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
+                <if test="insuranceOrderItemList[0].insureDateBegin!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItemList[0].insureDateBegin}, '%Y-%m-%d') ]]>
                 </if>
-                <if test="insuranceOrderItem.insureDateEnd!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
+                <if test="insuranceOrderItemList[0].insureDateEnd!=null">
+                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItemList[0].insureDateEnd}, '%Y-%m-%d') ]]>
                 </if>
-
+            </if>
             </if>
             <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
                 and state_id=#{orderStateDataItem.id}

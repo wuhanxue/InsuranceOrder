@@ -69,25 +69,55 @@ function insuranceOrderLoad(page,data) {
 function setInsuranceOrderList(result) {
 
     $.each(result.data,function (index,item) {
-        //复杂对象
-        //投保日期
-        var insureDate;
-        var insureCompanyName;
-        var premium;
-        if(item.insuranceOrderItem!=null){
-            insureDate=getDateStr(item.insuranceOrderItem.insureDate);
-            insureCompanyName=item.insuranceOrderItem.insureCompanyName;
-            premium=item.insuranceOrderItem.premium;
+    //货物类别
+        var goodsType;
+        if(item.goodsType==1){
+            goodsType="普通货物"
         }
         else {
-            insureDate="";
-            insureCompanyName="";
-            premium=0;
+            goodsType="特殊货物"
+        }
+        var actualCarrier;
+        if(item.actualCarrier==1){
+            actualCarrier="我司承运"
+        }
+        if(item.actualCarrier==2){
+            actualCarrier="供方承运"
+        }
+        if(item.actualCarrier==3){
+            actualCarrier="第三方承运"
+        }
+        //港澳台货物
+        var yHTGoods;
+        if(item.yHTGoods==true){
+            yHTGoods='是'
+        }
+        else {
+            yHTGoods='否'
+        }
+        //附件险
+        var fileInsurance;
+        if(item.fileInsurance==1){
+            fileInsurance='吊装险'
+        }
+        else {
+            fileInsurance='其它'
+        }
+        //保单要求
+        var insuranceOrderRequirement;
+        if(item.insuranceOrderRequirement==1){
+            insuranceOrderRequirement='正本'
+        }
+        if(item.insuranceOrderRequirement==2){
+            insuranceOrderRequirement='复印件'
+        }
+        if(item.insuranceOrderRequirement==3){
+            insuranceOrderRequirement='不需要'
         }
                var tr="<tr><td class='text-center'>"+item.id+"</td>"+"<td class='text-center'>"+getDataFromDate(item.orderStateDataItem)+"</td>"+"<td class='text-center'>"+item.proposer+"</td>"
-                   +"<td class='text-center'>"+getDataFromDate(item.departmentDataItem)+"</td>"+"<td class='text-center'>"+insureDate+"</td>"
-                   +"<td class='text-center'>"+getDateStr(item.approvalDate)+"<td class='text-center'>"+item.insuredPersonName+"</td>"+"<td class='text-center'>"+getNumber(item.goodsValue,3)+"</td>"
-                   +"<td class='text-center'>"+insureCompanyName+"</td>" +"<td class='text-center'>"+getNumber(premium,3)+"</td>"
+                   +"<td class='text-center'>"+getDataFromDate(item.departmentDataItem)+"</td>"+"<td class='text-center'>"+getDateStr(item.approvalDate)+"</td>"
+                   +"<td class='text-center'>"+item.insuredPersonName+"<td class='text-center'>"+goodsType+"</td>"+"<td class='text-center'>"+actualCarrier+"</td>"
+                   +"<td class='text-center'>"+yHTGoods+"</td>" +"<td class='text-center'>"+fileInsurance+"</td>" +"<td class='text-center'>"+insuranceOrderRequirement+"</td>"
                    +"<td class='text-center'>"+"<a href='viewInsuranceOrder?id="+item.id+"' title='查看'>" +
                    "<span class='glyphicon glyphicon-search' aria-hidden='true'></span></a>" +
                    "<a   title='接单' onclick='Receipt(this)'><span class='glyphicon glyphicon-check' aria-hidden='true'></span></a>" +
