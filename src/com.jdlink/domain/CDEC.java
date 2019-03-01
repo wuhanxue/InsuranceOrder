@@ -10,6 +10,9 @@ public class CDEC {
     /*信息Id*/
     private String MESSAGE_ID;
 
+    /*接收系统*/
+    private String RECEIVE_SYS="CDEC";
+
     /*信息格式*/
     private String MESSAGE_FORMAT="json";
 
@@ -28,8 +31,7 @@ public class CDEC {
     /*发送企业代码*/
     private String SENDER;
 
-    /*接收系统*/
-    private String RECEIVE_SYS="CDEC";
+
 
     /*接收方*/
     private String RECEIVER="CDEC";
@@ -37,7 +39,7 @@ public class CDEC {
     /*备注*/
     private String REMARK="订单追踪";
 
-    private  Map<String,List<TRACKING>> DATA;
+    private  List<Map<String,List<TRACKING>>> DATA;
 
 
     public String getMESSAGE_ID() {
@@ -120,11 +122,11 @@ public class CDEC {
         this.REMARK = REMARK;
     }
 
-    public Map<String, List<TRACKING>> getDATA() {
+    public List<Map<String, List<TRACKING>>> getDATA() {
         return DATA;
     }
 
-    public void setDATA(Map<String, List<TRACKING>> DATA) {
+    public void setDATA(List<Map<String, List<TRACKING>>> DATA) {
         this.DATA = DATA;
     }
 }

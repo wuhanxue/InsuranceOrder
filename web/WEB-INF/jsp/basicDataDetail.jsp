@@ -232,7 +232,7 @@
             <span>页</span>
             <span style="display: inline-block">每页显示</span>
             <select id="count" style="display: inline-block" onchange="switchPageNumber(onLoadBasicDataDetailList);">
-                <option  value=1>1</option>
+                <option value=1>1</option>
                 <option selected value=15>15</option>
                 <option value=50>50</option>
             </select>

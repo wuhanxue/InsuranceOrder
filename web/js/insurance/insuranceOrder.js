@@ -1,5 +1,6 @@
 /*订单保险脚本*/
 //初始化查询状态为false
+
 var isSearch=false;
 function insuranceOrderLoad(page,data) {
     //传给page.js方法名
@@ -48,21 +49,17 @@ function insuranceOrderLoad(page,data) {
 
     getDataToSelect();
 
-    $.ajax({
-        type:"POST",
-        url:"PushOperationTracking",
-        async: false,
-        dataType:"json",
-        contentType: "application/json; charset=utf-8",
-        success:function (result) {
-         console.log(JSON.stringify(result));
 
-        },
-        error:function (result) {
 
-        }
-    })
+
+
+
+
+
+
 }
+
+
 
 
 
@@ -594,6 +591,7 @@ function Receipt(item) {
             success:function (result) {
                 if (result != undefined && result.status == "success"){
                             alert(result.message);
+                    PushOperationTracking(id);
                             window.location.reload();
                 }
                 else {

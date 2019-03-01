@@ -317,3 +317,35 @@ function getCurrentUser() {
     });
     return data;
 }
+
+/*订单反馈接口*/
+function PushOperationTracking(id) {
+    var user=getCurrentUser();
+    console.log(user)
+    var userName;
+    var code;
+    if(user!=null){
+        userName=user.name;
+        code=user.teamDataItem.code;
+    }
+    else {
+        userName=""
+        code=""
+    }
+    console.log(userName)
+    $.ajax({
+        type:"POST",
+        url:"PushOperationTracking",
+        async: false,
+        data:{"userName":userName,"code":code,"id":id},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            console.log(JSON.stringify(result));
+
+        },
+        error:function (result) {
+
+        }
+    })
+}
