@@ -339,7 +339,6 @@
                 <div class="modal-header">
                     <h3>投保</h3>
                     <h3>保险订单号</h3><span id="insuranceOrderId"></span>
-
                 </div>
                 <div class="modal-body">
                     <table class="table table-striped table-hover table-condensed">
@@ -349,6 +348,7 @@
                             <th class="text-center">保单号</th>
                             <th class="text-center">投保日期</th>
                             <th class="text-center">保费</th>
+                            <th class="text-center">币种</th>
                             <th class="text-center hidden">附件</th>
                             <th class="text-center">创建日期</th>
                             <th class="text-center">创建人</th>
@@ -360,6 +360,7 @@
                         </thead>
                         <tbody id="insuranceOrderItem">
                         <tr>
+                            <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>

@@ -347,21 +347,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-4 control-label">港澳台货物：</label>
+          <label for="currency" class="col-sm-4 control-label">币种：</label>
           <div class="col-xs-7">
-            <input type="radio" id="goods1" name="goods" placeholder="" >是
-            <input type="radio" id="goods2" name="goods" placeholder="">否
+            <select class="form-control" id="currency" name="currency">
+              <option value="1">RNB</option>
+            </select>
           </div>
-          <c:if test="${insuranceOrder.yHTGoods==true}">
-                <script>
-                  $('#goods1').attr("checked","checked");
-                </script>
-          </c:if>
-          <c:if test="${insuranceOrder.yHTGoods==false}">
-            <script>
-                $('#goods2').attr("checked","checked");
-            </script>
-          </c:if>
         </div>
       </div>
       <div class="form-horizontal col-md-3">
@@ -375,9 +366,22 @@
             <input type="text" class="form-control" id="trains" name="trains" placeholder="" value="${insuranceOrder.truckShift}">
           </div>
         </div>
-        <div class="form-group" style="height: 34px">
-          <label for="goodsCost" class="col-sm-4 control-label"></label>
-          <div class="col-xs-7"></div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">港澳台货物：</label>
+          <div class="col-xs-7">
+            <input type="radio" id="goods1" name="goods" placeholder="" >是
+            <input type="radio" id="goods2" name="goods" placeholder="">否
+          </div>
+          <c:if test="${insuranceOrder.yHTGoods==true}">
+            <script>
+                $('#goods1').attr("checked","checked");
+            </script>
+          </c:if>
+          <c:if test="${insuranceOrder.yHTGoods==false}">
+            <script>
+                $('#goods2').attr("checked","checked");
+            </script>
+          </c:if>
         </div>
       </div>
     </div>

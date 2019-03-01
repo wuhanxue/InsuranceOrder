@@ -901,25 +901,26 @@ function downloadFile(item) {
     var fileUrl=$(item).prev().val();
     console.log(fileUrl);
     if(fileUrl.length>0){
-        $.ajax({
-            type:"POST",
-            url:"downloadFile",
-            async: false,
-            data:{"fileName":fileUrl},
-            dataType:"json",
-            // contentType: "application/json; charset=utf-8",
-            success:function (result) {
-                if (result != undefined && result.status == "success"){
-
-                }
-                else {
-
-                }
-            },
-            error:function (result) {
-                alert("服务器异常!")
-            }
-        })
+        window.open("downloadFile?fileName="+fileUrl);
+        // $.ajax({
+        //     type:"POST",
+        //     url:"downloadFile",
+        //     async: false,
+        //     data:{"fileName":fileUrl},
+        //     dataType:"json",
+        //     // contentType: "application/json; charset=utf-8",
+        //     success:function (result) {
+        //         if (result != undefined && result.status == "success"){
+        //
+        //         }
+        //         else {
+        //
+        //         }
+        //     },
+        //     error:function (result) {
+        //         alert("服务器异常!")
+        //     }
+        // })
     }
 
 }
