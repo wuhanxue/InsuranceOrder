@@ -4,6 +4,7 @@ import com.jdlink.domain.dataItem.DepartmentDataItem;
 import com.jdlink.domain.dataItem.FreightDataItem;
 import com.jdlink.domain.dataItem.OrderStateDataItem;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单数据结构
@@ -102,7 +103,7 @@ public class InsuranceOrder {
     /**
      * 货物价值（包括币种）
      */
-    private GoodsValue goodsValues;
+    private List<GoodsValue> goodsValues;
     /**
      * 是否粤港台货物(1是 0 不是)
      */
@@ -161,6 +162,12 @@ public class InsuranceOrder {
     /*箱单附件url*/
     private String boxUrl;
 
+    /*明细*/
+    private List<InsuranceOrderItem> insuranceOrderItemList;
+
+    /*关键字*/
+    private String keywords;
+
     public String getInvoiceUrl() {
         return invoiceUrl;
     }
@@ -193,11 +200,7 @@ public class InsuranceOrder {
         this.page = page;
     }
 
-    /*明细*/
-    private InsuranceOrderItem insuranceOrderItem;
 
-    /*关键字*/
-    private String keywords;
 
     public String getKeywords() {
         return keywords;
@@ -223,12 +226,12 @@ public class InsuranceOrder {
         this.approvalDateEnd = approvalDateEnd;
     }
 
-    public InsuranceOrderItem getInsuranceOrderItem() {
-        return insuranceOrderItem;
+    public List<InsuranceOrderItem> getInsuranceOrderItemList() {
+        return insuranceOrderItemList;
     }
 
-    public void setInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem) {
-        this.insuranceOrderItem = insuranceOrderItem;
+    public void setInsuranceOrderItemList(List<InsuranceOrderItem> insuranceOrderItemList) {
+        this.insuranceOrderItemList = insuranceOrderItemList;
     }
 
     public String getId() {
@@ -479,11 +482,11 @@ public class InsuranceOrder {
         this.modifier = modifier;
     }
 
-    public GoodsValue getGoodsValues() {
+    public List<GoodsValue> getGoodsValues() {
         return goodsValues;
     }
 
-    public void setGoodsValues(GoodsValue goodsValues) {
+    public void setGoodsValues(List<GoodsValue> goodsValues) {
         this.goodsValues = goodsValues;
     }
 

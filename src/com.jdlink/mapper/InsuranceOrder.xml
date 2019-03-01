@@ -33,9 +33,9 @@
     <result property="insuranceOrderRequirement" column="insurance_order_requirement"></result>
     <association property="internationalFreightDataItem" column="international_freight_id" select="getInternationalFreightDataItem"></association>
     <association property="domesticFreightDataItem" column="domestic_freight_id" select="getDomesticFreightDataItem"></association>
-    <association property="insuranceOrderItem" column="id" select="getInsuranceOrderItem"></association>
     <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"></association>
+    <collection property="insuranceOrderItemList" column="id" select="getInsuranceOrderItemList"></collection>
 </resultMap>
 
     <select id="getInternationalFreightDataItem" resultType="FreightDataItem">
@@ -68,7 +68,7 @@
         <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     </resultMap>
 
-    <select id="getInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
+    <select id="getInsuranceOrderItemList" resultMap="InsuranceOrderItemRM">
         select * from insurance_order_item where order_id=#{id};
     </select>
 
