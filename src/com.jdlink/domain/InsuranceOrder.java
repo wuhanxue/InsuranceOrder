@@ -100,6 +100,10 @@ public class InsuranceOrder {
      */
     private Float goodsValue;
     /**
+     * 货物价值（包括币种）
+     */
+    private GoodsValue goodsValues;
+    /**
      * 是否粤港台货物(1是 0 不是)
      */
     private Boolean yHTGoods;
@@ -473,6 +477,14 @@ public class InsuranceOrder {
 
     public void setModifier(String modifier) {
         this.modifier = modifier;
+    }
+
+    public GoodsValue getGoodsValues() {
+        return goodsValues;
+    }
+
+    public void setGoodsValues(GoodsValue goodsValues) {
+        this.goodsValues = goodsValues;
     }
 
     @Override
