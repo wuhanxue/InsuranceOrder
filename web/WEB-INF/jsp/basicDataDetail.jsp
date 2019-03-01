@@ -78,7 +78,7 @@
                aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="account">账号管理</a></li>
-                <li><a href="signin">注销</a></li>
+                <li><a href="cleanUserInfo">注销</a></li>
             </ul>
         </li>
     </ul>
@@ -232,7 +232,7 @@
             <span>页</span>
             <span style="display: inline-block">每页显示</span>
             <select id="count" style="display: inline-block" onchange="switchPageNumber(onLoadBasicDataDetailList);">
-                <option  value=1>1</option>
+                <option value=1>1</option>
                 <option selected value=15>15</option>
                 <option value=50>50</option>
             </select>

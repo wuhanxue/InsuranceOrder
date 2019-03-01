@@ -1,9 +1,7 @@
 package com.jdlink.controller;
 
-import com.jdlink.domain.InsuranceOrder;
-import com.jdlink.domain.InsuranceOrderItem;
-import com.jdlink.domain.Page;
-import com.jdlink.domain.User;
+import com.jdlink.domain.*;
+import com.jdlink.domain.dataItem.Token;
 import com.jdlink.service.InsuranceOrderService;
 import com.jdlink.service.UserService;
 import net.sf.json.JSONArray;
@@ -23,8 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static com.jdlink.controller.Util.*;
 
 @Controller
 public class InsuranceOrderController {
@@ -311,4 +310,104 @@ public class InsuranceOrderController {
 
         return res.toString();
     }
+
+
+
+
+    /*订单反馈接口*/
+    @RequestMapping("PushOperationTracking")
+    @ResponseBody
+    public String PushOperationTracking(String userName,String code,String id){ //,登录人信息,订单号
+        JSONObject res=new JSONObject();
+
+        //获取token
+        JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+        Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
+
+        String token=token1.getToken();//token
+
+        Message message=new Message();//报文数据结构
+
+        CDEC CDEC=new CDEC();//云平台的数据结构
+
+
+        message.setTokenId(token);
+        //发送数据的用户CODE*
+
+
+        //唯一编码
+        CDEC.setMESSAGE_ID(getGUID());
+
+        CDEC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
+
+        //发送者编码
+        CDEC.setSENDER(code);
+
+        List<Map<String,List<TRACKING>>> DATA=new ArrayList<>();
+
+        Map<String,List<TRACKING>> map=new HashMap<>();//存放数据的结构
+
+        List<TRACKING> trackingList=new ArrayList<>();
+
+        TRACKING tracking=new TRACKING();//具体的数据
+
+
+        InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+
+        //如果保单号不存在,就反馈订单信息
+         if(insuranceOrder.getInsuranceOrderItem()==null){
+//设置作业内容
+             tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+             //设置作业类型
+             tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+             //设置保单号
+             tracking.setENTRUSTORDERNO("");
+         }
+        //如果保单号存在,则比较修改时间，已最晚的那个为准
+         else {
+             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
+                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+                 //设置作业类型
+                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+                 //设置保单号
+                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+             }
+             else {
+                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
+                 //设置作业类型
+                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
+                 //设置保单号
+                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+             }
+
+
+         }
+
+        //设置列ID
+        tracking.setROWID(getGUID());
+        //设置订单号
+        tracking.setORDERNO(insuranceOrder.getId());
+
+        //设置实际完成时间
+        tracking.setATC(getTimeSecondStr(new Date()));
+
+        //设置负责人MANAGER
+        tracking.setMANAGER(userName);
+
+        //设置操作人OPERATOR
+        tracking.setOPERATOR(userName);
+        trackingList.add(tracking);
+
+
+        map.put("OPERATION_TRACKING",trackingList);
+        DATA.add(map);
+        CDEC.setDATA(DATA);
+        message.setCDEC(CDEC);
+        res.put("Token",token);
+        res.put("CDEC",CDEC);
+        return res.toString();
+    }
+
+
+
 }

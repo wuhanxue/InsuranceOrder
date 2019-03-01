@@ -254,16 +254,20 @@ function getNumber(num,n) {
  * 密码修改提示
  */
 function passwordModifyMark() {
-    if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
-        $(".navbar-right").addClass("wrap");
-        var div = "<div class=\"notice\">1</div>";
-        $(".navbar-right").after(div);
-        $(".navbar-right").find(".dropdown-menu").children().eq(0).prepend(div);
-        $(".navbar-right").find(".dropdown-menu").children().eq(0).find("a").addClass("wrap1");
-    }else { // 如果没有则删除之前提醒
-        $(".wrap").removeClass("wrap");
-        $(".wrap1").removeClass("wrap1");
-        $(".notice").remove();
+    if(getCurrentUser() == null || getCurrentUser() === {}) {  // 如果未登陆则进行登陆
+        window.location.href="signin";
+    }else {
+        if(localStorage.modifyPasswordMark === "yes") {  // 如果超过就进行提醒
+            $(".navbar-right").addClass("wrap");
+            var div = "<div class=\"notice\">1</div>";
+            $(".navbar-right").after(div);
+            $(".navbar-right").find(".dropdown-menu").children().eq(0).prepend(div);
+            $(".navbar-right").find(".dropdown-menu").children().eq(0).find("a").addClass("wrap1");
+        }else { // 如果没有则删除之前提醒
+            $(".wrap").removeClass("wrap");
+            $(".wrap1").removeClass("wrap1");
+            $(".notice").remove();
+        }
     }
 }
 
@@ -316,4 +320,36 @@ function getCurrentUser() {
         }
     });
     return data;
+}
+
+/*订单反馈接口*/
+function PushOperationTracking(id) {
+    var user=getCurrentUser();
+    console.log(user)
+    var userName;
+    var code;
+    if(user!=null){
+        userName=user.name;
+        code=user.teamDataItem.code;
+    }
+    else {
+        userName=""
+        code=""
+    }
+    console.log(userName)
+    $.ajax({
+        type:"POST",
+        url:"PushOperationTracking",
+        async: false,
+        data:{"userName":userName,"code":code,"id":id},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            console.log(JSON.stringify(result));
+
+        },
+        error:function (result) {
+
+        }
+    })
 }

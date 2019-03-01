@@ -31,6 +31,34 @@
 
     <!--</mvc:interceptors>-->
 
+    <!--配置拦截器, 多个拦截器,顺序执行 -->
+    <!--<mvc:interceptors>-->
+        <!--本地-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/*"/>-->
+            <!--<mvc:exclude-mapping path="/signin"/>-->
+            <!--<mvc:exclude-mapping path="/CheckUserInfo"/>-->
+            <!--<mvc:exclude-mapping path="/js"/>-->
+            <!--<mvc:exclude-mapping path="/css"/>-->
+            <!--<mvc:exclude-mapping path="/image"/>-->
+            <!--<mvc:exclude-mapping path="/raw"/>-->
+            <!--<bean class="com.jdlink.Interceptor.SecurityInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+        <!--服务器-->
+        <!--<mvc:interceptor>-->
+            <!--&lt;!&ndash;需要拦截的url&ndash;&gt;-->
+            <!--<mvc:mapping path="/InsuranceOrder/*"/>-->
+            <!--&lt;!&ndash;不需要拦截的url&ndash;&gt;-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/signin"/>-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/CheckUserInfo"/>-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/js"/>-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/css"/>-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/image"/>-->
+            <!--<mvc:exclude-mapping path="/InsuranceOrder/raw"/>-->
+            <!--<bean class="com.jdlink.Interceptor.SecurityInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
     <!-- 时间转换 -->
     <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
     <!--<property name="converters">-->

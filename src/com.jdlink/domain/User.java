@@ -62,6 +62,18 @@ public class User {
      * 分页
      */
     private Page page;
+    /**
+     * 记住密码（1记住）
+     */
+    private Integer remember;
+
+    public Integer getRemember() {
+        return remember;
+    }
+
+    public void setRemember(Integer remember) {
+        this.remember = remember;
+    }
 
     public Integer getId() {
         return id;

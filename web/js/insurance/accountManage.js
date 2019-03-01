@@ -385,7 +385,7 @@ function updateUser() {
 /**
  * 删除功能
  */
-function deleteById(){
+function deleteById(e){
     if(confirm('确认删除？')){
         var id = parseInt($(e).parent().parent().children().eq(1).text());  //获取ID
         console.log("id=" + id);
@@ -397,7 +397,6 @@ function deleteById(){
                 id: id
             },
             dataType: "json",
-            // contentType: "application/json; charset=utf-8",
             success: function (result) {
                 if (result != undefined && result.status === "success") {
                     // 赋值
