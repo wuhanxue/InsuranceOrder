@@ -26,6 +26,8 @@ function onLoadBasicDataDetailList(page, data) {
     $("#dictionaryCode").val(localStorage.dataDictionaryCode);
     $("#dictionaryId").text(localStorage.dataDictionaryId);
     //根据url获取总页数
+    console.log("查询条件");
+    console.log(data);
     TotalPage('searchBasicDataDetailTotal', data);
     $.ajax({
         type: "POST",

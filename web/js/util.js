@@ -293,3 +293,27 @@ function getDataDictionaryItemById(id) {
     });
     return data;
 }
+
+/**
+ * 获取当前登陆人信息
+ */
+function getCurrentUser() {
+    var data = {};
+    $.ajax({
+        type: "POST",                       // 方法类型
+        url: "getCurrentUser",                  // url
+        async: false,                      // 同步：意思是当有返回值以后才会进行后面的js程序
+        dataType: "json",
+        success: function (result) {
+            if (result != undefined && result.status === "success") {
+                data = result.data;
+            } else {
+                console.log(result.message);
+            }
+        },
+        error: function (result) {
+            console.log(result.message);
+        }
+    });
+    return data;
+}

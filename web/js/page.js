@@ -40,7 +40,7 @@ function initisSearch(isSearch1) {
         display: 5,
         border: true,
         border_color: '#fff',
-        text_color: '#8cc59d',
+        text_color: '#379aba',
         background_color: 'black',
         border_hover_color: '#fff',
         text_hover_color: '#fff',
@@ -349,23 +349,23 @@ function TotalPage(url, data) {
 
         count: totalPage,//总页数(动态)
 
-        start: data.page.start+1,//起始页码
+        start: (data.page.start/data.page.count)+1,  //起始页码
 
         display: 5,
 
         border: true,
 
-        border_color: '#BEF8B8',
+        border_color: '#4195e6',
 
-        text_color: '#68BA64',
+        text_color: '#379aba',
 
         background_color: '#E3F2E1',
 
-        border_hover_color: '#68BA64',
+        border_hover_color: '#379aba',
 
         text_hover_color: 'black',
 
-        background_hover_color: '#CAE6C6',
+        background_hover_color: '#4195e6',
 
         rotate: false,
 
@@ -456,17 +456,17 @@ function switchPageNumber() {
 
         border: true,
 
-        border_color: '#BEF8B8',
+        border_color: '#4195e6',
 
-        text_color: '#68BA64',
+        text_color: '#379aba',
 
         background_color: '#E3F2E1',
 
-        border_hover_color: '#68BA64',
+        border_hover_color: '#379aba',
 
         text_hover_color: 'black',
 
-        background_hover_color: '#CAE6C6',
+        background_hover_color: '#4195e6',
 
         rotate: false,
 
