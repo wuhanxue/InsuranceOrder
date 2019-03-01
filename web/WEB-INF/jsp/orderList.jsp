@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>订单列表</title>
+    <script src="https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001"></script>
     <link rel="stylesheet" type="text/css" href="css/page/style.css" media="screen"/>
     <script src="js/jquery/jquery2.0.3/jquery-2.0.3.min.js"></script>
     <script src="js/jquery/2.0.0/jquery.min.js"></script>
@@ -318,8 +319,8 @@
             <span>页</span>
             <span style="display: inline-block">每页显示</span>
             <select id="count" style="display: inline-block" onchange="switchPageNumber();">
-                <option value=1>1</option>
-                <option selected value=15>15</option>
+                <option value=1 >1</option>
+                <option  value=15 selected>15</option>
                 <option value=50>50</option>
             </select>
             <span style="display: inline-block">条记录</span>
@@ -449,6 +450,10 @@
     </div>
 
     <script src="js/page.js" type="text/javascript"></script>
+</div>
+
+<div id="get">
+
 </div>
 </body>
 <script>
