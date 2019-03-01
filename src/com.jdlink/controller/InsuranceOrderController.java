@@ -377,7 +377,7 @@ public class InsuranceOrderController {
         InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
 
         //如果保单号不存在,就反馈订单信息
-         if(insuranceOrder.getInsuranceOrderItem()==null){
+         if(insuranceOrder.getInsuranceOrderItemList()==null){
 //设置作业内容
              tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
              //设置作业类型
@@ -386,24 +386,24 @@ public class InsuranceOrderController {
              tracking.setENTRUSTORDERNO("");
          }
         //如果保单号存在,则比较修改时间，已最晚的那个为准
-         else {
-             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
-                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-             }
-             else {
-                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-             }
-
-
-         }
+//         else {
+//             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
+//                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+//                 //设置作业类型
+//                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+//                 //设置保单号
+//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+//             }
+//             else {
+//                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
+//                 //设置作业类型
+//                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
+//                 //设置保单号
+//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
+//             }
+//
+//
+//         }
 
         //设置列ID
         tracking.setROWID(getGUID());
@@ -455,17 +455,19 @@ public class InsuranceOrderController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping( value = "downloadFile")
+    @RequestMapping("downloadFile")
     @ResponseBody
-    public String down(HttpServletRequest request,HttpServletResponse response,String fileName) throws Exception{
+    public String down(HttpServletRequest request,HttpServletResponse response,@Param(value = "fileName") String fileName) throws Exception{
         JSONObject res=new JSONObject();
 
         try {
             //获取输入流
-            String path = request.getSession().getServletContext().getRealPath("statics\\upload")+"\\"+fileName;
+//            String path = request.getSession().getServletContext().getRealPath("statics\\upload")+"\\"+fileName;
+            fileName = new String(fileName.getBytes("iso8859-1"), "utf-8");
             InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
             //转码，免得文件名中文乱码
-            fileName = URLEncoder.encode(fileName,"UTF-8");
+//            fileName = URLEncoder.encode(fileName,"UTF-8");
+
             //设置文件下载头
             response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
@@ -486,9 +488,9 @@ public class InsuranceOrderController {
             res.put("message", "更新失败");
         }
 
-        return res.toString();
 
 
+       return res.toString();
     }
 
     }
