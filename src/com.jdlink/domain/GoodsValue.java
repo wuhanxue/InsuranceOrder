@@ -18,8 +18,21 @@ public class GoodsValue {
     /**
      * 币种（币制）
      */
-    private CurrencyDataItem currencyDataItem;
 
+
+    private CurrencyDataItem currencyDataItem;
+    /*
+     * 保单数据结构
+     * */
+    private InsuranceOrderItem insuranceOrderItem;
+
+    public InsuranceOrderItem getInsuranceOrderItem() {
+        return insuranceOrderItem;
+    }
+
+    public void setInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem) {
+        this.insuranceOrderItem = insuranceOrderItem;
+    }
     public int getId() {
         return id;
     }

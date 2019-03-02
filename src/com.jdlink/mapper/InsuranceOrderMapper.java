@@ -1,5 +1,6 @@
 package com.jdlink.mapper;
 
+import com.jdlink.domain.GoodsValue;
 import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.domain.InsuranceOrderItem;
 import com.jdlink.domain.Page;
@@ -18,7 +19,7 @@ public interface InsuranceOrderMapper {
 
     int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder);
 
-    InsuranceOrderItem getInsuranceOrderItemById(String id);
+    List<InsuranceOrderItem> getInsuranceOrderItemById(String id);
 
     void updateInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
 
@@ -37,4 +38,8 @@ public interface InsuranceOrderMapper {
     void shutDownById(String id);
 
     void getAbnormal(InsuranceOrderItem insuranceOrderItem);
+
+    List<GoodsValue> getGoodsValueById(String id);
+
+    InsuranceOrderItem getInsuranceOrderItemByItemId(String id);
 }

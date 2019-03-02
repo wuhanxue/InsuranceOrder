@@ -152,17 +152,21 @@
                     </div>
                     <div class="form-horizontal col-md-3">
                         <div class="form-group">
-                            <label for="search-insureCompanyName" class="col-sm-4 control-label">保险公司名称</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="enterSearch();" class="form-control"
-                                       id="search-insureCompanyName" name="search-createDept" placeholder="">
+                            <label for="search-insuredPersonName" class="col-sm-4 control-label">港澳台货物:</label>
+                            <div class="col-xs-7" style="margin-top:5px">
+                                <input type="radio"
+                                        name="yHTGoods" placeholder="" value=true onchange="searchData()">是
+                                <input type="radio" onkeyup="enterSearch()"
+                                        name="yHTGoods" placeholder="" value=false onchange="searchData()">否
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="search-premium" class="col-sm-4 control-label">保险费</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-premium"
-                                       name="search-editor" placeholder="">
+                            <label for="search-insuredPersonName" class="col-sm-4 control-label">货物类别:</label>
+                            <div class="col-xs-7" style="margin-top:5px">
+                                <input type="radio"
+                                       name="goodsType" placeholder="" value='1' onchange="searchData()">普通货物
+                                <input type="radio"
+                                       name="goodsType" placeholder="" value='2' onchange="searchData()">特殊货物
                             </div>
                         </div>
                     </div>
@@ -175,10 +179,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="search-goodsValue" class="col-sm-4 control-label">货物价值</label>
-                            <div class="col-xs-7">
-                                <input type="text" onkeyup="enterSearch();" class="form-control" id="search-goodsValue"
-                                       name="search-createDept" placeholder="">
+                            <label for="search-insuredPersonName" class="col-sm-4 control-label">实际承运人:</label>
+                            <div class="col-xs-7" style="margin-top:5px">
+                                <input type="radio"
+                                       name="actualCarrier" placeholder="" value='1' onchange="searchData()">我司承运
+                                <input type="radio"
+                                       name="actualCarrier" placeholder="" value='2' onchange="searchData()">供方承运2
+                                <input type="radio"
+                                       name="actualCarrier" placeholder="" value='3' onchange="searchData()">第三方承运3
                             </div>
                         </div>
                     </div>
@@ -196,16 +204,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal col-md-2 pull-left"></div>
+                    <div class="form-horizontal col-md-2 pull-left">
+                        <div class="form-group">
+                            <label for="search-insuredPersonName" class="col-sm-4 control-label">附件险:</label>
+                            <div class="col-xs-7" style="margin-top:5px">
+                                <input type="radio"
+                                       name="fileInsurance" placeholder="" value='1' onchange="searchData()">吊装险
+                                <input type="radio"
+                                       name="fileInsurance" placeholder="" value='2' onchange="searchData()">其它
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-horizontal col-md-4 pull-left">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">投保日期 </label>
-                            <div class="input-group">
-                                <input type="date" class="input-sm form-control" id="search-insureDateBegin" title=""
-                                       onkeydown="" onkeyup="enterSearch()"/>
-                                <span class="input-group-addon">-</span>
-                                <input type="date" class="input-sm form-control" id="search-insureDateEnd" title=""
-                                       onkeydown="" onkeyup="enterSearch()"/>
+                            <label for="search-insuredPersonName" class="col-sm-4 control-label">保单要求:</label>
+                            <div class="col-xs-7" style="margin-top:5px">
+                                <input type="radio"
+                                       name="insuranceOrderRequirement" placeholder="" value='1' onchange="searchData()">正本
+                                <input type="radio"
+                                       name="insuranceOrderRequirement" placeholder="" value='2' onchange="searchData()">复印件
+                                <input type="radio"
+                                       name="insuranceOrderRequirement" placeholder="" value='3' onchange="searchData()">不需要
                             </div>
                         </div>
                     </div>
@@ -256,7 +276,7 @@
                     <td class='text-center'></td>
                     <%--保费--%>
                     <td class='text-center'>
-                        <a href="/orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search"
+                        <a href="orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search"
                                                                            aria-hidden="true"></span></a>
                         <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check"
                                                                 aria-hidden="true"></span></a>
@@ -345,16 +365,11 @@
                     <table class="table table-striped table-hover table-condensed">
                         <thead>
                         <tr>
-                            <th class="text-center">保险公司名称</th>
                             <th class="text-center">保单号</th>
+                            <th class="text-center">保险公司名称</th>
                             <th class="text-center">投保日期</th>
                             <th class="text-center">保费</th>
                             <th class="text-center">币种</th>
-                            <th class="text-center hidden">附件</th>
-                            <th class="text-center">创建日期</th>
-                            <th class="text-center">创建人</th>
-                            <th class="text-center">修改日期</th>
-                            <th class="text-center">修改人</th>
                             <th class="text-center">状态</th>
                             <th class="text-center">操作</th>
                         </tr>
@@ -366,17 +381,10 @@
                             <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center"></td>
-                            <td class="text-center hidden"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
                             <td class="text-center"></td>
                             <td class="text-center">
-                                <a title="增加" onclick="addModal(this)"><span class="glyphicon glyphicon-plus"
+                                <a title="增加/修改" onclick="addOrEditModal(this)"><span class="glyphicon glyphicon-plus"
                                                                              aria-hidden="true"></span></a>
-                                <a onclick="editModel(this)" title="修改"><span
-                                        class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                                 <a class="delete" title="删除" onclick="deleteModel(this)"><span
                                         class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                 <a  id="upload2" title="上传电子保单" onclick="showUploadInsurancePolicy(this)" ><span
@@ -390,8 +398,8 @@
                     </table>
                 </div>
                 <div class="modal-footer text-center">
-                    <a class="btn btn-primary" id="save" onclick="saveInsuranceOrderItem()">保存</a>
-                    <a class="btn btn-danger" id="adjust" onclick="confirmAdjust()">修改</a>
+                    <%--<a class="btn btn-primary" id="save" onclick="saveInsuranceOrderItem()">保存</a>--%>
+                    <a class="btn btn-danger" id="adjust" onclick="confirmAdjust()">保存</a>
 
                 </div>
             </div>
@@ -454,12 +462,11 @@
                     <h3>文件下载</h3>
                 </div>
                 <div class="modal-body">
-                    <table style="border: 0;width: 100%">
-                        <tr><td class="text-center">发票</td><td >  <input class="hidden" id="invoiceUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a>
-                        </td></tr>
-                        <tr><td class="text-center">箱单</td><td ><input class="hidden" id="boxUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td></tr>
-                        <tr><td class="text-center"> 电子保单</td><td ><input class="hidden" id="fileUrl"><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td></tr>
-                    </table>
+                    <table style="border: 0;width: 100%" id="policy">
+                        <tr><td class="text-center">发票</td><td id="invoiceUrl"></td><td><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td>
+                        </tr>
+                        <tr><td class="text-center">箱单</td><td id="boxUrl"></td><td><a title='下载' onclick="downloadFile(this)"><span class='glyphicon glyphicon-download-alt' aria-hidden='true' ></span></a></td>
+                   </table>
                   <%--<div class="row">--%>
                       <%--<div class="form-group">--%>
                           <%--<label for="search-id" class="col-sm-6 control-label text-center">发票</label>--%>
