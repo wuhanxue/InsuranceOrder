@@ -134,7 +134,7 @@ public class UserController {
 
 
     /**
-     * 检验用户是否为管理员root
+     * 进入账号管理页面
      *
      * @return
      */
@@ -142,7 +142,7 @@ public class UserController {
     public ModelAndView listUser(HttpSession session) {
         ModelAndView mav = new ModelAndView("accountManage");
 //        User user = (User) session.getAttribute("user");   // 获取用户信息
-//        if (user != null && user.getUserName().equals("root")) {
+//        if (user != null && user.getUserName().equals("root")) { //检验用户是否为管理员root
 //            mav.setViewName("accountManage");
 //        } else if(user == null){
 //            mav.setViewName("redirect:/signin");
