@@ -140,15 +140,15 @@ public class UserController {
      */
     @RequestMapping("accountManage")
     public ModelAndView listUser(HttpSession session) {
-        ModelAndView mav = new ModelAndView();
-        User user = (User) session.getAttribute("user");   // 获取用户信息
-        if (user != null && user.getUserName().equals("root")) {
-            mav.setViewName("accountManage");
-        } else if(user == null){
-            mav.setViewName("redirect:/signin");
-        }else{
-            mav.setViewName("redirect:/orderList");
-        }
+        ModelAndView mav = new ModelAndView("accountManage");
+//        User user = (User) session.getAttribute("user");   // 获取用户信息
+//        if (user != null && user.getUserName().equals("root")) {
+//            mav.setViewName("accountManage");
+//        } else if(user == null){
+//            mav.setViewName("redirect:/signin");
+//        }else{
+//            mav.setViewName("redirect:/orderList");
+//        }
         return mav;
     }
 
