@@ -20,42 +20,11 @@
     <script src="js/3.3.6/bootstrap.min.js"></script>
     <script src="js/bootstrap-select.min.js"></script>
     <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/util/mark.css">
     <script src="js/navbar.js"></script>
     <script src="js/insurance/accountManage.js"></script>
     <script src="js/util.js"></script>
 
 </head>
-<style type="text/css">
-    /*table {*/
-        /*font-family: "微软雅黑", Georgia, Serif;*/
-    /*}*/
-    .wrap {
-        width: 50px;
-        margin-bottom: 10px;
-        position: relative;
-    }
-
-    .wrap1 {
-        /*width:50px;*/
-        margin-bottom: 10px;
-        position: relative; /*相对定位*/
-    }
-
-    .notice {
-        width: 20px;
-        height: 20px; /*notice宽高*/
-        line-height: 20px; /*行高*/
-        font-size: 10px;
-        color: #fff;
-        text-align: center;
-        background-color: #f00;
-        border-radius: 50%; /*notice弧度大小*/
-        position: absolute; /*绝对定位*/
-        right: 10px;
-        /*top:10px;*/
-    }
-</style>
 <body onload="setCompanySelectData();onLoadAccountList();">
 <!--导航条-->
 <nav class="navbar navbar-inverse navbar-fixed-top float" id="navbar1" style="height: 50px;">
@@ -100,7 +69,7 @@
                 <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                  aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
+                <li onclick="jumpToAccountManage()"><a class="withripple" ><span class="glyphicon glyphicon-th-list"
                                                                      aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal"
