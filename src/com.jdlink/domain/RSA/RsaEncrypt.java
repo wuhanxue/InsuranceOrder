@@ -11,8 +11,14 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * RSA加密
+ */
 public class RsaEncrypt {
 
+    /**
+     * 私钥公钥
+     */
     private static final Map<Integer, String> keyMap = new HashMap<Integer, String>(){{
         // 私钥
         put(0,"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCM2CkktxwDAveAgKTHqUk9HQCUkm9IcMmzuN9sYRNHIKZGpVoMmZ+YLoad6PAa2j5oDHPVykiALKw2q8SDT1/gw8+wIk6iysnA/zUY1jO86ByHXY9e6SIJWERqagEslHM/MeTQnysugKcFH/tROplJ1eHryAY0QCMdOfOF1JTrJwIDAQAB");  // 私钥
@@ -26,22 +32,8 @@ public class RsaEncrypt {
     }
 
 
-//    public static void main(String[] args) throws Exception {
-//        //生成公钥和私钥
-//        genKeyPair();
-//        //加密字符串
-//        String message = "Whxadasdgfhdhd!!!!fghdfgdfgdfgfdgdf";
-//        System.out.println("随机生成的公钥为:" + keyMap.get(0));
-//        System.out.println("随机生成的私钥为:" + keyMap.get(1));
-//        String messageEn = encrypt(message,keyMap.get(0));
-//        System.out.println(message + ":加密后的字符串为:" + messageEn);
-//        System.out.println("加密后的长度："+messageEn.length());
-//        String messageDe = decrypt(messageEn,keyMap.get(1));
-//        System.out.println("还原后的字符串为:" + messageDe);
-//    }
-
     /**
-     * 随机生成密钥对
+     * 随机生成密钥对（暂不用，已固定）
      * @throws NoSuchAlgorithmException
      */
     public static void genKeyPair() throws NoSuchAlgorithmException {
