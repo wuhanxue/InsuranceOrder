@@ -38,16 +38,18 @@
   }
 %>
 <!--登录表单-->
-<form class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
-  <h2 class="form-signin-heading">保险登录</h2>
-  <label for="userName" class="sr-only">账号</label>
-  <input type="text"  class="form-control" value="<%=userName%>" id="userName" name="userName" placeholder="账号" required autofocus>
-  <label for="password" class="sr-only">密码</label>
-  <input type="password"  class="form-control" value="<%=password%>" id="password" name="password" placeholder="密码" required>
-  <br>
-  <input name="remember" type="checkbox" id="remember" value="1" /> 记住密码
-  <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit" onclick="">登录</button>
-</form>
+<div style="width: 20%;height: 30%;background-color: white;margin: 0 auto">
+    <form class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
+        <h2 class="form-signin-heading">保险登录</h2>
+        <label for="userName" class="sr-only">账号</label>
+        <input type="text"  class="form-control" value="<%=userName%>" id="userName" name="userName" placeholder="账号" required autofocus>
+        <label for="password" class="sr-only">密码</label>
+        <input type="password"  class="form-control" value="<%=password%>" id="password" name="password" placeholder="密码" required>
+        <br>
+        <input name="remember" type="checkbox" id="remember" value="1" /> 记住密码
+        <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit" onclick="">登录</button>
+    </form>
+</div>
 </body>
 <script type="text/javascript">
     if('${status}' !=null && '${status}' === 'fail'){  // 账号或密码错误提示
