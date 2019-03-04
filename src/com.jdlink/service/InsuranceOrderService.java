@@ -1,5 +1,6 @@
 package com.jdlink.service;
 
+import com.jdlink.domain.GoodsValue;
 import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.domain.InsuranceOrderItem;
 import com.jdlink.domain.Page;
@@ -24,7 +25,7 @@ public interface InsuranceOrderService {
     int searchInsuranceOrderTotal(InsuranceOrder insuranceOrder);
 
     /*根据保险单号查看明细(保单)*/
-    InsuranceOrderItem getInsuranceOrderItemById(String id);
+    List<InsuranceOrderItem> getInsuranceOrderItemById(String id);
 
     /*更新保单信息*/
     void updateInsuranceOrderItem(InsuranceOrderItem insuranceOrderItem);
@@ -52,4 +53,10 @@ public interface InsuranceOrderService {
 
     /*生成异常单*/
     void getAbnormal(InsuranceOrderItem insuranceOrderItem);
+
+    /*根据订单号查询货物价值信息*/
+    List<GoodsValue> getGoodsValueById(String id);
+
+    /*根据保单号查询保单信息*/
+    InsuranceOrderItem getInsuranceOrderItemByItemId(String id);
 }

@@ -21,7 +21,8 @@
     <result column="license_plate" property="licensePlate"></result>
     <result column="goods_value" property="goodsValue"></result>
     <result column="yht_goods" property="yHTGoods"></result>
-    <result column="insurance_money" property="insuranceMoney"></result>
+    <result column="internationalInsurance_money" property="internationalInsuranceMoney"></result>
+    <result column="domesticInsurance_money" property="domesticInsuranceMoney"></result>
     <result column="other_insurance" property="otherInsurance"></result>
     <result column="order_maker_service" property="orderMakerService"></result>
     <result column="creation_time" property="creationTime"></result>
@@ -30,13 +31,18 @@
     <result property="goodsType" column="goods_type"></result>
     <result property="actualCarrier" column="actual_carrier"></result>
     <result property="fileInsurance" column="file_insurance"></result>
+    <result property="feeCostType" column="fee_Cost_Type"></result>
     <result property="insuranceOrderRequirement" column="insurance_order_requirement"></result>
     <association property="internationalFreightDataItem" column="international_freight_id" select="getInternationalFreightDataItem"></association>
     <association property="domesticFreightDataItem" column="domestic_freight_id" select="getDomesticFreightDataItem"></association>
     <association property="orderStateDataItem" column="state_id" select="getOrderStateDataItem"></association>
     <association property="departmentDataItem" column="department_id" select="getDepartmentDataItem"></association>
     <collection property="insuranceOrderItemList" column="id" select="getInsuranceOrderItemList"></collection>
+    <collection property="goodsValues" column="id" select="getGoodsValues"></collection>
 </resultMap>
+    <select id="getGoodsValues" resultMap="GoodsValueRM">
+        select * from goods_value where insurance_order_id=#{id};
+    </select>
 
     <select id="getInternationalFreightDataItem" resultType="FreightDataItem">
         select * from data_dictionary_item where id=#{international_freight_id};
@@ -124,20 +130,20 @@
             <if test="approvalDateEnd!=null">
                 <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
             </if>
-            <if test="insuranceOrderItem!=null">
-                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
-                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
-                </if>
-                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
-                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
-                </if>
-                <if test="insuranceOrderItem.insureDateBegin!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
-                </if>
-                <if test="insuranceOrderItem.insureDateEnd!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
-                </if>
-
+            <if test="yHTGoods!=null">
+                and yht_goods=#{yHTGoods}
+            </if>
+            <if test="goodsType!=null">
+                and goods_type=#{goodsType}
+            </if>
+            <if test="actualCarrier!=null">
+                and actual_carrier=#{actualCarrier}
+            </if>
+            <if test="fileInsurance!=null">
+                and file_insurance=#{fileInsurance}
+            </if>
+            <if test="insuranceOrderRequirement!=null">
+                and insurance_order_requirement=#{insuranceOrderRequirement}
             </if>
             <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
                 and state_id=#{orderStateDataItem.id}
@@ -192,20 +198,20 @@
             <if test="approvalDateEnd!=null">
                 <![CDATA[ and DATE_FORMAT(approval_date, '%Y-%m-%d') <=  DATE_FORMAT(#{approvalDateEnd}, '%Y-%m-%d') ]]>
             </if>
-            <if test="insuranceOrderItem!=null">
-                <if test="insuranceOrderItem.insureCompanyName!='' and insuranceOrderItem.insureCompanyName!=null">
-                    and id in(select order_id from insurance_order_item where insure_company_name like binary"%"#{insuranceOrderItem.insureCompanyName}"%")
-                </if>
-                <if test="insuranceOrderItem.premium!='' and  insuranceOrderItem.premium!=null">
-                    and id in(select order_id from insurance_order_item where premium = =#{insuranceOrderItem.premium})
-                </if>
-                <if test="insuranceOrderItem.insureDateBegin!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') >=  DATE_FORMAT(#{insuranceOrderItem.insureDateBegin}, '%Y-%m-%d') ]]>
-                </if>
-                <if test="insuranceOrderItem.insureDateEnd!=null">
-                    <![CDATA[ and DATE_FORMAT(insure_date, '%Y-%m-%d') <=  DATE_FORMAT(#{insuranceOrderItem.insureDateEnd}, '%Y-%m-%d') ]]>
-                </if>
-
+            <if test="yHTGoods!=null">
+                and yht_goods=#{yHTGoods}
+            </if>
+            <if test="goodsType!=null">
+                and goods_type=#{goodsType}
+            </if>
+            <if test="actualCarrier!=null">
+                and actual_carrier=#{actualCarrier}
+            </if>
+            <if test="fileInsurance!=null">
+                and file_insurance=#{fileInsurance}
+            </if>
+            <if test="insuranceOrderRequirement!=null">
+                and insurance_order_requirement=#{insuranceOrderRequirement}
             </if>
             <if test="orderStateDataItem!=null and orderStateDataItem.id!=null">
                 and state_id=#{orderStateDataItem.id}
@@ -227,13 +233,24 @@
 
     <!--更新保单信息-->
     <update id="updateInsuranceOrderItem" parameterType="InsuranceOrderItem">
-        update insurance_order_item set id=#{id},insure_company_name=#{insureCompanyName},insure_date=#{insureDate},
-        premium=#{premium},modify_time=NOW(),modifier=#{modifier} where order_id=#{orderId}
+<if test="id==''">
+    insert into insurance_order_item(id, order_id, insure_company_name, insure_date, premium, creation_time, modify_time, state_id, abnormalPerson, abnormalInfo)
+    values
+    (#{newId},#{orderId},#{insureCompanyName},#{insureDate},#{premium},NOW(),NOW(),9,#{abnormalPerson},#{abnormalInfo});
+</if>
+        <if test="id!=''">
+            update insurance_order_item set id=#{newId},insure_company_name=#{insureCompanyName},insure_date=#{insureDate},
+            premium=#{premium},modify_time=NOW(),modifier=#{modifier},order_id=#{orderId} where id=#{id};
+
+        </if>
+        update goods_value set insurance_orderItem_id=#{newId},modify_time=NOW(),insurance_order_id=#{orderId} where  id=#{goodsValueId};
+
     </update>
 
     <!--删除保单信息-->
     <delete id="deleteInsuranceOrderItemById" parameterType="String">
-        delete from insurance_order_item where id=#{id}
+        delete from insurance_order_item where id=#{id};
+        update goods_value set insurance_orderItem_id = null  where insurance_orderItem_id=#{id}
     </delete>
 
     <!--添加保单信息-->
@@ -272,4 +289,28 @@
         update insurance_order_item set state_id=8,abnormalInfo=#{abnormalInfo},
         abnormalPerson=#{abnormalPerson},modify_time=NOW() where id=#{id}
     </update>
+
+    <resultMap id="GoodsValueRM" type="GoodsValue">
+        <result column="insurance_order_id" property="insuranceOrderId"></result>
+        <result column="value" property="value"></result>
+      <association property="currencyDataItem" column="currency_id" select="getCurrencyDataItem"></association>
+        <association property="insuranceOrderItem" column="insurance_orderItem_id" select="getInsuranceOrderItem"></association>
+    </resultMap>
+
+    <select id="getCurrencyDataItem" resultType="CurrencyDataItem">
+        select * from data_dictionary_item where id=#{currency_id}
+    </select>
+
+    <select id="getInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
+        select * from insurance_order_item where id=#{insurance_orderItem_id};
+    </select>
+    <!--根据订单号查询货物价值信息-->
+    <select id="getGoodsValueById" parameterType="String" resultMap="GoodsValueRM">
+        select * from goods_value where insurance_order_id=#{id};
+    </select>
+
+    <!--根据保单号查询保单信息-->
+    <select id="getInsuranceOrderItemByItemId" parameterType="String" resultMap="InsuranceOrderItemRM">
+        select * from insurance_order_item where id=#{id}
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.jdlink.service.Impl;
 
+import com.jdlink.domain.GoodsValue;
 import com.jdlink.domain.InsuranceOrder;
 import com.jdlink.domain.InsuranceOrderItem;
 import com.jdlink.domain.Page;
@@ -44,7 +45,7 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     }
 
     @Override
-    public InsuranceOrderItem getInsuranceOrderItemById(String id) {
+    public List<InsuranceOrderItem> getInsuranceOrderItemById(String id) {
         return insuranceOrderMapper.getInsuranceOrderItemById(id);
     }
 
@@ -92,4 +93,16 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
     public void getAbnormal(InsuranceOrderItem insuranceOrderItem) {
         insuranceOrderMapper.getAbnormal(insuranceOrderItem);
     }
+
+    @Override
+    public List<GoodsValue> getGoodsValueById(String id) {
+        return insuranceOrderMapper.getGoodsValueById(id);
+    }
+
+    @Override
+    public InsuranceOrderItem getInsuranceOrderItemByItemId(String id) {
+        return insuranceOrderMapper.getInsuranceOrderItemByItemId(id);
+    }
+
+
 }
