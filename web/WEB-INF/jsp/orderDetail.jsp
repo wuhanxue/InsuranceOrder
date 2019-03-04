@@ -68,9 +68,9 @@
         <div class="sidebar">
             <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
                 <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
-                <li><a class="withripple" href="/orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/accountManage"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="/basicData"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
+                <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span class="iright pull-right">&gt;</span></a></li>
+                <li onclick="jumpToAccountManage()"><a class="withripple"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span class="iright pull-right">&gt;</span></a></li>
+                <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal" aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;基础数据 </span><span class="iright pull-right">&gt;</span></a></li>
             </ul>
         </div>
     </div>
@@ -361,29 +361,23 @@
         <div class="row">
             <div class="form-horizontal col-md-3"></div>
             <div class="form-horizontal col-md-6">
-                <table class="table table-striped table-hover table-condensed">
-                    <c:forEach items="${insuranceOrder.goodsValues}" var="item">
+                <%--<table class="table table-striped table-hover table-condensed">--%>
+                    <%--<c:forEach items="${insuranceOrder.goodsValues}" var="item">--%>
 
 
-                    <tr>
-                        <td class="text-center" style="width: 25%">货物价值</td>
-                        <td class="text-center" style="width: 25%">
-                            <input readonly type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${item.value}">
-                        </td>
-                        <td class="text-center" style="width: 25%">币种</td>
-                        <td class="text-center" style="width: 25%">
-                            <input readonly type="text" onkeyup="searchData();" class="form-control"  name="goodsCost" placeholder="" value="${item.currencyDataItem.name}">
-                        </td>
-                        </td>
-                    </tr>
-                    </c:forEach>
-                    <tr id="CloneTr">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
+                    <%--<tr>--%>
+                        <%--<td class="text-center" style="width: 25%">货物价值</td>--%>
+                        <%--<td class="text-center" style="width: 25%">--%>
+                            <%--<input readonly type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${item.value}">--%>
+                        <%--</td>--%>
+                        <%--<td class="text-center" style="width: 25%">币种</td>--%>
+                        <%--<td class="text-center" style="width: 25%">--%>
+                            <%--<input readonly type="text" onkeyup="searchData();" class="form-control"  name="goodsCost" placeholder="" value="${item.currencyDataItem.name}">--%>
+                        <%--</td>--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
+                    <%--</c:forEach>--%>
+                <%--</table>--%>
             </div>
             <div class="form-horizontal col-md-3"></div>
         </div>
@@ -463,30 +457,52 @@
             <div class="form-horizontal col-md-2"></div>
             <div class="form-horizontal col-md-8">
                 <table class="table table-striped table-hover table-condensed">
-                    <c:forEach items="${insuranceOrder.insuranceOrderItemList}" var="item" >
-                    <tr>
-                        <td class="text-center" style="width: 17%">保险公司名称</td>
-                        <td class="text-center" style="width: 17%">
-                            <input readonly type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${item.insureCompanyName}">
-                        </td>
-                        <td class="text-center" style="width: 16%">保费</td>
-                        <td class="text-center" style="width: 16%">
-                            <input readonly type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${item.premium}">
-                        </td>
-                        <td class="text-center" style="width: 17%">保单号</td>
-                        <td class="text-center" style="width: 17%">
-                            <input readonly type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${item.id}">
-                        </td>
-                    </tr>
+                    <c:forEach items="${insuranceOrder.goodsValues}" var="item">
+
+
+                        <tr>
+                            <td class="text-center" style="width: 10%">货物价值</td>
+                            <td class="text-center" style="width: 10%">
+                                <input readonly type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${item.value}">
+                            </td>
+                            <td class="text-center" style="width: 10%">币种</td>
+                            <td class="text-center" style="width: 10%">
+                                <input readonly type="text" onkeyup="searchData();" class="form-control"  name="goodsCost" placeholder="" value="${item.currencyDataItem.name}">
+                            </td>
+
+                            <td class="text-center" style="width: 10%">保险公司名称</td>
+                            <td class="text-center" style="width: 10%">
+                                <input readonly type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${item.insuranceOrderItem.insureCompanyName}">
+                            </td>
+                            <td class="text-center" style="width: 10%">保费</td>
+                            <td class="text-center" style="width: 10%">
+                                <input readonly type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${item.insuranceOrderItem.premium}">
+                            </td>
+                            <td class="text-center" style="width: 10%">保单号</td>
+                            <td class="text-center" style="width: 10%">
+                                <input readonly type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${item.insuranceOrderItem.id}">
+                            </td>
+                            </td>
+
+                        </tr>
                     </c:forEach>
-                    <tr id="CloneTr2">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <c:forEach items="${insuranceOrder.insuranceOrderItemList}" var="item" >
+                    <%--<tr>--%>
+                        <%--<td class="text-center" style="width: 17%">保险公司名称</td>--%>
+                        <%--<td class="text-center" style="width: 17%">--%>
+                            <%--<input readonly type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${item.insureCompanyName}">--%>
+                        <%--</td>--%>
+                        <%--<td class="text-center" style="width: 16%">保费</td>--%>
+                        <%--<td class="text-center" style="width: 16%">--%>
+                            <%--<input readonly type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${item.premium}">--%>
+                        <%--</td>--%>
+                        <%--<td class="text-center" style="width: 17%">保单号</td>--%>
+                        <%--<td class="text-center" style="width: 17%">--%>
+                            <%--<input readonly type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${item.id}">--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
+                    </c:forEach>
+
                 </table>
             </div>
             <div class="form-horizontal col-md-2"></div>
