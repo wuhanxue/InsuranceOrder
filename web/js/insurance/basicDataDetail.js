@@ -18,13 +18,37 @@ function onLoadBasicDataDetailList(page, data) {
         data = {};
         data.dataDictionaryId = localStorage.dataDictionaryId; // 外键
         data.page = page;
-    }else if(data.dataDictionaryId == null || data.dataDictionaryId === ""){
+    } else if (data.dataDictionaryId == null || data.dataDictionaryId === "") {
         data.dataDictionaryId = localStorage.dataDictionaryId; // 外键
     }
     // 赋值
-    $("#dictionaryName").val(localStorage.dataDictionaryName);
-    $("#dictionaryCode").val(localStorage.dataDictionaryCode);
     $("#dictionaryId").text(localStorage.dataDictionaryId);
+    if (localStorage.dataDictionaryId !== "") {
+        $.ajax({  // 根据ID获取最新的名称和代码
+            type: "POST",
+            url: "getBasicDataById",
+            async: false,
+            data: {
+                id: parseInt(localStorage.dataDictionaryId)
+            },
+            dataType: "json",
+            success: function (result) {
+                if (result != undefined && result.status == "success") {
+                    console.log(result);
+                    //删除子元素
+                    $("#dictionaryName").val(result.data.name);
+                    $("#dictionaryCode").val(result.data.code);
+                } else {
+                    console.log(result.message);
+                }
+            },
+            error: function (result) {
+                console.log(result.message);
+            }
+        });
+    }else {
+        console.log("字典编号为空，请重新登陆！");
+    }
     //根据url获取总页数
     console.log("查询条件");
     console.log(data);
@@ -98,7 +122,7 @@ function searchData() {
                 //删除子元素
                 $(".myClass").remove();
                 setDataList(result);
-            }else {
+            } else {
                 alert(result.message);
             }
         },
@@ -140,11 +164,11 @@ function setDataList(result) {
     $.each(result.data, function (index, item) {
         //复杂对象
         var tr = "<tr class=\"myClass\">\n" +
-            "                    <td name=\"id\"><input class=\"form-control\" name=\"id\" value=\""+item.id+"\" required></td>\n" +
-            "                    <td name=\"oldId\" hidden><input class=\"form-control\" name=\"oldId\" value=\""+item.id+"\"></td>\n" +
-            "                    <td name=\"code\"><input class=\"form-control\" name=\"code\" value=\""+item.code+"\"></td>\n" +
-            "                    <td name=\"name\"><input class=\"form-control\" name=\"name\" value=\""+item.name+"\"></td>\n" +
-            "                    <td name=\"parentId\"><input class=\"form-control\" name=\"parentId\" value=\""+item.parentId+"\"></td>\n" +
+            "                    <td name=\"id\"><input class=\"form-control\" name=\"id\" value=\"" + item.id + "\" required></td>\n" +
+            "                    <td name=\"oldId\" hidden><input class=\"form-control\" name=\"oldId\" value=\"" + item.id + "\"></td>\n" +
+            "                    <td name=\"code\"><input class=\"form-control\" name=\"code\" value=\"" + item.code + "\"></td>\n" +
+            "                    <td name=\"name\"><input class=\"form-control\" name=\"name\" value=\"" + item.name + "\"></td>\n" +
+            "                    <td name=\"parentId\"><input class=\"form-control\" name=\"parentId\" value=\"" + item.parentId + "\"></td>\n" +
             "                    <td class=\"text-center\"><a class='btn btn-default btn-xs' name='delbtn' onclick='delLine(this);'>\n" +
             "                        <span class='glyphicon glyphicon-minus' aria-hidden='true'></span></a></td>\n" +
             "                </tr>";
@@ -167,7 +191,7 @@ function addNewLine(item) {
     }
     // 克隆tr，每次遍历都可以产生新的tr
     var clonedTr = tr.clone();
-    clonedTr.attr("class","newLine");
+    clonedTr.attr("class", "newLine");
     // 克隆后清空新克隆出的行数据
     clonedTr.children().find("input").val("");
     clonedTr.insertAfter(tr);
@@ -184,7 +208,7 @@ function delLine(e) {
         $("a[name='delbtn']").remove();
     }
     var itemId = $(e).parent().prevAll().find("input[name='id']").val();
-    if(itemId !== ""){  // 如果ID非空：原始行，非新增的行
+    if (itemId !== "") {  // 如果ID非空：原始行，非新增的行
         delIdList.push(itemId);   // 将需要删除的数据的ID插入到集合中
     }
 }
@@ -199,7 +223,7 @@ function modifyDetail() {
     data.name = $.trim($("#dictionaryName").val());
     data.code = $.trim($("#dictionaryCode").val());
     var dataDictionaryItemList = [];  // 详细数据集合
-    for(var index in delIdList) {   // 将要删除的数据存储到集合中
+    for (var index in delIdList) {   // 将要删除的数据存储到集合中
         var dataDictionaryItem = {};
         dataDictionaryItem.id = delIdList[index];
         dataDictionaryItem.name = "_needDeleteDataDictionaryItem_";
@@ -209,14 +233,14 @@ function modifyDetail() {
         var dataDictionaryItem = {};
         // 获取详细条目数据
         var itemId = $.trim($(this).children().find("input[name='id']").val());
-        if(itemId === "") { // 判断ID是否为空
+        if (itemId === "") { // 判断ID是否为空
             alert("明细编号不能为空！");
-        }else { // 需要修改的数据
+        } else { // 需要修改的数据
             dataDictionaryItem.id = itemId;
         }
-        if($(this).attr("class") === "newLine") { // 新增数据设置creator为-1
+        if ($(this).attr("class") === "newLine") { // 新增数据设置creator为-1
             dataDictionaryItem.creator = "-1";
-        }else { // 旧数据设置旧ID
+        } else { // 旧数据设置旧ID
             dataDictionaryItem.oldId = $.trim($(this).children().find("input[name='oldId']").val());
         }
         dataDictionaryItem.dataDictionaryId = data.id;  // 外键

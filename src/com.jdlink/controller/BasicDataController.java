@@ -108,22 +108,6 @@ public class BasicDataController {
     }
 
     /**
-     * 根据ID获取字典明细数据列表(暂不用)
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping("/getBasicDataById/{id}")
-    public ModelAndView getBasicDataById(DataDictionary dataDictionary) {
-        List<DataDictionaryItem> dataItemList = dataDictionaryService.getDataDictionaryItemListByDataDictionaryId(dataDictionary.getId());
-        DataDictionary dataDictionary1 = dataDictionaryService.getDataDictionaryById(dataDictionary.getId());
-        ModelAndView mav = new ModelAndView("/basicDataDetail");
-        mav.addObject("dataItemList", dataItemList);
-        mav.addObject("data", dataDictionary1);
-        return mav;
-    }
-
-    /**
      * 修改基础数据信息
      * @param dataDictionary
      * @param session
@@ -213,4 +197,29 @@ public class BasicDataController {
         }
         return res.toString();
     }
+
+
+    /**
+     * 根据明细ID获取基础数据信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("getBasicDataById")
+    @ResponseBody
+    public String getBasicDataById(int id) {
+        JSONObject res = new JSONObject();
+        try {
+            DataDictionary dataDictionary = dataDictionaryService.getDataDictionaryById(id);
+            JSONObject data = JSONObject.fromBean(dataDictionary);
+            res.put("status", "success");
+            res.put("message", "获取成功");
+            res.put("data", data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "获取失败");
+        }
+        return res.toString();
+    }
+
 }

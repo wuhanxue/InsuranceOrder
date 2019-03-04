@@ -388,7 +388,6 @@ function PushDocStatus(id) {
     })
 }
 
-
 /**
  * 检验是否有权限进入账号管理页面
  */
