@@ -38,7 +38,7 @@
   }
 %>
 <!--登录表单-->
-<div style="width: 20%;height: 35%;background-color:rgba(255,255,255,.3);margin: 0 auto">
+<div style="width: 400px;height: 300px;background-color:rgba(255,255,255,.3);margin-top: 13%;margin-left: 40%">
     <form style="height:100%" class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
         <h2 class="form-signin-heading">保险登录</h2>
         <label for="userName" class="sr-only">账号</label>
