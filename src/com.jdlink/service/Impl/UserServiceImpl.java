@@ -50,8 +50,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     *
+     * @param user
+     * @return 2 大于90天 1 60-90天 0 不到60天
+     */
     @Override
-    public boolean checkUserPasswordModifyTimeIsLate(User user) {
+    public int checkUserPasswordModifyTimeIsLate(User user) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try
         {
@@ -61,14 +66,16 @@ public class UserServiceImpl implements UserService {
             long days = diff / (1000 * 60 * 60 * 24);  // 相差天数
             // long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);  // 相差小时数
            // long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);  // 相差分钟数
-            if(days >= 90) {
-                return true;
-            }else {
-                return false;
+            if(days > 90) {
+                return 2;
+            }else if(days < 90 && days >= 60){
+                return 1;
+            }else{
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 

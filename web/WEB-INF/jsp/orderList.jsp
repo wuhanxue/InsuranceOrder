@@ -503,12 +503,7 @@
      * 密码修改提示
      */
     $(function (){
-        console.log("执行");
-        if("${modifyPasswordMark}" === "yes") {  // 设置密码提示标记
-            localStorage.modifyPasswordMark = "yes";
-        }else {
-            localStorage.modifyPasswordMark = "no";
-        }
+        localStorage.modifyPasswordMark = "${modifyPasswordMark}";
         passwordModifyMark();
     });
 

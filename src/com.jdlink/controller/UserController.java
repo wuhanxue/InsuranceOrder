@@ -397,7 +397,6 @@ public class UserController {
             List<DataDictionaryItem> dataList = dataDictionaryService.getDataDictionaryByParentId(parentId);
             JSONArray dataList1 = JSONArray.fromArray(dataList.toArray(new DataDictionaryItem[dataList.size()]));
             res.put("dataList", dataList1);
-
             res.put("status", "success");
             res.put("message", "下拉框数据获取成功!");
         } catch (Exception e) {
