@@ -125,7 +125,6 @@
                             $('#type1').attr('checked','checked');
                         </script>
                     </c:if>
-
                     <c:if test="${insuranceOrder.goodsType==2}">
                         <script>
                             $('#type2').attr('checked','checked');
