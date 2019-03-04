@@ -365,3 +365,19 @@ function PushOperationTracking(id) {
         }
     })
 }
+
+/**
+ * 检验是否有权限进入账号管理页面
+ */
+function jumpToAccountManage(){
+    var user = getCurrentUser();
+    if(user != null) {
+        if(user.userName === "root") {
+            window.location.href = "accountManage";
+        }else {
+            alert("该账号没有权限进入！");
+        }
+    }else {
+        window.location.href = "signin";
+    }
+}

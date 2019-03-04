@@ -69,7 +69,7 @@
                 <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                  aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
-                <li><a class="withripple" href="accountManage"><span class="glyphicon glyphicon-th-list"
+                <li onclick="jumpToAccountManage()"><a class="withripple" ><span class="glyphicon glyphicon-th-list"
                                                                      aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;账号管理 </span><span
                         class="iright pull-right">&gt;</span></a></li>
                 <li><a class="withripple" href="basicData"><span class="glyphicon glyphicon-signal"
