@@ -42,4 +42,8 @@ public interface InsuranceOrderMapper {
     List<GoodsValue> getGoodsValueById(String id);
 
     InsuranceOrderItem getInsuranceOrderItemByItemId(String id);
+
+    List<InsuranceOrderItem>listInsuranceOrderItem();
+
+    void shutInsuranceOrderItemDownById(String id);
 }

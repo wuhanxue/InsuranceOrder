@@ -59,4 +59,10 @@ public interface InsuranceOrderService {
 
     /*根据保单号查询保单信息*/
     InsuranceOrderItem getInsuranceOrderItemByItemId(String id);
+
+    /*获取所有的保单*/
+    List<InsuranceOrderItem>listInsuranceOrderItem();
+
+    /*关闭保单*/
+    void shutInsuranceOrderItemDownById(String id);
 }

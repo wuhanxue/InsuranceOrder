@@ -79,7 +79,11 @@
     </select>
 
     <select id="listInsuranceOrder" resultMap="InsuranceOrderRM" parameterType="Page">
-        select * from insurance_order limit #{start}, #{count};
+        select * from insurance_order
+        <if test="page!=null">
+            limit #{start}, #{count};
+        </if>
+
     </select>
 
     <!--通过单号查找订单-->
@@ -313,4 +317,14 @@
     <select id="getInsuranceOrderItemByItemId" parameterType="String" resultMap="InsuranceOrderItemRM">
         select * from insurance_order_item where id=#{id}
     </select>
+
+    <!--获取所有的保单-->
+    <select id="listInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
+        select * from insurance_order_item;
+    </select>
+
+    <!--关闭保单-->
+    <update id="shutInsuranceOrderItemDownById" parameterType="String">
+        update insurance_order_item set state_id=5 where id=#{id}
+    </update>
 </mapper>

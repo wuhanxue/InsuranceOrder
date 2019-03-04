@@ -390,6 +390,8 @@
                                         class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a>
                                 <a href="#" onclick="info2(this)" title="异常"><span class="glyphicon glyphicon-exclamation-sign"
                                                                         aria-hidden="true"></span></a>
+                                <a href="#" onclick="shutInsuranceOrderItemDown(this)" title="关闭"><span class="glyphicon glyphicon-off"
+                                                                                   aria-hidden="true"></span></a>
                             </td>
                         </tr>
 
