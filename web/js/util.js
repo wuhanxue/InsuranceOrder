@@ -366,6 +366,29 @@ function PushOperationTracking(id) {
     })
 }
 
+
+/*订单结算接口
+* id 仅是订单号
+* */
+function PushDocStatus(id) {
+    $.ajax({
+        type:"POST",
+        url:"PushDocStatus",
+        async: false,
+        data:{"id":id},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            console.log(JSON.stringify(result));
+
+        },
+        error:function (result) {
+
+        }
+    })
+}
+
+
 /**
  * 检验是否有权限进入账号管理页面
  */

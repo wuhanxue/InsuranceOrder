@@ -104,5 +104,15 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
         return insuranceOrderMapper.getInsuranceOrderItemByItemId(id);
     }
 
+    @Override
+    public List<InsuranceOrderItem> listInsuranceOrderItem() {
+        return insuranceOrderMapper.listInsuranceOrderItem();
+    }
+
+    @Override
+    public void shutInsuranceOrderItemDownById(String id) {
+        insuranceOrderMapper.shutInsuranceOrderItemDownById(id);
+    }
+
 
 }

@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 import java.util.*;
 
 import static com.jdlink.controller.Util.*;
+import static com.jdlink.controller.Util.getTimeSecondStr;
 
 @Controller
 public class InsuranceOrderController {
@@ -312,7 +313,7 @@ public class InsuranceOrderController {
    }
 
 
-    /*关闭*/
+    /*关闭订单*/
     @RequestMapping("shutDownById")
     @ResponseBody
     public String shutDownById(String id){
@@ -332,15 +333,87 @@ public class InsuranceOrderController {
         return res.toString();
     }
 
-
-
-
-    /*订单反馈接口*/
-    @RequestMapping("PushOperationTracking")
+    /*关闭保单*/
+    @RequestMapping("shutInsuranceOrderItemDownById")
     @ResponseBody
-    public String PushOperationTracking(String userName,String code,String id){ //,登录人信息,订单号
+    public String shutInsuranceOrderItemDownById(String id){
         JSONObject res=new JSONObject();
 
+        try {
+            insuranceOrderService.shutInsuranceOrderItemDownById(id);
+            res.put("status", "success");
+            res.put("message", "保单关闭成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "保单关闭失败");
+        }
+
+        return res.toString();
+    }
+
+     /*PushDocStatus
+     * 单据关闭结算接口
+     * */
+     @RequestMapping(value = "PushDocStatus",produces ="text/html;charset=UTF-8")
+     @ResponseBody
+     public String PushDocStatus(@Param(value = "id")String id){
+         JSONObject res=new JSONObject();
+
+         try {
+             //获取token
+             JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+             Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
+             String token=token1.getToken();//token
+             BMC BMC=new BMC();//云平台的数据结构
+             BMC.setMESSAGE_ID(getGUID());
+             BMC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
+
+             List<Map<String,List<BMS>>> DATA=new ArrayList<>();
+             Map<String,List<BMS>> map=new HashMap<>();
+             List<BMS> list=new ArrayList<>();
+             BMS bms=new BMS();
+             //根据单号获取信息
+             InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+             if(insuranceOrder!=null){
+                 InsuranceOrderItem insuranceOrderItem=getNewestDate(insuranceOrder.getInsuranceOrderItemList());
+                 //外面关闭时间长
+                 if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
+                     bms.setDOC_NO(insuranceOrder.getId());
+                     bms.setDOC_STATUS("01");
+                     bms.setDOC_DATE(getTimeSecondStr(new Date()));
+                 }
+                 else {
+                     bms.setDOC_NO(insuranceOrderItem.getId());
+                     bms.setDOC_STATUS("02");
+                     bms.setDOC_DATE(getTimeSecondStr(new Date()));
+                 }
+                 list.add(bms);
+                 map.put("DOC_STATUS",list);
+             }
+             DATA.add(map);
+
+             BMC.setDATA(DATA);
+             res.put("Token",token);
+             res.put("BMC",BMC);
+         }
+         catch (Exception e){
+             e.printStackTrace();
+             res.put("status", "fail");
+             res.put("message", "更新失败");
+         }
+
+         return res.toString();
+     }
+
+    /*订单反馈接口*/
+    @RequestMapping(value = "PushOperationTracking",produces ="text/html;charset=UTF-8" )
+    @ResponseBody
+    public String PushOperationTracking(HttpSession session,Page page){ //,登录人信息,订单号
+        JSONObject res=new JSONObject();
+        page=null;
+        User user = (User) session.getAttribute("user");   // 获取用户信息
         //获取token
         JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
         Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
@@ -352,17 +425,19 @@ public class InsuranceOrderController {
         CDEC CDEC=new CDEC();//云平台的数据结构
 
 
+        //发送者编码
+        if(user!=null){
+            CDEC.setSENDER(user.getCompanyDataItem().getCode());
+        }
+
+
+
         message.setTokenId(token);
-        //发送数据的用户CODE*
-
-
-        //唯一编码
         CDEC.setMESSAGE_ID(getGUID());
 
         CDEC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
 
-        //发送者编码
-        CDEC.setSENDER(code);
+
 
         List<Map<String,List<TRACKING>>> DATA=new ArrayList<>();
 
@@ -371,52 +446,71 @@ public class InsuranceOrderController {
         List<TRACKING> trackingList=new ArrayList<>();
 
         TRACKING tracking=new TRACKING();//具体的数据
+        if(user!=null){
+            //设置负责人MANAGER
+            tracking.setMANAGER(user.getName());
+
+            //设置操作人OPERATOR
+            tracking.setOPERATOR(user.getName());
+        }
+
+        //找出修改时间最晚的订单,和保单
+            List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
+            InsuranceOrder insuranceOrder=getNewestDateInsuranceOrder(insuranceOrderList);
+
+            List<InsuranceOrderItem> insuranceOrderItemList=insuranceOrderService.listInsuranceOrderItem();
+            InsuranceOrderItem insuranceOrderItem=getNewestDate(insuranceOrderItemList);
 
 
-        InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
 
-        //如果保单号不存在,就反馈订单信息
-         if(insuranceOrder.getInsuranceOrderItemList().size()==0){
-//设置作业内容
-             tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
-             //设置作业类型
-             tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
-             //设置保单号
-             tracking.setENTRUSTORDERNO("");
-         }
+          //如果保单不存在
+        if(insuranceOrderItem==null){
+            //设置订单号
+            tracking.setORDERNO(insuranceOrder.getId());
+            tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+            //设置作业类型
+            tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+            //设置保单号
+            tracking.setENTRUSTORDERNO("");
+            //设置实际完成时间
+            tracking.setATC(getTimeSecondStr(insuranceOrder.getModifyTime()));
+        }
+
         //如果保单号存在,先比较所有保单做完的那个,然后在和订单的比较，已最晚的那个为准
-         else {
-             if(dateCompare(insuranceOrder.getModifyTime(),getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getModifyTime())){ //订单修改时间大于保单修改时间
-                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getId());
-             }
-             else {
-                 tracking.setOPERATIONCONTENT(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getOrderStateDataItem().getName());
-                 //设置作业类型
-                 tracking.setNODETYPE(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getOrderStateDataItem().getId());
-                 //设置保单号
-                 tracking.setENTRUSTORDERNO(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getId());
-             }
+        else {
+            //如果订单时间大于保单时间
+            if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
+                //设置订单号
+                tracking.setORDERNO(insuranceOrder.getId());
+                tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+                //设置作业类型
+                tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+                //设置保单号
+                tracking.setENTRUSTORDERNO(insuranceOrderItem.getId());
+                //设置实际完成时间
+                tracking.setATC(getTimeSecondStr(insuranceOrder.getModifyTime()));
+            }
+            //如果订单时间小于保单时间
+            if(insuranceOrder.getModifyTime().before(insuranceOrderItem.getModifyTime())){
+                //设置订单号
+                tracking.setORDERNO(insuranceOrder.getId());
+                tracking.setOPERATIONCONTENT(insuranceOrderItem.getOrderStateDataItem().getName());
+                //设置作业类型
+                tracking.setNODETYPE(insuranceOrderItem.getOrderStateDataItem().getId());
+                //设置保单号
+                tracking.setENTRUSTORDERNO(insuranceOrderItem.getId());
+                //设置实际完成时间
+                tracking.setATC(getTimeSecondStr(insuranceOrderItem.getModifyTime()));
+            }
 
-
-         }
-
+        }
         //设置列ID
         tracking.setROWID(getGUID());
-        //设置订单号
-        tracking.setORDERNO(insuranceOrder.getId());
 
-        //设置实际完成时间
-        tracking.setATC(getTimeSecondStr(new Date()));
 
-        //设置负责人MANAGER
-        tracking.setMANAGER(userName);
 
-        //设置操作人OPERATOR
-        tracking.setOPERATOR(userName);
+
+
         trackingList.add(tracking);
 
 
@@ -550,5 +644,21 @@ public class InsuranceOrderController {
         System.out.println(i);
 
         return insuranceOrderItemList.get(i);
+    }
+
+    /*找出订单列表中修改时间最晚的那一个*/
+    public static  InsuranceOrder getNewestDateInsuranceOrder(List<InsuranceOrder> insuranceOrderList){
+        int i=0;
+        Date maxDate=insuranceOrderList.get(i).getModifyTime();//假设最晚的时间
+        for(int j=1;j<insuranceOrderList.size();j++){
+            if(!maxDate.after(insuranceOrderList.get(j).getModifyTime())){
+                maxDate=insuranceOrderList.get(j).getModifyTime();
+                i=j;
+            }
+
+        }
+        System.out.println(i);
+
+        return insuranceOrderList.get(i);
     }
     }
