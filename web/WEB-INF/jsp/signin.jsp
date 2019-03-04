@@ -21,7 +21,7 @@
     margin-top: 10%;
   }
 </style>
-<body background="image/logo.jpg" style="background-size: cover">
+<body background="image/background2.jpg" style="background-size: cover">
 <%
   String userName = "";
   String password = "";
@@ -38,8 +38,8 @@
   }
 %>
 <!--登录表单-->
-<div style="width: 20%;height: 30%;background-color: white;margin: 0 auto">
-    <form class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
+<div style="width: 20%;height: 35%;background-color:rgba(255,255,255,.3);margin: 0 auto">
+    <form style="height:100%" class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
         <h2 class="form-signin-heading">保险登录</h2>
         <label for="userName" class="sr-only">账号</label>
         <input type="text"  class="form-control" value="<%=userName%>" id="userName" name="userName" placeholder="账号" required autofocus>
