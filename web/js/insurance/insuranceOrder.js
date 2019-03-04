@@ -346,7 +346,8 @@ function setOrderDetail(result) {
                 "                                <a  id=\"upload2\" title=\"上传电子保单\" onclick=\"showUploadInsurancePolicy(this)\" ><span\n" +
                 "                                        class=\"glyphicon glyphicon-arrow-up\" aria-hidden=\"true\"></span></a>\n" +
                 "                                <a href=\"#\" onclick=\"info2(this)\" title=\"异常\"><span class=\"glyphicon glyphicon-exclamation-sign\"\n" +
-                "                                                                        aria-hidden=\"true\"></span></a></td>"
+                "                                                                        aria-hidden=\"true\"></span></a><a href=\"#\" onclick=\"shutInsuranceOrderItemDown(this)\" title=\"关闭\"><span class=\"glyphicon glyphicon-off\"\n" +
+                "                                                                                   aria-hidden=\"true\"></span></a></td>"
                 "</tr>"
 
             insuranceOrderItem.append(tr)
@@ -747,7 +748,7 @@ function ShutDown(item) {
                 success:function (result) {
                     if (result != undefined && result.status == "success"){
                         alert(result.message);
-                        PushOperationTracking(id);
+                        PushDocStatus(id);
                         window.location.reload();
                     }
                     else {
@@ -972,6 +973,37 @@ function downloadFile(item) {
     }
     else {
         alert("未上传文件!")
+    }
+
+}
+
+/*保单页面的关闭*/
+function shutInsuranceOrderItemDown(item) {
+    var id=$("#insuranceOrderId").text();//订单号
+    var InsuranceOrderItemId=$(item).parent().parent().children('td').eq(0).html();//保单号
+
+    if(confirm("确定关闭该保单?")){
+        $.ajax({
+            type:"POST",
+            url:"shutInsuranceOrderItemDownById",
+            async: false,
+            data:{'InsuranceOrderItemId':InsuranceOrderItemId},
+            dataType:"json",
+            // contentType: "application/json; charset=utf-8",
+            success:function (result) {
+                if (result != undefined && result.status == "success"){
+                    alert(result.message);
+                    PushDocStatus(id);
+                    window.location.reload();
+                }
+                else {
+
+                }
+            },
+            error:function (result) {
+                alert("服务器异常!")
+            }
+        })
     }
 
 }
