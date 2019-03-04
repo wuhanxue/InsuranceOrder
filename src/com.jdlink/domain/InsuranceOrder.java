@@ -109,9 +109,13 @@ public class InsuranceOrder {
      */
     private Boolean yHTGoods;
     /**
-     * 投保金额
+     * 投保金额(国际货运)
      */
-    private Float insuranceMoney;
+    private Float internationalInsuranceMoney;
+    /**
+     * 投保金额(国内货运)
+     */
+    private Float domesticInsuranceMoney;
     /**
      * 国际货运
      */
@@ -167,6 +171,35 @@ public class InsuranceOrder {
 
     /*关键字*/
     private String keywords;
+
+    /*费用承担(客户承担1，部门承担2)
+    *
+    * */
+    private Integer feeCostType;
+
+    public Float getInternationalInsuranceMoney() {
+        return internationalInsuranceMoney;
+    }
+
+    public void setInternationalInsuranceMoney(Float internationalInsuranceMoney) {
+        this.internationalInsuranceMoney = internationalInsuranceMoney;
+    }
+
+    public Float getDomesticInsuranceMoney() {
+        return domesticInsuranceMoney;
+    }
+
+    public void setDomesticInsuranceMoney(Float domesticInsuranceMoney) {
+        this.domesticInsuranceMoney = domesticInsuranceMoney;
+    }
+
+    public Integer getFeeCostType() {
+        return feeCostType;
+    }
+
+    public void setFeeCostType(Integer feeCostType) {
+        this.feeCostType = feeCostType;
+    }
 
     public String getInvoiceUrl() {
         return invoiceUrl;
@@ -402,13 +435,7 @@ public class InsuranceOrder {
         this.yHTGoods = yHTGoods;
     }
 
-    public Float getInsuranceMoney() {
-        return insuranceMoney;
-    }
 
-    public void setInsuranceMoney(Float insuranceMoney) {
-        this.insuranceMoney = insuranceMoney;
-    }
 
     public FreightDataItem getInternationalFreightDataItem() {
         return internationalFreightDataItem;
@@ -514,7 +541,6 @@ public class InsuranceOrder {
                 ", licensePlate='" + licensePlate + '\'' +
                 ", goodsValue=" + goodsValue +
                 ", yHTGoods=" + yHTGoods +
-                ", insuranceMoney=" + insuranceMoney +
                 ", internationalFreightDataItem=" + internationalFreightDataItem +
                 ", domesticFreightDataItem=" + domesticFreightDataItem +
                 ", insuranceOrderRequirement=" + insuranceOrderRequirement +

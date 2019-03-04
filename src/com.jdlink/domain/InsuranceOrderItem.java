@@ -13,6 +13,9 @@ public class InsuranceOrderItem {
      * 保单号
      */
     private String id;
+
+    /*新的保单号*/
+    private String newId;
     /**
      * 订单号（外键）
      */
@@ -68,6 +71,18 @@ public class InsuranceOrderItem {
 
     /*异常信息*/
     private String abnormalInfo;
+
+
+    /*存储货物价值ID*/
+    private Integer goodsValueId;
+
+    public Integer getGoodsValueId() {
+        return goodsValueId;
+    }
+
+    public void setGoodsValueId(Integer goodsValueId) {
+        this.goodsValueId = goodsValueId;
+    }
 
     public String getAbnormalPerson() {
         return abnormalPerson;
@@ -195,6 +210,14 @@ public class InsuranceOrderItem {
 
     public void setOrderStateDataItem(OrderStateDataItem orderStateDataItem) {
         this.orderStateDataItem = orderStateDataItem;
+    }
+
+    public String getNewId() {
+        return newId;
+    }
+
+    public void setNewId(String newId) {
+        this.newId = newId;
     }
 
     @Override

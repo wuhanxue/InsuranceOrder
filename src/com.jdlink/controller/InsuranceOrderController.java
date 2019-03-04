@@ -151,10 +151,10 @@ public class InsuranceOrderController {
         JSONObject res = new JSONObject();
 
         try {
-            InsuranceOrderItem insuranceOrderItem = insuranceOrderService.getInsuranceOrderItemById(id);
+            List<InsuranceOrderItem> insuranceOrderItemList = insuranceOrderService.getInsuranceOrderItemById(id);
             res.put("status", "success");
             res.put("message", "查看保单信息成功");
-            res.put("data", insuranceOrderItem);
+            res.put("data", insuranceOrderItemList);
         } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
@@ -376,7 +376,7 @@ public class InsuranceOrderController {
         InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
 
         //如果保单号不存在,就反馈订单信息
-         if(insuranceOrder.getInsuranceOrderItemList()==null){
+         if(insuranceOrder.getInsuranceOrderItemList().size()==0){
 //设置作业内容
              tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
              //设置作业类型
@@ -384,25 +384,25 @@ public class InsuranceOrderController {
              //设置保单号
              tracking.setENTRUSTORDERNO("");
          }
-        //如果保单号存在,则比较修改时间，已最晚的那个为准
-//         else {
-//             if(dateCompare(insuranceOrder.getModifyTime(),insuranceOrder.getInsuranceOrderItem().getModifyTime())){ //订单修改时间大于保单修改时间
-//                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
-//                 //设置作业类型
-//                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
-//                 //设置保单号
-//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-//             }
-//             else {
-//                 tracking.setOPERATIONCONTENT(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getName());
-//                 //设置作业类型
-//                 tracking.setNODETYPE(insuranceOrder.getInsuranceOrderItem().getOrderStateDataItem().getId());
-//                 //设置保单号
-//                 tracking.setENTRUSTORDERNO(insuranceOrder.getInsuranceOrderItem().getId());
-//             }
-//
-//
-//         }
+        //如果保单号存在,先比较所有保单做完的那个,然后在和订单的比较，已最晚的那个为准
+         else {
+             if(dateCompare(insuranceOrder.getModifyTime(),getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getModifyTime())){ //订单修改时间大于保单修改时间
+                 tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+                 //设置作业类型
+                 tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+                 //设置保单号
+                 tracking.setENTRUSTORDERNO(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getId());
+             }
+             else {
+                 tracking.setOPERATIONCONTENT(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getOrderStateDataItem().getName());
+                 //设置作业类型
+                 tracking.setNODETYPE(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getOrderStateDataItem().getId());
+                 //设置保单号
+                 tracking.setENTRUSTORDERNO(getNewestDate(insuranceOrder.getInsuranceOrderItemList()).getId());
+             }
+
+
+         }
 
         //设置列ID
         tracking.setROWID(getGUID());
@@ -492,4 +492,63 @@ public class InsuranceOrderController {
        return res.toString();
     }
 
+
+    /*点击投保按钮,根据订单号查询货物价值信息*/
+    @RequestMapping("getGoodsValueById")
+    @ResponseBody
+    public String getGoodsValueById(String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            List<GoodsValue> goodsValueList=insuranceOrderService.getGoodsValueById(id);
+            res.put("data", goodsValueList);
+            res.put("status", "success");
+            res.put("message", "更新成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "更新失败");
+        }
+
+        return res.toString();
+
+    }
+
+    /*根据保单号查询保单信息*/
+    @RequestMapping("getInsuranceOrderItemByItemId")
+    @ResponseBody
+    public String  InsuranceOrderItem(String id){
+        JSONObject res=new JSONObject();
+
+        try {
+            InsuranceOrderItem insuranceOrderItem=insuranceOrderService.getInsuranceOrderItemByItemId(id);
+            res.put("data", insuranceOrderItem);
+            res.put("status", "success");
+            res.put("message", "保单信息查询成功");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "保单信息查询失败");
+        }
+
+        return res.toString();
+    }
+
+    /*找出保险单列表中修改时间最晚的那一个*/
+    public static  InsuranceOrderItem getNewestDate(List<InsuranceOrderItem> insuranceOrderItemList){
+        int i=0;
+        Date maxDate=insuranceOrderItemList.get(i).getModifyTime();//假设最晚的时间
+        for(int j=1;j<insuranceOrderItemList.size();j++){
+            if(!maxDate.after(insuranceOrderItemList.get(j).getModifyTime())){
+                maxDate=insuranceOrderItemList.get(j).getModifyTime();
+                i=j;
+            }
+
+        }
+        System.out.println(i);
+
+        return insuranceOrderItemList.get(i);
+    }
     }
