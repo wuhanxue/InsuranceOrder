@@ -21,7 +21,7 @@
     margin-top: 10%;
   }
 </style>
-<body>
+<body background="image/logo.jpg" style="background-size: cover">
 <%
   String userName = "";
   String password = "";

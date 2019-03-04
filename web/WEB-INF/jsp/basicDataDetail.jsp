@@ -65,9 +65,6 @@
         <div class="sidebar">
             <ul class="sidenav animated fadeInUp" style="margin-top: 50px">
                 <!--<li><a href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>-->
-                <li><a class="withripple"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><span
-                        class="sidespan">&nbsp;&nbsp;系统首页 </span><span class="iright pull-right">&gt;</span><span
-                        class="sr-only">(current)</span></a></li>
                 <li><a class="withripple" href="orderList"><span class="glyphicon glyphicon-th-list"
                                                                   aria-hidden="true"></span><span class="sidespan">&nbsp;&nbsp;订单列表 </span><span
                         class="iright pull-right">&gt;</span></a></li>
