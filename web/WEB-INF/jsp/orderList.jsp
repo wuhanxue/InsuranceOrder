@@ -19,7 +19,6 @@
     <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
     <script src="js/3.3.6/bootstrap.min.js"></script>
     <link href="css/navbar.css" rel="stylesheet">
-    <link href="css/util/mark.css">
     <script src="js/navbar.js"></script>
     <script src="js/insurance/insuranceOrder.js"></script>
     <script src="js/util.js"></script>
@@ -523,33 +522,4 @@
 
 
 </script>
-<style>
-    .table-hover > tbody > tr:hover {
-        background-color: #8ec9ff;
-    }
-    .wrap {
-        width:50px;
-        margin-bottom:10px;
-        position:relative;
-    }
-    .wrap1 {
-        /*width:50px;*/
-        margin-bottom:10px;
-        position:relative;
-    }
-    .notice {
-        width:20px;
-        height:20px;
-        line-height:20px;/*行高*/
-        font-size:10px;
-        color:#fff;
-        text-align:center;
-        background-color:#f00;
-        border-radius:50%;
-        position:absolute;/*绝对定位*/
-        right:10px;
-        /*top:10px;*/
-    }
-
-</style>
 </html>
