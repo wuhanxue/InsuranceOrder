@@ -425,24 +425,23 @@
                     </c:if>
                 </div>
             </div>
+            <%--<div class="form-horizontal col-md-3">--%>
+                <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<div class="col-xs-7" style="display: inline-block;margin-left: 100px">&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<span style="display: inline-block">国内货运：</span>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticInsuranceMoney" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<label class="col-sm-4 control-label">电子保单查看：</label>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;<div class="col-xs-7">&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;&lt;%&ndash;<input type="button" id="view" name="view" value="查看" placeholder="">&ndash;%&gt;&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<input type="button" id="download" name="download" value="下载" placeholder="">&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;&lt;%&ndash;<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">&ndash;%&gt;&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+            <%--</div>--%>
             <div class="form-horizontal col-md-4">
-                <%--<div class="form-group">--%>
-                    <%--<div class="col-xs-7" style="display: inline-block;margin-left: 100px">--%>
-                        <%--<span style="display: inline-block">国内货运：</span>--%>
-                        <%--<input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticInsuranceMoney" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="form-group">--%>
-                    <%--<label class="col-sm-4 control-label">电子保单查看：</label>--%>
-                    <%--<div class="col-xs-7">--%>
-                        <%--&lt;%&ndash;<input type="button" id="view" name="view" value="查看" placeholder="">&ndash;%&gt;--%>
-                        <%--<input type="button" id="download" name="download" value="下载" placeholder="">--%>
-                        <%--&lt;%&ndash;<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">&ndash;%&gt;--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            </div>
-            <div class="form-horizontal col-md-4">
-                <div class="form-group" style="height: 34px"></div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">保单需求：</label>
                     <div class="col-xs-8">
