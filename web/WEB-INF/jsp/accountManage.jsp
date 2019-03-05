@@ -23,6 +23,7 @@
     <script src="js/navbar.js"></script>
     <script src="js/insurance/accountManage.js"></script>
     <script src="js/util.js"></script>
+    <link rel="icon" href="image/favicon.ICO" type="image/x-icon"/>
 
 </head>
 <body onload="setCompanySelectData();onLoadAccountList();">

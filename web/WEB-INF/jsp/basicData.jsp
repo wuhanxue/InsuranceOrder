@@ -21,6 +21,7 @@
     <script src="js/navbar.js"></script>
     <script src="js/util.js"></script>
     <script src="js/insurance/basicData.js"></script>
+    <link rel="icon" href="image/favicon.ICO" type="image/x-icon"/>
 </head>
 <body onload="passwordModifyMark();onLoadBasicDataList();">
 <!--导航条-->
