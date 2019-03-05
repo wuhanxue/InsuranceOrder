@@ -22,6 +22,7 @@
   <script src="js/navbar.js"></script>
   <script src="js/util.js"></script>
   <script src="js/insurance/account.js"></script>
+  <link rel="icon" href="image/favicon.ICO" type="image/x-icon"/>
 </head>
 <body onload="loadAccountData()">
 <!--导航条-->

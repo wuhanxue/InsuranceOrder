@@ -15,6 +15,7 @@
   <link href="css/3.3.6/bootstrap.min.css" rel="stylesheet">
   <script src="js/3.3.6/bootstrap.min.js"></script>
   <link href="css/signin.css" rel="stylesheet">
+    <link rel="icon" href="image/favicon.ICO" type="image/x-icon"/>
 </head>
 <style>
   .gap {

@@ -19,6 +19,7 @@
     <script src="js/util.js"></script>
     <link href="css/navbar.css" rel="stylesheet">
     <script src="js/navbar.js"></script>
+    <link rel="icon" href="image/favicon.ICO" type="image/x-icon"/>
 </head>
 <style type="text/css">
     .pull-right{
