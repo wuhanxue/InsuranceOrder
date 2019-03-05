@@ -322,21 +322,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">港澳台货物：</label>
+                    <label class="col-sm-4 control-label">投保金额：</label>
                     <div class="col-xs-7">
-                        <input type="radio" id="goods1" name="goods" placeholder="" >是
-                        <input type="radio" id="goods2" name="goods" placeholder="">否
+                        <span style="display: inline-block">国际货运：</span>
+                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="internationalTrans" name="internationalTrans" placeholder="" value="${insuranceOrder.internationalInsuranceMoney}">
                     </div>
-                    <c:if test="${insuranceOrder.yHTGoods==true}">
-                        <script>
-                            $('#goods1').attr("checked","checked");
-                        </script>
-                    </c:if>
-                    <c:if test="${insuranceOrder.yHTGoods==false}">
-                        <script>
-                            $('#goods2').attr("checked","checked");
-                        </script>
-                    </c:if>
                 </div>
             </div>
             <div class="form-horizontal col-md-3">
@@ -357,6 +347,29 @@
                         </script>
                     </c:if>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">港澳台货物：</label>
+                    <div class="col-xs-7">
+                        <input type="radio" id="goods1" name="goods" placeholder="" >是
+                        <input type="radio" id="goods2" name="goods" placeholder="">否
+                    </div>
+                    <c:if test="${insuranceOrder.yHTGoods==true}">
+                        <script>
+                            $('#goods1').attr("checked","checked");
+                        </script>
+                    </c:if>
+                    <c:if test="${insuranceOrder.yHTGoods==false}">
+                        <script>
+                            $('#goods2').attr("checked","checked");
+                        </script>
+                    </c:if>
+                </div>
+                <div class="form-group" style="margin-top: 28px">
+                    <div class="col-xs-7">
+                        <span style="display: inline-block">国内货运：</span>
+                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticTrans" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -364,8 +377,6 @@
             <div class="form-horizontal col-md-6">
                 <%--<table class="table table-striped table-hover table-condensed">--%>
                     <%--<c:forEach items="${insuranceOrder.goodsValues}" var="item">--%>
-
-
                     <%--<tr>--%>
                         <%--<td class="text-center" style="width: 25%">货物价值</td>--%>
                         <%--<td class="text-center" style="width: 25%">--%>
@@ -383,14 +394,7 @@
             <div class="form-horizontal col-md-3"></div>
         </div>
         <div class="row">
-            <div class="form-horizontal col-md-4">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">投保金额：</label>
-                    <div class="col-xs-7">
-                        <span style="display: inline-block">国际货运：</span>
-                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="internationalTrans" name="internationalTrans" placeholder="" value="${insuranceOrder.internationalInsuranceMoney}">
-                    </div>
-                </div>
+            <div class="form-horizontal col-md-3">
                 <div class="form-group">
                     <label for="trains" class="col-sm-4 control-label">附加险：</label>
                     <div class="col-xs-7">
@@ -409,13 +413,7 @@
                     </c:if>
                 </div>
             </div>
-            <div class="form-horizontal col-md-4">
-                <div class="form-group">
-                    <div class="col-xs-7" style="display: inline-block;margin-left: 100px">
-                        <span style="display: inline-block">国内货运：</span>
-                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticTrans" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">
-                    </div>
-                </div>
+            <div class="form-horizontal col-md-3">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">电子保单查看：</label>
                     <div class="col-xs-7">
@@ -426,9 +424,8 @@
                 </div>
             </div>
             <div class="form-horizontal col-md-4">
-                <div class="form-group" style="height: 34px"></div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">保单需求：</label>
+                    <label class="col-sm-3 control-label">保单需求：</label>
                     <div class="col-xs-8">
                         <input type="radio" id="radio1" name="radio" placeholder="">正本
                         <input type="radio" id="radio2" name="radio" placeholder="">复印
@@ -455,8 +452,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-horizontal col-md-2"></div>
-            <div class="form-horizontal col-md-8">
+            <%--<div class="form-horizontal col-md-2"></div>--%>
+            <div class="form-horizontal col-md-12">
                 <table class="table table-striped table-hover table-condensed">
                     <c:forEach items="${insuranceOrder.goodsValues}" var="item">
 
@@ -506,7 +503,7 @@
 
                 </table>
             </div>
-            <div class="form-horizontal col-md-2"></div>
+            <%--<div class="form-horizontal col-md-2"></div>--%>
         </div>
     </div>
 </div>
