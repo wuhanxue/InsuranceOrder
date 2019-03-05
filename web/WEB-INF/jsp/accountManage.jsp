@@ -165,13 +165,13 @@
                     <td class="text-center"></td>
                     <td class="text-center"></td>
                     <td class="text-center">
-                        <button onclick="showEditModal(this);" type="button" href="" title="修改"><span
+                        <a onclick="showEditModal(this);" href="" title="修改"><span
                                 style="color: #2e6da4"
-                                class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                        <button onclick="deleteById(this);"
+                                class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a onclick="deleteById(this);"
                                 class="delete" title="删除"><span style="color: #2e6da4"
                                                                 class="glyphicon glyphicon glyphicon-remove"
-                                                                aria-hidden="true"></span></button>
+                                                                aria-hidden="true"></span></a>
                     </td>
                 </tr>
                 </tbody>
