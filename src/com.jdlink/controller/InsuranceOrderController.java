@@ -246,7 +246,7 @@ public class InsuranceOrderController {
                 String fileName = multipartFile.getOriginalFilename();
                 File dir = new File(path,fileName);
                 if(!dir.exists()){
-                    dir.mkdirs();
+                    dir.createNewFile();
                 }
                 multipartFile.transferTo(dir);
                 InsuranceOrderItem insuranceOrderItem=new InsuranceOrderItem();
