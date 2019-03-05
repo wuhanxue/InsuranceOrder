@@ -47,7 +47,7 @@
         <label for="password" class="sr-only">密码</label>
         <input type="password"  class="form-control" value="<%=password%>" id="password" name="password" placeholder="密码" required>
         <br>
-        <input name="remember" type="checkbox" id="remember" value="1"  /><span style="color: white">记住密码</span>
+        <input name="remember" type="checkbox" id="remember" value="1" checked/><span style="color: white">记住密码</span>
         <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit" onclick="">登录</button>
     </form>
 </div>
