@@ -25,4 +25,5 @@ public interface UserMapper {
     List<User> searchUser(User user);
 
     int searchUserTotal(User user);
+
 }

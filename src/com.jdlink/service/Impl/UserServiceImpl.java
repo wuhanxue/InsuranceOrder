@@ -1,5 +1,6 @@
 package com.jdlink.service.Impl;
 
+import com.jdlink.domain.RSA.RsaEncrypt;
 import com.jdlink.domain.User;
 import com.jdlink.mapper.UserMapper;
 import com.jdlink.service.UserService;
@@ -26,10 +27,25 @@ public class UserServiceImpl implements UserService {
     public List<User> listUser() { return userMapper.listUser(); }
 
     @Override
-    public void add(User user) { userMapper.add(user); }
+    public void add(User user) {
+        try{
+            RsaEncrypt rsa = new RsaEncrypt();  // 创RSA加密对象
+            String passwordEn = rsa.encrypt(user.getPassword(),rsa.getKeyMap().get(0));  // 私钥加密
+            user.setPassword(passwordEn);  // 设置密码
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        userMapper.add(user); }
 
     @Override
     public void updateUserById(User user) {
+        try{
+            RsaEncrypt rsa = new RsaEncrypt();  // 创RSA加密对象
+            String passwordEn = rsa.encrypt(user.getPassword(),rsa.getKeyMap().get(0));  // 私钥加密
+            user.setPassword(passwordEn);  // 设置密码
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         userMapper.updateUserById(user);
         userMapper.updatePasswordById(user);
     }
@@ -38,7 +54,30 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(int id) { userMapper.deleteUserById(id); }
 
     @Override
-    public User getUserById(int id) { return userMapper.getUserById(id); }
+    public User getUserById(int id) {
+        User user = userMapper.getUserById(id);
+        try{
+            RsaEncrypt rsa = new RsaEncrypt();  // 创RSA加密对象
+            String passwordDe = rsa.decrypt(user.getPassword(),rsa.getKeyMap().get(1));  // 公钥解密
+            user.setPassword(passwordDe);  // 设置密码
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        User user = userMapper.getUserByUserName(userName);
+        try{
+            RsaEncrypt rsa = new RsaEncrypt();  // 创RSA加密对象
+            String passwordDe = rsa.decrypt(user.getPassword(),rsa.getKeyMap().get(1));  // 公钥解密
+            user.setPassword(passwordDe);  // 设置密码
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 
     @Override
     public boolean checkUserNameIsExist(String userName) {
@@ -51,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
+     * 检验账号密码是否需要修改
      * @param user
      * @return 2 大于90天 1 60-90天 0 不到60天
      */

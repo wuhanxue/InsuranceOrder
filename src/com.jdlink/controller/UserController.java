@@ -1,5 +1,6 @@
 package com.jdlink.controller;
 
+import com.jdlink.domain.RSA.RsaEncrypt;
 import com.jdlink.domain.User;
 import com.jdlink.domain.dataItem.DataDictionary;
 import com.jdlink.domain.dataItem.DataDictionaryItem;
@@ -54,11 +55,10 @@ public class UserController {
                 mav.setViewName("signin");
             }else {
                 Integer remember = user.getRemember();  // 是否记住密码
-                List<User> userList = userService.getUserByUserNameAndPassword(user);
+                User user1 = userService.getUserByUserName(user.getUserName());  // 账号验证
                 // 更新用户，通过数据查询后得到的用户为准
-                if (userList.size() > 0) {
-                    user = userList.get(0);
-                    session.setAttribute("user", user); // 将登陆账户存储到session中
+                if (user1.getPassword().equals(user.getPassword())) {  // 密码验证
+                    session.setAttribute("user", user1); // 将登陆账户存储到session中
                     if(remember != null) {
                         //创建两个Cookie对象
                         Cookie nameCookie = new Cookie("userName", user.getUserName());
