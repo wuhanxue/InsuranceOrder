@@ -22,7 +22,7 @@
     margin-top: 10%;
   }
 </style>
-<body background="image/background2.jpg" style="background-size: cover">
+<body background="image/background.jpg" style="background-size: cover">
 <%
   String userName = "";
   String password = "";
@@ -39,15 +39,15 @@
   }
 %>
 <!--登录表单-->
-<div style="width: 400px;height: 300px;background-color:rgba(255,255,255,.3);margin-top: 13%;margin-left: 40%">
+<div style="width: 400px;height: 300px;background-color:rgba(0,0,0,.3);margin-top: 13%;margin-left: 40%">
     <form style="height:100%" class="form-signin gap" id="loginForm" method="post" action="CheckUserInfo">
-        <h2 class="form-signin-heading">保险登录</h2>
+        <h2 class="form-signin-heading" style="color: white">保险登录</h2>
         <label for="userName" class="sr-only">账号</label>
         <input type="text"  class="form-control" value="<%=userName%>" id="userName" name="userName" placeholder="账号" required autofocus>
         <label for="password" class="sr-only">密码</label>
         <input type="password"  class="form-control" value="<%=password%>" id="password" name="password" placeholder="密码" required>
         <br>
-        <input name="remember" type="checkbox" id="remember" value="1" /> 记住密码
+        <input name="remember" type="checkbox" id="remember" value="1"  /><span style="color: white">记住密码</span>
         <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit" onclick="">登录</button>
     </form>
 </div>
