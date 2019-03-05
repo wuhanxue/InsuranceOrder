@@ -403,3 +403,13 @@ function jumpToAccountManage(){
         window.location.href = "signin";
     }
 }
+
+/*文件下载*/
+function downLoad(url) {
+    if(url.length>0){
+        window.open("downloadFile?fileName="+url);
+    }
+    else {
+        alert("未上传文件!")
+    }
+}

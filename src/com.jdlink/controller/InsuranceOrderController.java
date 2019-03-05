@@ -246,7 +246,7 @@ public class InsuranceOrderController {
                 String fileName = multipartFile.getOriginalFilename();
                 File dir = new File(path,fileName);
                 if(!dir.exists()){
-                    dir.mkdirs();
+                    dir.createNewFile();
                 }
                 multipartFile.transferTo(dir);
                 InsuranceOrderItem insuranceOrderItem=new InsuranceOrderItem();
@@ -554,15 +554,12 @@ public class InsuranceOrderController {
         JSONObject res=new JSONObject();
 
         try {
-            //获取输入流
-//            String path = request.getSession().getServletContext().getRealPath("statics\\upload")+"\\"+fileName;
-            fileName = new String(fileName.getBytes("iso8859-1"), "utf-8");
-            InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
-            //转码，免得文件名中文乱码
-//            fileName = URLEncoder.encode(fileName,"UTF-8");
 
-            //设置文件下载头
-            response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+            fileName = new String(fileName.getBytes("iso8859-1"), "utf-8");
+            String newFileName= java.net.URLEncoder.encode(getFileName(fileName),"UTF-8");
+//            newFileName= new String(newFileName.getBytes("iso8859-1"), "utf-8");
+            InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+            response.addHeader("Content-Disposition", "attachment;filename=" + newFileName);
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
             response.setContentType("multipart/form-data");
             BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());

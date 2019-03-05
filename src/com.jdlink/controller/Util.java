@@ -189,6 +189,13 @@ public class Util {
         return date1.after(date2);//如果前者比后者大返回true，否则为false
     }
 
+
+    /*返回下载文件名*/
+    public static String getFileName(String fileName){
+        int index=fileName.lastIndexOf("/");
+        return fileName.substring(index+1,fileName.length());
+
+    }
 }
 
 

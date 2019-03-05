@@ -327,6 +327,16 @@
                         <span style="display: inline-block">国际货运：</span>
                         <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="internationalTrans" name="internationalTrans" placeholder="" value="${insuranceOrder.internationalInsuranceMoney}">
                     </div>
+                    <c:if test="${insuranceOrder.yHTGoods==true}">
+                        <script>
+                            $('#goods1').attr("checked","checked");
+                        </script>
+                    </c:if>
+                    <c:if test="${insuranceOrder.yHTGoods==false}">
+                        <script>
+                            $('#goods2').attr("checked","checked");
+                        </script>
+                    </c:if>
                 </div>
             </div>
             <div class="form-horizontal col-md-3">
@@ -367,7 +377,7 @@
                 <div class="form-group" style="margin-top: 28px">
                     <div class="col-xs-7">
                         <span style="display: inline-block">国内货运：</span>
-                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticTrans" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">
+                        <input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticInsuranceMoney" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">
                     </div>
                 </div>
             </div>
@@ -377,6 +387,8 @@
             <div class="form-horizontal col-md-6">
                 <%--<table class="table table-striped table-hover table-condensed">--%>
                     <%--<c:forEach items="${insuranceOrder.goodsValues}" var="item">--%>
+
+
                     <%--<tr>--%>
                         <%--<td class="text-center" style="width: 25%">货物价值</td>--%>
                         <%--<td class="text-center" style="width: 25%">--%>
@@ -413,25 +425,34 @@
                     </c:if>
                 </div>
             </div>
-            <div class="form-horizontal col-md-3">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">电子保单查看：</label>
-                    <div class="col-xs-7">
-                        <%--<input type="button" id="view" name="view" value="查看" placeholder="">--%>
-                        <input type="button" id="download" name="download" value="下载" placeholder="">
-                        <%--<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">--%>
-                    </div>
-                </div>
+            <div class="form-horizontal col-md-4">
+                <%--<div class="form-group">--%>
+                    <%--<div class="col-xs-7" style="display: inline-block;margin-left: 100px">--%>
+                        <%--<span style="display: inline-block">国内货运：</span>--%>
+                        <%--<input readonly style="display: inline-block;width: 100px" type="text" class="form-control" id="domesticInsuranceMoney" name="domesticTrans" placeholder="" value="${insuranceOrder.domesticInsuranceMoney}">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="form-group">--%>
+                    <%--<label class="col-sm-4 control-label">电子保单查看：</label>--%>
+                    <%--<div class="col-xs-7">--%>
+                        <%--&lt;%&ndash;<input type="button" id="view" name="view" value="查看" placeholder="">&ndash;%&gt;--%>
+                        <%--<input type="button" id="download" name="download" value="下载" placeholder="">--%>
+                        <%--&lt;%&ndash;<input type="button" id="fileUpload" name="fileUpload" value="文件上传" placeholder="">&ndash;%&gt;--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </div>
             <div class="form-horizontal col-md-4">
+                <div class="form-group" style="height: 34px"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">保单需求：</label>
+                    <label class="col-sm-4 control-label">保单需求：</label>
                     <div class="col-xs-8">
                         <input type="radio" id="radio1" name="radio" placeholder="">正本
                         <input type="radio" id="radio2" name="radio" placeholder="">复印
                         <input type="radio" id="radio3" name="radio" placeholder="">不需要
-                        <input type="button" id="invoice" name="invoice" value="发票下载" placeholder="">
-                        <input type="button" id="packingList" name="packingList" value="箱单下载" placeholder="">
+                        <input class="hidden">
+                        <input type="button" id="invoice" name="invoice" value="发票下载" placeholder="" onclick="downLoad('${insuranceOrder.invoiceUrl}')">
+                        <input class="hidden">
+                        <input type="button" id="packingList" name="packingList" value="箱单下载" placeholder="" onclick="downLoad('${insuranceOrder.boxUrl}')">
                         <c:if test="${insuranceOrder.insuranceOrderRequirement==1}">
                             <script>
                                 $('#radio1').attr('checked','checked')
@@ -459,29 +480,33 @@
 
 
                         <tr>
-                            <td class="text-center" style="width: 10%">货物价值</td>
-                            <td class="text-center" style="width: 10%">
+                            <td class="text-center" style="width: 8.3%">货物价值</td>
+                            <td class="text-center" style="width: 8.3%">
                                 <input readonly type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${item.value}">
                             </td>
-                            <td class="text-center" style="width: 10%">币种</td>
-                            <td class="text-center" style="width: 10%">
+                            <td class="text-center" style="width: 8.3%">币种</td>
+                            <td class="text-center" style="width: 8.3%">
                                 <input readonly type="text" onkeyup="searchData();" class="form-control"  name="goodsCost" placeholder="" value="${item.currencyDataItem.name}">
                             </td>
 
-                            <td class="text-center" style="width: 10%">保险公司名称</td>
-                            <td class="text-center" style="width: 10%">
+                            <td class="text-center" style="width: 8.3%">保险公司名称</td>
+                            <td class="text-center" style="width: 8.3%">
                                 <input readonly type="text" class="form-control" id="insuranceCompanyName" name="insuranceCompanyName" placeholder="" value="${item.insuranceOrderItem.insureCompanyName}">
                             </td>
-                            <td class="text-center" style="width: 10%">保费</td>
-                            <td class="text-center" style="width: 10%">
+                            <td class="text-center" style="width: 8.3%">保费</td>
+                            <td class="text-center" style="width: 8.3%">
                                 <input readonly type="text" class="form-control" id="insuranceMoney" name="insuranceMoney" placeholder="" value="${item.insuranceOrderItem.premium}">
                             </td>
-                            <td class="text-center" style="width: 10%">保单号</td>
-                            <td class="text-center" style="width: 10%">
+                            <td class="text-center" style="width: 8.3%">保单号</td>
+                            <td class="text-center" style="width: 8.3%">
                                 <input readonly type="text" class="form-control" id="insuranceNumber" name="insuranceNumber" placeholder="" value="${item.insuranceOrderItem.id}">
                             </td>
                             </td>
-
+                            <td class="text-center" style="width: 8.3%">电子保单下载</td>
+                            <td class="text-center" style="width: 8.3%">
+                                <input  type="button"   name="insuranceNumber" placeholder="" value="下载" onclick="downLoad('${item.insuranceOrderItem.fileUrl}')">
+                            </td>
+                            </td>
                         </tr>
                     </c:forEach>
                     <c:forEach items="${insuranceOrder.insuranceOrderItemList}" var="item" >
