@@ -383,29 +383,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-horizontal col-md-3"></div>
-            <div class="form-horizontal col-md-6">
-                <%--<table class="table table-striped table-hover table-condensed">--%>
-                    <%--<c:forEach items="${insuranceOrder.goodsValues}" var="item">--%>
-
-
-                    <%--<tr>--%>
-                        <%--<td class="text-center" style="width: 25%">货物价值</td>--%>
-                        <%--<td class="text-center" style="width: 25%">--%>
-                            <%--<input readonly type="text" onkeyup="searchData();" class="form-control" id="goodsCost" name="goodsCost" placeholder="" value="${item.value}">--%>
-                        <%--</td>--%>
-                        <%--<td class="text-center" style="width: 25%">币种</td>--%>
-                        <%--<td class="text-center" style="width: 25%">--%>
-                            <%--<input readonly type="text" onkeyup="searchData();" class="form-control"  name="goodsCost" placeholder="" value="${item.currencyDataItem.name}">--%>
-                        <%--</td>--%>
-                        <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--</c:forEach>--%>
-                <%--</table>--%>
-            </div>
-            <div class="form-horizontal col-md-3"></div>
-        </div>
-        <div class="row">
             <div class="form-horizontal col-md-3">
                 <div class="form-group">
                     <label for="trains" class="col-sm-4 control-label">附加险：</label>
@@ -528,6 +505,13 @@
                 </table>
             </div>
             <%--<div class="form-horizontal col-md-2"></div>--%>
+        </div>
+        <div class="row">
+            <div class="form-horizontal col-md-3"></div>
+            <div class="form-horizontal col-md-6">
+                <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
+            </div>
+            <div class="form-horizontal col-md-3"></div>
         </div>
     </div>
 </div>
