@@ -31,7 +31,7 @@ public class RsaEncrypt {
         return keyMap;
     }
 
-  //  public static void main(String[] args) throws Exception {
+//    public static void main(String[] args) throws Exception {
 //        //生成公钥和私钥
 //        genKeyPair();
 //        //加密字符串
@@ -42,7 +42,8 @@ public class RsaEncrypt {
 //        System.out.println(message + "\t加密后的字符串为:" + messageEn);
 //        String messageDe = decrypt(messageEn,keyMap.get(1));
 //        System.out.println("还原后的字符串为:" + messageDe);
-  //  }
+//    }
+
     /**
      * 随机生成密钥对（暂不用，已固定）
      * @throws NoSuchAlgorithmException

@@ -398,7 +398,7 @@ function deleteById(e){
             },
             dataType: "json",
             success: function (result) {
-                if (result != undefined && result.status === "success") {
+                if (result !== undefined && result.status === "success") {
                     // 赋值
                     alert("删除成功！");
                     window.location.reload();
