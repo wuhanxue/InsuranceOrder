@@ -34,7 +34,7 @@ public class CDEC {
 
 
     /*接收方*/
-    private String RECEIVER="CDEC";
+    private String RECEIVER="OMS";
 
     /*备注*/
     private String REMARK="订单追踪";
