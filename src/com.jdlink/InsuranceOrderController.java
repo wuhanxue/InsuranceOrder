@@ -1,4 +1,4 @@
-package com.jdlink.controller;
+package com.jdlink;
 
 import com.jdlink.domain.*;
 import com.jdlink.domain.dataItem.Token;
@@ -18,15 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+
+
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.*;
+import org.apache.http.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import static com.jdlink.controller.Util.*;
 import static com.jdlink.controller.Util.getTimeSecondStr;
+import static com.jdlink.domain.Connect.postMessage;
 
 @Controller
 public class InsuranceOrderController {
@@ -233,7 +239,7 @@ public class InsuranceOrderController {
     /*上传电子保单*/
     @RequestMapping("uploadInsurancePolicy")
     @ResponseBody
-    public String uploadInsurancePolicy(MultipartFile multipartFile, HttpServletRequest request,String id){
+    public String uploadInsurancePolicy(MultipartFile multipartFile, HttpServletRequest request, String id){
         JSONObject res=new JSONObject();
 
         try {
@@ -435,9 +441,9 @@ public class InsuranceOrderController {
      }
 
     /*订单反馈接口*/
-    @RequestMapping(value = "PushOperationTracking",produces ="text/html;charset=UTF-8" )
+    @RequestMapping(value = "PushOperationTracking",produces ="text/html;charset=UTF-8")
     @ResponseBody
-    public String PushOperationTracking(HttpSession session,Page page){ //,登录人信息,订单号
+    public String PushOperationTracking(HttpSession session,Page page) throws IOException { //,登录人信息,订单号
         JSONObject res=new JSONObject();
         page=null;
         User user = (User) session.getAttribute("user");   // 获取用户信息
@@ -545,8 +551,10 @@ public class InsuranceOrderController {
         DATA.add(map);
         CDEC.setDATA(DATA);
         message.setCDEC(CDEC);
-        res.put("Token",token);
+        res.put("TOKEN",token);
         res.put("CDEC",CDEC);
+        String url="https://edi.jd-link.cn/Api/PushOperationTracking";
+        postMessage(url,res.toString());
         return res.toString();
     }
 
@@ -577,7 +585,7 @@ public class InsuranceOrderController {
      */
     @RequestMapping("downloadFile")
     @ResponseBody
-    public String down(HttpServletRequest request,HttpServletResponse response,@Param(value = "fileName") String fileName) throws Exception{
+    public String down(HttpServletRequest request, HttpServletResponse response, @Param(value = "fileName") String fileName) throws Exception{
         JSONObject res=new JSONObject();
 
         try {
