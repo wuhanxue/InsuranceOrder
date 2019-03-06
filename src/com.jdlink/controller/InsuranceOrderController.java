@@ -375,9 +375,34 @@ public class InsuranceOrderController {
              List<BMS> list=new ArrayList<>();
              BMS bms=new BMS();
              //根据单号获取信息
-             InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
-             if(insuranceOrder!=null){
-                 InsuranceOrderItem insuranceOrderItem=getNewestDate(insuranceOrder.getInsuranceOrderItemList());
+             Page page=null;
+             List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
+             InsuranceOrder insuranceOrder=getInsuranceOrderFromShutDown(insuranceOrderList);
+             List<InsuranceOrderItem> insuranceOrderItemList=insuranceOrderService.listInsuranceOrderItem();
+             InsuranceOrderItem insuranceOrderItem=getInsuranceOrderItemFromShutDown(insuranceOrderItemList);
+
+             //都是空的
+             if(insuranceOrder==null&&insuranceOrderItem==null){
+                 bms.setDOC_NO("");
+                 bms.setDOC_STATUS("");
+                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
+             }
+
+             //订单存在，保单不存在
+             if(insuranceOrder!=null&&insuranceOrderItem==null){
+
+                 bms.setDOC_NO(insuranceOrder.getId());
+                 bms.setDOC_STATUS("01");
+                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
+             }
+             //保单存在，订单不存在
+             if(insuranceOrder==null&&insuranceOrderItem!=null){
+                 bms.setDOC_NO(insuranceOrderItem.getId());
+                 bms.setDOC_STATUS("02");
+                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
+             }
+             //保单订单都存在
+             if(insuranceOrder!=null&&insuranceOrderItem!=null){
                  //外面关闭时间长
                  if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
                      bms.setDOC_NO(insuranceOrder.getId());
@@ -389,9 +414,11 @@ public class InsuranceOrderController {
                      bms.setDOC_STATUS("02");
                      bms.setDOC_DATE(getTimeSecondStr(new Date()));
                  }
+             }
+
                  list.add(bms);
                  map.put("DOC_STATUS",list);
-             }
+
              DATA.add(map);
 
              BMC.setDATA(DATA);
@@ -658,4 +685,58 @@ public class InsuranceOrderController {
 
         return insuranceOrderList.get(i);
     }
+
+   /*找出订单中状态是关闭的最晚的那个*/
+    public InsuranceOrder getInsuranceOrderFromShutDown(List<InsuranceOrder> insuranceOrderList){
+
+        if(insuranceOrderList.size()>0){
+            int index=insuranceOrderList.size()-1;
+                 while (index>=0&&(!insuranceOrderList.get(index).getOrderStateDataItem().getId().equals("5"))){
+                     index--;
+                 }
+            System.out.println("最晚订单关闭的位置:"+index);
+                  if(index>=0){
+                      return insuranceOrderList.get(index);
+                  }
+                  else {
+                      return null;
+                  }
+        }
+        else {
+            return null;
+        }
+
+
+
+
+
+
     }
+
+    /*找出保单中状态是关闭的最晚的那个*/
+    public InsuranceOrderItem getInsuranceOrderItemFromShutDown(List<InsuranceOrderItem> insuranceOrderItemList){
+
+        if(insuranceOrderItemList.size()>0){
+            int index=insuranceOrderItemList.size()-1;
+            while (index>=0&&(!insuranceOrderItemList.get(index).getOrderStateDataItem().getId().equals("5"))){
+                index--;
+            }
+            System.out.println("最晚订单关闭的位置:"+index);
+            if(index>=0){
+                return insuranceOrderItemList.get(index);
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+
+
+
+
+
+
+    }
+}
