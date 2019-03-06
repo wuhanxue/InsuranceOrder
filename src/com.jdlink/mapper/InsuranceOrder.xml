@@ -79,7 +79,7 @@
     </select>
 
     <select id="listInsuranceOrder" resultMap="InsuranceOrderRM" parameterType="Page">
-        select * from insurance_order
+        select * from insurance_order order by modify_time
         <if test="page!=null">
             limit #{start}, #{count};
         </if>
@@ -320,7 +320,7 @@
 
     <!--获取所有的保单-->
     <select id="listInsuranceOrderItem" resultMap="InsuranceOrderItemRM">
-        select * from insurance_order_item;
+        select * from insurance_order_item order  by modify_time ;
     </select>
 
     <!--关闭保单-->
