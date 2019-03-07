@@ -506,12 +506,8 @@
             </div>
             <%--<div class="form-horizontal col-md-2"></div>--%>
         </div>
-        <div class="row">
-            <div class="form-horizontal col-md-3"></div>
-            <div class="form-horizontal col-md-6">
-                <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
-            </div>
-            <div class="form-horizontal col-md-3"></div>
+        <div class="text-center">
+            <a type="button" class="btn btn-success" onclick="historyBack()">返回</a>
         </div>
     </div>
 </div>
