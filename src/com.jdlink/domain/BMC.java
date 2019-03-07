@@ -28,10 +28,11 @@ public class BMC {
     private String SENDER="0001";
 
     /*接受系统*/
-    private String RECEIVE_SYS="BMS";
+    private String RECEIVE_SYS
+            ="BMS";
 
     /*接受企业*/
-    private String RECEIVER="00001";
+    private String RECEIVER="BMS";
 
     /*备注*/
     private String REMARK="";
@@ -94,13 +95,7 @@ public class BMC {
         this.SENDER = SENDER;
     }
 
-    public String getRECEIVE_SYS() {
-        return RECEIVE_SYS;
-    }
 
-    public void setRECEIVE_SYS(String RECEIVE_SYS) {
-        this.RECEIVE_SYS = RECEIVE_SYS;
-    }
 
     public String getRECEIVER() {
         return RECEIVER;
@@ -126,6 +121,14 @@ public class BMC {
         this.DATA = DATA;
     }
 
+    public String getRECEIVE_SYS() {
+        return RECEIVE_SYS;
+    }
+
+    public void setRECEIVE_SYS(String RECEIVE_SYS) {
+        this.RECEIVE_SYS = RECEIVE_SYS;
+    }
+
     @Override
     public String toString() {
         return "BMC{" +
@@ -136,7 +139,7 @@ public class BMC {
                 ", SEND_DATE='" + SEND_DATE + '\'' +
                 ", SEND_SYS='" + SEND_SYS + '\'' +
                 ", SENDER='" + SENDER + '\'' +
-                ", RECEIVE_SYS='" + RECEIVE_SYS + '\'' +
+
                 ", RECEIVER='" + RECEIVER + '\'' +
                 ", REMARK='" + REMARK + '\'' +
                 ", DATA=" + DATA +

@@ -483,10 +483,10 @@ public class InsuranceOrderController {
         TRACKING tracking=new TRACKING();//具体的数据
         if(user!=null){
             //设置负责人MANAGER
-            tracking.setMANAGER(user.getName());
+            tracking.setManager(user.getName());
 
             //设置操作人OPERATOR
-            tracking.setOPERATOR(user.getName());
+            tracking.setOperator(user.getName());
         }
 
           //找出修改时间最晚的订单,和保单
@@ -501,26 +501,26 @@ public class InsuranceOrderController {
          //如果订单时间大于保单时间
                 if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
                     //设置订单号
-                    tracking.setORDERNO(insuranceOrder.getId());
-                    tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+                    tracking.setOrderNo(insuranceOrder.getId());
+                    tracking.setOperationContent(insuranceOrder.getOrderStateDataItem().getName());
                     //设置作业类型
-                    tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+                    tracking.setNodeType(insuranceOrder.getOrderStateDataItem().getId());
                     //设置保单号
-                    tracking.setENTRUSTORDERNO(insuranceOrderItem.getId());
+                    tracking.setEntrustOrderNo(insuranceOrderItem.getId());
                     //设置实际完成时间
-                    tracking.setATC(getTimeSecondStr(insuranceOrder.getModifyTime()));
+                    tracking.setAtc(getTimeSecondStr(insuranceOrder.getModifyTime()));
                 }
                 //如果订单时间小于保单时间
                 if(insuranceOrder.getModifyTime().before(insuranceOrderItem.getModifyTime())){
                     //设置订单号
-                    tracking.setORDERNO(insuranceOrder.getId());
-                    tracking.setOPERATIONCONTENT(insuranceOrderItem.getOrderStateDataItem().getName());
+                    tracking.setOrderNo(insuranceOrder.getId());
+                    tracking.setOperationContent(insuranceOrderItem.getOrderStateDataItem().getName());
                     //设置作业类型
-                    tracking.setNODETYPE(insuranceOrderItem.getOrderStateDataItem().getId());
+                    tracking.setNodeType(insuranceOrderItem.getOrderStateDataItem().getId());
                     //设置保单号
-                    tracking.setENTRUSTORDERNO(insuranceOrderItem.getId());
+                    tracking.setEntrustOrderNo(insuranceOrderItem.getId());
                     //设置实际完成时间
-                    tracking.setATC(getTimeSecondStr(insuranceOrderItem.getModifyTime()));
+                    tracking.setAtc(getTimeSecondStr(insuranceOrderItem.getModifyTime()));
                 }
             }
 
@@ -529,19 +529,19 @@ public class InsuranceOrderController {
           //如果保单不存在
         if (insuranceOrderItemList.size()==0){
             //设置订单号
-            tracking.setORDERNO(insuranceOrder.getId());
-            tracking.setOPERATIONCONTENT(insuranceOrder.getOrderStateDataItem().getName());
+            tracking.setOrderNo(insuranceOrder.getId());
+            tracking.setOperationContent(insuranceOrder.getOrderStateDataItem().getName());
             //设置作业类型
-            tracking.setNODETYPE(insuranceOrder.getOrderStateDataItem().getId());
+            tracking.setNodeType(insuranceOrder.getOrderStateDataItem().getId());
             //设置保单号
-            tracking.setENTRUSTORDERNO("");
+            tracking.setEntrustOrderNo("");
             //设置实际完成时间
-            tracking.setATC(getTimeSecondStr(insuranceOrder.getModifyTime()));
+            tracking.setAtc(getTimeSecondStr(insuranceOrder.getModifyTime()));
         }
 
 
         //设置列ID
-        tracking.setROWID(getGUID());
+        tracking.setRowId(getGUID());
 
 
 

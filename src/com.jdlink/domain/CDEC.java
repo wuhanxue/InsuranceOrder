@@ -11,7 +11,7 @@ public class CDEC {
     private String MESSAGE_ID;
 
     /*接收系统*/
-    private String RECEIVE_SYS="CDEC";
+    private String RECEIVE_SYS ="OMS";
 
     /*信息格式*/
     private String MESSAGE_FORMAT="json";
