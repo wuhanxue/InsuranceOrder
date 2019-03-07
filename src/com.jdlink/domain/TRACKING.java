@@ -3,140 +3,151 @@ package com.jdlink.domain;
 public class TRACKING {
 
     /*简单字符串*/
-    private String ROWID;
+    private String rowId;
 
     /*订单编号*/
-    private String ORDERNO;
+    private String orderNo;
 
     /*子服务类型*/
-    private String SUBSERVICECODE="";
+    private String subServiceCode="";
 
     /*负责人*/
-    private String MANAGER;
+    private String manager;
 
     /*实际完成时间*/
-    private String ATC;
+    private String atc;
 
     /*作业内容*/
-    private String OPERATIONCONTENT;
+    private String operationContent;
 
     /*操作部门*/
-   private String OPERATIONDEPARTMENT="保险";
+   private String operationDepartment="保险";
 
    /*节点类型 状态*/
-    private String NODETYPE;
+    private String nodeType;
+
+//    /*服务类型*/
+//    private String SERVICETYPE="ICS";
 
     /*服务类型*/
-    private String SERVICETYPE="ICS";
-
-    /*报险单号*/
-    private String ENTRUSTORDERNO;
+    private String serviceType;
 
     /*操作人*/
-    private String OPERATOR;
+    private String operator;
 
-    public String getROWID() {
-        return ROWID;
+    /*保单号*/
+    private String entrustOrderNo;
+
+    public String getEntrustOrderNo() {
+        return entrustOrderNo;
     }
 
-    public void setROWID(String ROWID) {
-        this.ROWID = ROWID;
+    public void setEntrustOrderNo(String entrustOrderNo) {
+        this.entrustOrderNo = entrustOrderNo;
     }
 
-    public String getORDERNO() {
-        return ORDERNO;
+    public String getRowId() {
+        return rowId;
     }
 
-    public void setORDERNO(String ORDERNO) {
-        this.ORDERNO = ORDERNO;
+    public void setRowId(String rowId) {
+        this.rowId = rowId;
     }
 
-    public String getSUBSERVICECODE() {
-        return SUBSERVICECODE;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setSUBSERVICECODE(String SUBSERVICECODE) {
-        this.SUBSERVICECODE = SUBSERVICECODE;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getMANAGER() {
-        return MANAGER;
+    public String getSubServiceCode() {
+        return subServiceCode;
     }
 
-    public void setMANAGER(String MANAGER) {
-        this.MANAGER = MANAGER;
+    public void setSubServiceCode(String subServiceCode) {
+        this.subServiceCode = subServiceCode;
     }
 
-    public String getATC() {
-        return ATC;
+    public String getManager() {
+        return manager;
     }
 
-    public void setATC(String ATC) {
-        this.ATC = ATC;
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
-    public String getOPERATIONCONTENT() {
-        return OPERATIONCONTENT;
+    public String getAtc() {
+        return atc;
     }
 
-    public void setOPERATIONCONTENT(String OPERATIONCONTENT) {
-        this.OPERATIONCONTENT = OPERATIONCONTENT;
+    public void setAtc(String atc) {
+        this.atc = atc;
     }
 
-    public String getOPERATIONDEPARTMENT() {
-        return OPERATIONDEPARTMENT;
+    public String getOperationContent() {
+        return operationContent;
     }
 
-    public void setOPERATIONDEPARTMENT(String OPERATIONDEPARTMENT) {
-        this.OPERATIONDEPARTMENT = OPERATIONDEPARTMENT;
+    public void setOperationContent(String operationContent) {
+        this.operationContent = operationContent;
     }
 
-    public String getNODETYPE() {
-        return NODETYPE;
+    public String getOperationDepartment() {
+        return operationDepartment;
     }
 
-    public void setNODETYPE(String NODETYPE) {
-        this.NODETYPE = NODETYPE;
+    public void setOperationDepartment(String operationDepartment) {
+        this.operationDepartment = operationDepartment;
     }
 
-    public String getSERVICETYPE() {
-        return SERVICETYPE;
+    public String getNodeType() {
+        return nodeType;
     }
 
-    public void setSERVICETYPE(String SERVICETYPE) {
-        this.SERVICETYPE = SERVICETYPE;
+    public void setNodeType(String nodeType) {
+        this.nodeType = nodeType;
     }
 
-    public String getENTRUSTORDERNO() {
-        return ENTRUSTORDERNO;
+//    public String getSERVICETYPE() {
+//        return SERVICETYPE;
+//    }
+//
+//    public void setSERVICETYPE(String SERVICETYPE) {
+//        this.SERVICETYPE = SERVICETYPE;
+//    }
+
+    public String getServiceType() {
+        return serviceType;
     }
 
-    public void setENTRUSTORDERNO(String ENTRUSTORDERNO) {
-        this.ENTRUSTORDERNO = ENTRUSTORDERNO;
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
-    public String getOPERATOR() {
-        return OPERATOR;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setOPERATOR(String OPERATOR) {
-        this.OPERATOR = OPERATOR;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
     @Override
     public String toString() {
         return "TRACKING{" +
-                "ROWID='" + ROWID + '\'' +
-                ", ORDERNO='" + ORDERNO + '\'' +
-                ", SUBSERVICECODE='" + SUBSERVICECODE + '\'' +
-                ", MANAGER='" + MANAGER + '\'' +
-                ", ATC='" + ATC + '\'' +
-                ", OPERATIONCONTENT='" + OPERATIONCONTENT + '\'' +
-                ", OPERATIONDEPARTMENT='" + OPERATIONDEPARTMENT + '\'' +
-                ", NODETYPE='" + NODETYPE + '\'' +
-                ", SERVICETYPE='" + SERVICETYPE + '\'' +
-                ", ENTRUSTORDERNO='" + ENTRUSTORDERNO + '\'' +
-                ", OPERATOR='" + OPERATOR + '\'' +
+                "rowId='" + rowId + '\'' +
+                ", orderNo='" + orderNo + '\'' +
+                ", subServiceCode='" + subServiceCode + '\'' +
+                ", manager='" + manager + '\'' +
+                ", atc='" + atc + '\'' +
+                ", operationContent='" + operationContent + '\'' +
+                ", operationDepartment='" + operationDepartment + '\'' +
+                ", nodeType='" + nodeType + '\'' +
+//                ", SERVICETYPE='" + SERVICETYPE + '\'' +
+                ", serviceType='" + serviceType + '\'' +
+                ", operator='" + operator + '\'' +
                 '}';
     }
 }

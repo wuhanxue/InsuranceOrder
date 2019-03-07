@@ -6,6 +6,7 @@ package com.jdlink.domain;
 
 
 
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -25,7 +26,7 @@ public class Connect {
         String textMsg = json;
         StringEntity se = new StringEntity(textMsg, "utf-8");
         httppost.setEntity(se);
-        org.apache.http.HttpResponse response = httpclient.execute(httppost);
+        HttpResponse response = httpclient.execute(httppost);
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             String result = org.apache.http.util.EntityUtils.toString(response.getEntity(), "utf-8");
             System.out.println(result);
