@@ -272,8 +272,7 @@
                     <td class='text-center'></td>
                     <%--保费--%>
                     <td class='text-center'>
-                        <a href="orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search"
-                                                                           aria-hidden="true"></span></a>
+                        <a href="orderDetail" onclick="" title="查看"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
                         <a href="#" onclick="" title="接单"><span class="glyphicon glyphicon-check"
                                                                 aria-hidden="true"></span></a>
                         <a href="#" onclick="" id="insured" title="投保"><span class="glyphicon glyphicon-edit"
