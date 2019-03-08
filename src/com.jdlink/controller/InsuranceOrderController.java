@@ -561,6 +561,70 @@ public class InsuranceOrderController {
         return res.toString();
     }
 
+    /*保单信息上传订单接口*/
+    @RequestMapping(value = "PushInsuranceDetail",produces ="text/html;charset=UTF-8")
+    @ResponseBody
+    public String PushOperationTracking(String id,String state){
+
+        JSONObject res=new JSONObject();
+
+        try {
+
+            PushInsuranceDetail pushInsuranceDetail=new PushInsuranceDetail();
+            pushInsuranceDetail.setMESSAGE_ID(getGUID());
+            pushInsuranceDetail.setSEND_DATE(getTimeSecondStr(new Date()));
+            List<Map<String,List<InsuranceDetail>>> DATA=new ArrayList<>();
+            Map<String,List<InsuranceDetail>> map=new HashMap<>();
+            List<InsuranceDetail> insuranceDetailList=new ArrayList<>();
+            //根据单号查询保单信息
+            InsuranceOrderItem insuranceOrderItem=insuranceOrderService.getInsuranceOrderItemByItemId(id);
+            InsuranceDetail insuranceDetail=new InsuranceDetail();
+            /*订单号*/
+            insuranceDetail.setORDER_NO(insuranceOrderItem.getOrderId());
+            /*保单号*/
+            insuranceDetail.setPOLICY_NO(insuranceOrderItem.getId());
+            /*保险公司*/
+            insuranceDetail.setINSURANCE_COMPANY(insuranceOrderItem.getInsureCompanyName());
+            /*保费*/
+            insuranceDetail.setFEE(String.valueOf(insuranceOrderItem.getPremium()));
+            /*投保日期*/
+            insuranceDetail.setINSURANCE_DATE(getTimeSecondStr(insuranceOrderItem.getInsureDate()));
+
+            if(state.equals("已投保")){
+                insuranceDetail.setDATASTATUS("1");
+            }
+            if(state.equals("异常")){
+                insuranceDetail.setDATASTATUS("2");
+            }
+            if(state.equals("删除")){
+                insuranceDetail.setDATASTATUS("0");
+            }
+            insuranceDetailList.add(insuranceDetail);
+            map.put("INSURANCE_DT",insuranceDetailList);
+            DATA.add(map);
+            pushInsuranceDetail.setDATA(DATA);
+
+            /*TOKEN*/
+            //获取token
+            JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+            Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
+
+            String token=token1.getToken();//token
+            res.put("TOKEN",token);
+            res.put("OMS",pushInsuranceDetail);
+            String url="https://edi.jd-link.cn/Api/PushInsuranceDetail";
+            postMessage(url,res.toString());
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "更新失败");
+        }
+
+        return res.toString();
+
+    }
     /*生成异常单*/
     @RequestMapping("getAbnormal")
     @ResponseBody
@@ -750,4 +814,20 @@ public class InsuranceOrderController {
 
 
     }
+
+     @RequestMapping("Test")
+    @ResponseBody
+    public String Test(){
+        JSONObject res=new JSONObject();
+
+        res.put("state","test");
+
+        return res.toString();
+
+     }
+
+
+
+
+
 }
