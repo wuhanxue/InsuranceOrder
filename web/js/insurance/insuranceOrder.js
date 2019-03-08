@@ -539,7 +539,7 @@ function deleteModel(item) {
         //点击确定后操作
         var id=$(item).parent().parent().children('td').eq(0).html();
         console.log(id)
-
+        PushInsuranceDetail(id,"删除");
         $.ajax({
             type:"POST",
             url:"deleteInsuranceOrderItemById",
@@ -550,7 +550,8 @@ function deleteModel(item) {
             success:function (result) {
                 if (result != undefined && result.status == "success"){
                     alert(result.message);
-                    PushOperationTracking($('#insuranceOrderId').text());
+
+                    console.log(result)
                     window.location.reload()
                 }
                 else {
@@ -629,7 +630,7 @@ function insuranceOrderFile() {
           processData: false,//必须false才会避开jQuery对 formdata 的默认处理XMLHttpRequest会对 formdata 进行正确的处理
           success:function (result) {
               alert("文件上传成功");
-              PushOperationTracking($('#insuranceOrderId').text());
+              PushInsuranceDetail($('#InsuranceOrderItemId').val(),"已投保")
               window.location.reload();
           },
           error:function (result) {
@@ -898,7 +899,7 @@ function getAbnormal() {
             success:function (result) {
                 if (result != undefined && result.status == "success"){
                     alert(result.message)
-                            PushOperationTracking($('#insuranceOrderId').text())
+                    PushInsuranceDetail(id,"异常")
                     window.location.reload();
                 }
                 else {

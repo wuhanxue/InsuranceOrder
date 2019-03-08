@@ -366,6 +366,24 @@ function PushOperationTracking(id) {
     })
 }
 
+/*保单上传接口*/
+function PushInsuranceDetail(id,state) {
+    $.ajax({
+        type:"POST",
+        url:"PushInsuranceDetail",
+        async: false,
+        data:{"id":id,"state":state},
+        dataType:"json",
+        // contentType: "application/json; charset=utf-8",
+        success:function (result) {
+            console.log(JSON.stringify(result));
+
+        },
+        error:function (result) {
+
+        }
+    })
+}
 
 /*订单结算接口
 * id 仅是订单号
