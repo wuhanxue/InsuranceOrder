@@ -206,8 +206,10 @@ public class Util {
     }
 
 
-
-
+  /*获取字符串*/
+   public String getString(String s) {
+       return s;
+   }
 }
 
 

@@ -1,22 +1,18 @@
-package com.jdlink.domain;
-
-
-
-
-
-
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-public class Connect {
+public class Connect2 {
+
+    public static  void main(String args[]) throws IOException {
+        String json="{\"id\":\"20142344037\",\"name\":\"YH\"}";
+        postMessage("http://172.16.1.92:9998/InsuranceOrder/Test",json);
+    }
     /*推送信息到云平台接口*/
     public static  void postMessage(String url,String json) throws IOException {
 
@@ -29,8 +25,8 @@ public class Connect {
         httppost.setEntity(se);
         HttpResponse response = httpclient.execute(httppost);
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            String result = EntityUtils.toString(response.getEntity(), "utf-8");
-            System.out.println(result);
+            String result = org.apache.http.util.EntityUtils.toString(response.getEntity(), "utf-8");
+            System.out.println("结果"+result);
         }
 
     }
