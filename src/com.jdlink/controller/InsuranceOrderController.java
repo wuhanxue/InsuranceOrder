@@ -4,6 +4,7 @@ import com.jdlink.domain.*;
 import com.jdlink.domain.dataItem.Token;
 import com.jdlink.service.InsuranceOrderService;
 import com.jdlink.service.UserService;
+import com.sun.corba.se.spi.activation.Server;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.annotations.Param;
@@ -22,10 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.io.*;
-import java.net.URLEncoder;
+import java.net.*;
 import java.util.*;
 import org.apache.http.*;
 
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,7 +48,7 @@ public class InsuranceOrderController {
     public ModelAndView orderList(HttpSession session) {
         ModelAndView mav = new ModelAndView("orderList");
         User user = (User) session.getAttribute("user");   // 获取用户信息
-        if (user != null){  // 检测账号是否需要密码修改 2 强制修改，1 提示，0 不需要
+        if (user != null) {  // 检测账号是否需要密码修改 2 强制修改，1 提示，0 不需要
             mav.addObject("modifyPasswordMark", userService.checkUserPasswordModifyTimeIsLate(user));  // 如果是则返回true
         }
         return mav;
@@ -96,16 +98,15 @@ public class InsuranceOrderController {
 
     @RequestMapping("getInsuranceOrderById")
     @ResponseBody
-    public String getInsuranceOrderById(String id){
-        JSONObject res=new JSONObject();
+    public String getInsuranceOrderById(String id) {
+        JSONObject res = new JSONObject();
 
         try {
-            InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+            InsuranceOrder insuranceOrder = insuranceOrderService.getInsuranceOrderById(id);
             res.put("data", insuranceOrder);
             res.put("status", "success");
             res.put("message", "更新成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "更新失败");
@@ -114,6 +115,7 @@ public class InsuranceOrderController {
         return res.toString();
 
     }
+
     /*获取订单总数*/
     @RequestMapping("getTotalInsuranceOrder")
     @ResponseBody
@@ -239,33 +241,31 @@ public class InsuranceOrderController {
     /*上传电子保单*/
     @RequestMapping("uploadInsurancePolicy")
     @ResponseBody
-    public String uploadInsurancePolicy(MultipartFile multipartFile, HttpServletRequest request, String id){
-        JSONObject res=new JSONObject();
+    public String uploadInsurancePolicy(MultipartFile multipartFile, HttpServletRequest request, String id) {
+        JSONObject res = new JSONObject();
 
         try {
-            if(multipartFile==null){
+            if (multipartFile == null) {
                 res.put("status", "nullFile");
                 res.put("message", "文件为空!");
-            }
-            else {
+            } else {
                 String path = "InsuranceOrderFiles/InsurancePolicy";
                 String fileName = multipartFile.getOriginalFilename();
-                File dir = new File(path,fileName);
-                if(!dir.exists()){
+                File dir = new File(path, fileName);
+                if (!dir.exists()) {
                     dir.createNewFile();
                 }
                 multipartFile.transferTo(dir);
-                InsuranceOrderItem insuranceOrderItem=new InsuranceOrderItem();
+                InsuranceOrderItem insuranceOrderItem = new InsuranceOrderItem();
                 insuranceOrderItem.setId(id);
-                insuranceOrderItem.setFileUrl(path+"/"+fileName);
+                insuranceOrderItem.setFileUrl(path + "/" + fileName);
                 //文件路径更新
                 insuranceOrderService.setInsurancePolicyFileUrl(insuranceOrderItem);
                 insuranceOrderService.insured(id);
                 res.put("status", "success");
                 res.put("message", "文件上传成功");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "文件上传失败");
@@ -279,58 +279,55 @@ public class InsuranceOrderController {
     }
 
     /*接单*/
-   @RequestMapping("receiptById")
+    @RequestMapping("receiptById")
     @ResponseBody
-    public String receiptById(String id){
-       JSONObject res=new JSONObject();
+    public String receiptById(String id) {
+        JSONObject res = new JSONObject();
 
-    try {
-       insuranceOrderService.receiptById(id);
-       res.put("status", "success");
-        res.put("message", "接单成功");
+        try {
+            insuranceOrderService.receiptById(id);
+            res.put("status", "success");
+            res.put("message", "接单成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "接单失败");
+        }
+
+        return res.toString();
     }
-    catch (Exception e){
-       e.printStackTrace();
-       res.put("status", "fail");
-       res.put("message", "接单失败");
-   }
 
-      return res.toString();
-   }
+    /*作废*/
+    @RequestMapping("cancelById")
+    @ResponseBody
+    public String cancelById(String id) {
+        JSONObject res = new JSONObject();
 
-   /*作废*/
-   @RequestMapping("cancelById")
-   @ResponseBody
-   public String cancelById(String id){
-       JSONObject res=new JSONObject();
+        try {
+            insuranceOrderService.cancelById(id);
+            res.put("status", "success");
+            res.put("message", "订单作废成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "订单作废失败");
+        }
 
-       try {
-           insuranceOrderService.cancelById(id);
-           res.put("status", "success");
-           res.put("message", "订单作废成功");
-       }
-       catch (Exception e){
-           e.printStackTrace();
-           res.put("status", "fail");
-           res.put("message", "订单作废失败");
-       }
-
-       return res.toString();
-   }
+        return res.toString();
+    }
 
 
     /*关闭订单*/
     @RequestMapping("shutDownById")
     @ResponseBody
-    public String shutDownById(String id){
-        JSONObject res=new JSONObject();
+    public String shutDownById(String id) {
+        JSONObject res = new JSONObject();
 
         try {
             insuranceOrderService.shutDownById(id);
             res.put("status", "success");
             res.put("message", "订单关闭成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "订单关闭失败");
@@ -342,15 +339,14 @@ public class InsuranceOrderController {
     /*关闭保单*/
     @RequestMapping("shutInsuranceOrderItemDownById")
     @ResponseBody
-    public String shutInsuranceOrderItemDownById(String id){
-        JSONObject res=new JSONObject();
+    public String shutInsuranceOrderItemDownById(String id) {
+        JSONObject res = new JSONObject();
 
         try {
             insuranceOrderService.shutInsuranceOrderItemDownById(id);
             res.put("status", "success");
             res.put("message", "保单关闭成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "保单关闭失败");
@@ -359,112 +355,109 @@ public class InsuranceOrderController {
         return res.toString();
     }
 
-     /*PushDocStatus
+    /*PushDocStatus
      * 单据关闭结算接口
      * */
-     @RequestMapping(value = "PushDocStatus",produces ="text/html;charset=UTF-8")
-     @ResponseBody
-     public String PushDocStatus(@Param(value = "id")String id){
-         JSONObject res=new JSONObject();
+    @RequestMapping(value = "PushDocStatus", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String PushDocStatus(@Param(value = "id") String id) {
+        JSONObject res = new JSONObject();
 
-         try {
-             //获取token
-             JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
-             Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
-             String token=token1.getToken();//token
-             BMC BMC=new BMC();//云平台的数据结构
-             BMC.setMESSAGE_ID(getGUID());
-             BMC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
+        try {
+            //获取token
+            JSONObject jsonObject = getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+            Token token1 = (Token) JSONObject.toBean(jsonObject, Token.class);
+            String token = token1.getToken();//token
+            BMC BMC = new BMC();//云平台的数据结构
+            BMC.setMESSAGE_ID(getGUID());
+            BMC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
 
-             List<Map<String,List<BMS>>> DATA=new ArrayList<>();
-             Map<String,List<BMS>> map=new HashMap<>();
-             List<BMS> list=new ArrayList<>();
-             BMS bms=new BMS();
-             //根据单号获取信息
+            List<Map<String, List<BMS>>> DATA = new ArrayList<>();
+            Map<String, List<BMS>> map = new HashMap<>();
+            List<BMS> list = new ArrayList<>();
+            BMS bms = new BMS();
+            //根据单号获取信息
 //             Page page=null;
 //             List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
-             InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
-             List<InsuranceOrderItem> insuranceOrderItemList=insuranceOrder.getInsuranceOrderItemList();
-             InsuranceOrderItem insuranceOrderItem=getNewestDate(insuranceOrderItemList);
+            InsuranceOrder insuranceOrder = insuranceOrderService.getInsuranceOrderById(id);
+            List<InsuranceOrderItem> insuranceOrderItemList = insuranceOrder.getInsuranceOrderItemList();
+            InsuranceOrderItem insuranceOrderItem = getNewestDate(insuranceOrderItemList);
 
-             //都是空的
-             if(insuranceOrder==null&&insuranceOrderItem==null){
-                 bms.setDOC_NO("");
-                 bms.setDOC_STATUS("");
-                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
-             }
+            //都是空的
+            if (insuranceOrder == null && insuranceOrderItem == null) {
+                bms.setDOC_NO("");
+                bms.setDOC_STATUS("");
+                bms.setDOC_DATE(getTimeSecondStr(new Date()));
+            }
 
-             //订单存在，保单不存在
-             if(insuranceOrder!=null&&insuranceOrderItem==null){
+            //订单存在，保单不存在
+            if (insuranceOrder != null && insuranceOrderItem == null) {
 
-                 bms.setDOC_NO(insuranceOrder.getId());
-                 bms.setDOC_STATUS("01");
-                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
-             }
-             //保单存在，订单不存在
-             if(insuranceOrder==null&&insuranceOrderItem!=null){
-                 bms.setDOC_NO(insuranceOrderItem.getId());
-                 bms.setDOC_STATUS("02");
-                 bms.setDOC_DATE(getTimeSecondStr(new Date()));
-             }
-             //保单订单都存在
-             if(insuranceOrder!=null&&insuranceOrderItem!=null){
-                 //外面关闭时间长
-                 if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
-                     bms.setDOC_NO(insuranceOrder.getId());
-                     bms.setDOC_STATUS("01");
-                     bms.setDOC_DATE(getTimeSecondStr(new Date()));
-                 }
-                 else {
-                     bms.setDOC_NO(insuranceOrderItem.getId());
-                     bms.setDOC_STATUS("02");
-                     bms.setDOC_DATE(getTimeSecondStr(new Date()));
-                 }
-             }
+                bms.setDOC_NO(insuranceOrder.getId());
+                bms.setDOC_STATUS("01");
+                bms.setDOC_DATE(getTimeSecondStr(new Date()));
+            }
+            //保单存在，订单不存在
+            if (insuranceOrder == null && insuranceOrderItem != null) {
+                bms.setDOC_NO(insuranceOrderItem.getId());
+                bms.setDOC_STATUS("02");
+                bms.setDOC_DATE(getTimeSecondStr(new Date()));
+            }
+            //保单订单都存在
+            if (insuranceOrder != null && insuranceOrderItem != null) {
+                //外面关闭时间长
+                if (insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())) {
+                    bms.setDOC_NO(insuranceOrder.getId());
+                    bms.setDOC_STATUS("01");
+                    bms.setDOC_DATE(getTimeSecondStr(new Date()));
+                } else {
+                    bms.setDOC_NO(insuranceOrderItem.getId());
+                    bms.setDOC_STATUS("02");
+                    bms.setDOC_DATE(getTimeSecondStr(new Date()));
+                }
+            }
 
-                 list.add(bms);
-                 map.put("DOC_STATUS",list);
+            list.add(bms);
+            map.put("DOC_STATUS", list);
 
-             DATA.add(map);
+            DATA.add(map);
 
-             BMC.setDATA(DATA);
-             res.put("TOKEN",token);
-             res.put("BMC",BMC);
-             String url="https://edi.jd-link.cn/Api/PushDocStatus";
-             postMessage(url,res.toString());
-         }
-         catch (Exception e){
-             e.printStackTrace();
-             res.put("status", "fail");
-             res.put("message", "更新失败");
-         }
+            BMC.setDATA(DATA);
+            res.put("TOKEN", token);
+            res.put("BMC", BMC);
+            String url = "https://edi.jd-link.cn/Api/PushDocStatus";
+            postMessage(url, res.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("status", "fail");
+            res.put("message", "更新失败");
+        }
 
-         return res.toString();
-     }
+        return res.toString();
+    }
 
     /*订单反馈接口*/
-    @RequestMapping(value = "PushOperationTracking",produces ="text/html;charset=UTF-8")
+    @RequestMapping(value = "PushOperationTracking", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String PushOperationTracking(HttpSession session,Page page,String id) throws IOException { //,登录人信息,订单号
-        JSONObject res=new JSONObject();
-        page=null;
+    public String PushOperationTracking(HttpSession session, Page page, String id) throws IOException { //,登录人信息,订单号
+        JSONObject res = new JSONObject();
+        page = null;
         User user = (User) session.getAttribute("user");   // 获取用户信息
         //获取token
-        JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
-        Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
+        JSONObject jsonObject = getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+        Token token1 = (Token) JSONObject.toBean(jsonObject, Token.class);
 
-        String token=token1.getToken();//token
+        String token = token1.getToken();//token
 
-        Message message=new Message();//报文数据结构
+        Message message = new Message();//报文数据结构
 
-        CDEC CDEC=new CDEC();//云平台的数据结构
+        CDEC CDEC = new CDEC();//云平台的数据结构
 
 
         //发送者编码
-        if(user!=null){
+        if (user != null) {
             CDEC.setSENDER(user.getCompanyDataItem().getCode());
         }
-
 
 
         message.setTokenId(token);
@@ -473,15 +466,14 @@ public class InsuranceOrderController {
         CDEC.setSEND_DATE(getTimeSecondStr(new Date()));//发送时间
 
 
+        List<Map<String, List<TRACKING>>> DATA = new ArrayList<>();
 
-        List<Map<String,List<TRACKING>>> DATA=new ArrayList<>();
+        Map<String, List<TRACKING>> map = new HashMap<>();//存放数据的结构
 
-        Map<String,List<TRACKING>> map=new HashMap<>();//存放数据的结构
+        List<TRACKING> trackingList = new ArrayList<>();
 
-        List<TRACKING> trackingList=new ArrayList<>();
-
-        TRACKING tracking=new TRACKING();//具体的数据
-        if(user!=null){
+        TRACKING tracking = new TRACKING();//具体的数据
+        if (user != null) {
             //设置负责人MANAGER
             tracking.setManager(user.getName());
 
@@ -489,45 +481,44 @@ public class InsuranceOrderController {
             tracking.setOperator(user.getName());
         }
 
-          //找出修改时间最晚的订单,和保单
+        //找出修改时间最晚的订单,和保单
 //            List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
 
-            InsuranceOrder insuranceOrder=insuranceOrderService.getInsuranceOrderById(id);
+        InsuranceOrder insuranceOrder = insuranceOrderService.getInsuranceOrderById(id);
 
-            List<InsuranceOrderItem> insuranceOrderItemList=insuranceOrder.getInsuranceOrderItemList();
-           //存在保单
-            if(insuranceOrderItemList.size()>0){
-                InsuranceOrderItem insuranceOrderItem=getNewestDate(insuranceOrderItemList);
-         //如果订单时间大于保单时间
-                if(insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())){
-                    //设置订单号
-                    tracking.setOrderNo(insuranceOrder.getId());
-                    tracking.setOperationContent(insuranceOrder.getOrderStateDataItem().getName());
-                    //设置作业类型
-                    tracking.setNodeType(insuranceOrder.getOrderStateDataItem().getId());
-                    //设置保单号
-                    tracking.setEntrustOrderNo(insuranceOrderItem.getId());
-                    //设置实际完成时间
-                    tracking.setAtc(getTimeSecondStr(insuranceOrder.getModifyTime()));
-                }
-                //如果订单时间小于保单时间
-                if(insuranceOrder.getModifyTime().before(insuranceOrderItem.getModifyTime())){
-                    //设置订单号
-                    tracking.setOrderNo(insuranceOrder.getId());
-                    tracking.setOperationContent(insuranceOrderItem.getOrderStateDataItem().getName());
-                    //设置作业类型
-                    tracking.setNodeType(insuranceOrderItem.getOrderStateDataItem().getId());
-                    //设置保单号
-                    tracking.setEntrustOrderNo(insuranceOrderItem.getId());
-                    //设置实际完成时间
-                    tracking.setAtc(getTimeSecondStr(insuranceOrderItem.getModifyTime()));
-                }
+        List<InsuranceOrderItem> insuranceOrderItemList = insuranceOrder.getInsuranceOrderItemList();
+        //存在保单
+        if (insuranceOrderItemList.size() > 0) {
+            InsuranceOrderItem insuranceOrderItem = getNewestDate(insuranceOrderItemList);
+            //如果订单时间大于保单时间
+            if (insuranceOrder.getModifyTime().after(insuranceOrderItem.getModifyTime())) {
+                //设置订单号
+                tracking.setOrderNo(insuranceOrder.getId());
+                tracking.setOperationContent(insuranceOrder.getOrderStateDataItem().getName());
+                //设置作业类型
+                tracking.setNodeType(insuranceOrder.getOrderStateDataItem().getId());
+                //设置保单号
+                tracking.setEntrustOrderNo(insuranceOrderItem.getId());
+                //设置实际完成时间
+                tracking.setAtc(getTimeSecondStr(insuranceOrder.getModifyTime()));
             }
+            //如果订单时间小于保单时间
+            if (insuranceOrder.getModifyTime().before(insuranceOrderItem.getModifyTime())) {
+                //设置订单号
+                tracking.setOrderNo(insuranceOrder.getId());
+                tracking.setOperationContent(insuranceOrderItem.getOrderStateDataItem().getName());
+                //设置作业类型
+                tracking.setNodeType(insuranceOrderItem.getOrderStateDataItem().getId());
+                //设置保单号
+                tracking.setEntrustOrderNo(insuranceOrderItem.getId());
+                //设置实际完成时间
+                tracking.setAtc(getTimeSecondStr(insuranceOrderItem.getModifyTime()));
+            }
+        }
 
 
-
-          //如果保单不存在
-        if (insuranceOrderItemList.size()==0){
+        //如果保单不存在
+        if (insuranceOrderItemList.size() == 0) {
             //设置订单号
             tracking.setOrderNo(insuranceOrder.getId());
             tracking.setOperationContent(insuranceOrder.getOrderStateDataItem().getName());
@@ -544,41 +535,38 @@ public class InsuranceOrderController {
         tracking.setRowId(getGUID());
 
 
-
-
-
         trackingList.add(tracking);
 
 
-        map.put("OPERATION_TRACKING",trackingList);
+        map.put("OPERATION_TRACKING", trackingList);
         DATA.add(map);
         CDEC.setDATA(DATA);
         message.setCDEC(CDEC);
-        res.put("TOKEN",token);
-        res.put("CDEC",CDEC);
-        String url="https://edi.jd-link.cn/Api/PushOperationTracking";
-        postMessage(url,res.toString());
+        res.put("TOKEN", token);
+        res.put("CDEC", CDEC);
+        String url = "https://edi.jd-link.cn/Api/PushOperationTracking";
+        postMessage(url, res.toString());
         return res.toString();
     }
 
     /*保单信息上传订单接口*/
-    @RequestMapping(value = "PushInsuranceDetail",produces ="text/html;charset=UTF-8")
+    @RequestMapping(value = "PushInsuranceDetail", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String PushOperationTracking(String id,String state){
+    public String PushOperationTracking(String id, String state) {
 
-        JSONObject res=new JSONObject();
+        JSONObject res = new JSONObject();
 
         try {
 
-            PushInsuranceDetail pushInsuranceDetail=new PushInsuranceDetail();
+            PushInsuranceDetail pushInsuranceDetail = new PushInsuranceDetail();
             pushInsuranceDetail.setMESSAGE_ID(getGUID());
             pushInsuranceDetail.setSEND_DATE(getTimeSecondStr(new Date()));
-            List<Map<String,List<InsuranceDetail>>> DATA=new ArrayList<>();
-            Map<String,List<InsuranceDetail>> map=new HashMap<>();
-            List<InsuranceDetail> insuranceDetailList=new ArrayList<>();
+            List<Map<String, List<InsuranceDetail>>> DATA = new ArrayList<>();
+            Map<String, List<InsuranceDetail>> map = new HashMap<>();
+            List<InsuranceDetail> insuranceDetailList = new ArrayList<>();
             //根据单号查询保单信息
-            InsuranceOrderItem insuranceOrderItem=insuranceOrderService.getInsuranceOrderItemByItemId(id);
-            InsuranceDetail insuranceDetail=new InsuranceDetail();
+            InsuranceOrderItem insuranceOrderItem = insuranceOrderService.getInsuranceOrderItemByItemId(id);
+            InsuranceDetail insuranceDetail = new InsuranceDetail();
             /*订单号*/
             insuranceDetail.setORDER_NO(insuranceOrderItem.getOrderId());
             /*保单号*/
@@ -590,33 +578,32 @@ public class InsuranceOrderController {
             /*投保日期*/
             insuranceDetail.setINSURANCE_DATE(getTimeSecondStr(insuranceOrderItem.getInsureDate()));
 
-            if(state.equals("已投保")){
+            if (state.equals("已投保")) {
                 insuranceDetail.setDATASTATUS("1");
             }
-            if(state.equals("异常")){
+            if (state.equals("异常")) {
                 insuranceDetail.setDATASTATUS("2");
             }
-            if(state.equals("删除")){
+            if (state.equals("删除")) {
                 insuranceDetail.setDATASTATUS("0");
             }
             insuranceDetailList.add(insuranceDetail);
-            map.put("INSURANCE_DT",insuranceDetailList);
+            map.put("INSURANCE_DT", insuranceDetailList);
             DATA.add(map);
             pushInsuranceDetail.setDATA(DATA);
 
             /*TOKEN*/
             //获取token
-            JSONObject jsonObject=getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
-            Token token1=(Token)JSONObject.toBean(jsonObject, Token.class);
+            JSONObject jsonObject = getJSONObject("https://edi.jd-link.cn/Api/GetToken?userName=admin&password=001");
+            Token token1 = (Token) JSONObject.toBean(jsonObject, Token.class);
 
-            String token=token1.getToken();//token
-            res.put("TOKEN",token);
-            res.put("OMS",pushInsuranceDetail);
-            String url="https://edi.jd-link.cn/Api/PushInsuranceDetail";
-            postMessage(url,res.toString());
+            String token = token1.getToken();//token
+            res.put("TOKEN", token);
+            res.put("OMS", pushInsuranceDetail);
+            String url = "https://edi.jd-link.cn/Api/PushInsuranceDetail";
+            postMessage(url, res.toString());
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "更新失败");
@@ -625,17 +612,17 @@ public class InsuranceOrderController {
         return res.toString();
 
     }
+
     /*生成异常单*/
     @RequestMapping("getAbnormal")
     @ResponseBody
-    public String getAbnormal(@RequestBody InsuranceOrderItem insuranceOrderItem){
-        JSONObject res=new JSONObject();
+    public String getAbnormal(@RequestBody InsuranceOrderItem insuranceOrderItem) {
+        JSONObject res = new JSONObject();
         try {
             insuranceOrderService.getAbnormal(insuranceOrderItem);
             res.put("status", "success");
             res.put("message", "异常单生成成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "异常单生成失败");
@@ -646,19 +633,20 @@ public class InsuranceOrderController {
 
     /**
      * 文件下载功能
+     *
      * @param request
      * @param response
      * @throws Exception
      */
     @RequestMapping("downloadFile")
     @ResponseBody
-    public String down(HttpServletRequest request, HttpServletResponse response, @Param(value = "fileName") String fileName) throws Exception{
-        JSONObject res=new JSONObject();
+    public String down(HttpServletRequest request, HttpServletResponse response, @Param(value = "fileName") String fileName) throws Exception {
+        JSONObject res = new JSONObject();
 
         try {
 
             fileName = new String(fileName.getBytes("iso8859-1"), "utf-8");
-            String newFileName= java.net.URLEncoder.encode(getFileName(fileName),"UTF-8");
+            String newFileName = java.net.URLEncoder.encode(getFileName(fileName), "UTF-8");
 //            newFileName= new String(newFileName.getBytes("iso8859-1"), "utf-8");
             InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
             response.addHeader("Content-Disposition", "attachment;filename=" + newFileName);
@@ -666,39 +654,36 @@ public class InsuranceOrderController {
             response.setContentType("multipart/form-data");
             BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
             int len = 0;
-            while((len = bis.read()) != -1){
+            while ((len = bis.read()) != -1) {
                 out.write(len);
                 out.flush();
             }
             out.close();
             res.put("status", "success");
             res.put("message", "更新成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "更新失败");
         }
 
 
-
-       return res.toString();
+        return res.toString();
     }
 
 
     /*点击投保按钮,根据订单号查询货物价值信息*/
     @RequestMapping("getGoodsValueById")
     @ResponseBody
-    public String getGoodsValueById(String id){
-        JSONObject res=new JSONObject();
+    public String getGoodsValueById(String id) {
+        JSONObject res = new JSONObject();
 
         try {
-            List<GoodsValue> goodsValueList=insuranceOrderService.getGoodsValueById(id);
+            List<GoodsValue> goodsValueList = insuranceOrderService.getGoodsValueById(id);
             res.put("data", goodsValueList);
             res.put("status", "success");
             res.put("message", "更新成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "更新失败");
@@ -711,16 +696,15 @@ public class InsuranceOrderController {
     /*根据保单号查询保单信息*/
     @RequestMapping("getInsuranceOrderItemByItemId")
     @ResponseBody
-    public String  InsuranceOrderItem(String id){
-        JSONObject res=new JSONObject();
+    public String InsuranceOrderItem(String id) {
+        JSONObject res = new JSONObject();
 
         try {
-            InsuranceOrderItem insuranceOrderItem=insuranceOrderService.getInsuranceOrderItemByItemId(id);
+            InsuranceOrderItem insuranceOrderItem = insuranceOrderService.getInsuranceOrderItemByItemId(id);
             res.put("data", insuranceOrderItem);
             res.put("status", "success");
             res.put("message", "保单信息查询成功");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
             res.put("message", "保单信息查询失败");
@@ -730,13 +714,13 @@ public class InsuranceOrderController {
     }
 
     /*找出保险单列表中修改时间最晚的那一个*/
-    public static  InsuranceOrderItem getNewestDate(List<InsuranceOrderItem> insuranceOrderItemList){
-        int i=0;
-        Date maxDate=insuranceOrderItemList.get(i).getModifyTime();//假设最晚的时间
-        for(int j=1;j<insuranceOrderItemList.size();j++){
-            if(!maxDate.after(insuranceOrderItemList.get(j).getModifyTime())){
-                maxDate=insuranceOrderItemList.get(j).getModifyTime();
-                i=j;
+    public static InsuranceOrderItem getNewestDate(List<InsuranceOrderItem> insuranceOrderItemList) {
+        int i = 0;
+        Date maxDate = insuranceOrderItemList.get(i).getModifyTime();//假设最晚的时间
+        for (int j = 1; j < insuranceOrderItemList.size(); j++) {
+            if (!maxDate.after(insuranceOrderItemList.get(j).getModifyTime())) {
+                maxDate = insuranceOrderItemList.get(j).getModifyTime();
+                i = j;
             }
 
         }
@@ -746,13 +730,13 @@ public class InsuranceOrderController {
     }
 
     /*找出订单列表中修改时间最晚的那一个*/
-    public static  InsuranceOrder getNewestDateInsuranceOrder(List<InsuranceOrder> insuranceOrderList){
-        int i=0;
-        Date maxDate=insuranceOrderList.get(i).getModifyTime();//假设最晚的时间
-        for(int j=1;j<insuranceOrderList.size();j++){
-            if(!maxDate.after(insuranceOrderList.get(j).getModifyTime())){
-                maxDate=insuranceOrderList.get(j).getModifyTime();
-                i=j;
+    public static InsuranceOrder getNewestDateInsuranceOrder(List<InsuranceOrder> insuranceOrderList) {
+        int i = 0;
+        Date maxDate = insuranceOrderList.get(i).getModifyTime();//假设最晚的时间
+        for (int j = 1; j < insuranceOrderList.size(); j++) {
+            if (!maxDate.after(insuranceOrderList.get(j).getModifyTime())) {
+                maxDate = insuranceOrderList.get(j).getModifyTime();
+                i = j;
             }
 
         }
@@ -761,73 +745,75 @@ public class InsuranceOrderController {
         return insuranceOrderList.get(i);
     }
 
-   /*找出订单中状态是关闭的最晚的那个*/
-    public InsuranceOrder getInsuranceOrderFromShutDown(List<InsuranceOrder> insuranceOrderList){
+    /*找出订单中状态是关闭的最晚的那个*/
+    public InsuranceOrder getInsuranceOrderFromShutDown(List<InsuranceOrder> insuranceOrderList) {
 
-        if(insuranceOrderList.size()>0){
-            int index=insuranceOrderList.size()-1;
-                 while (index>=0&&(!insuranceOrderList.get(index).getOrderStateDataItem().getId().equals("5"))){
-                     index--;
-                 }
-            System.out.println("最晚订单关闭的位置:"+index);
-                  if(index>=0){
-                      return insuranceOrderList.get(index);
-                  }
-                  else {
-                      return null;
-                  }
-        }
-        else {
+        if (insuranceOrderList.size() > 0) {
+            int index = insuranceOrderList.size() - 1;
+            while (index >= 0 && (!insuranceOrderList.get(index).getOrderStateDataItem().getId().equals("5"))) {
+                index--;
+            }
+            System.out.println("最晚订单关闭的位置:" + index);
+            if (index >= 0) {
+                return insuranceOrderList.get(index);
+            } else {
+                return null;
+            }
+        } else {
             return null;
         }
-
-
-
-
 
 
     }
 
     /*找出保单中状态是关闭的最晚的那个*/
-    public InsuranceOrderItem getInsuranceOrderItemFromShutDown(List<InsuranceOrderItem> insuranceOrderItemList){
+    public InsuranceOrderItem getInsuranceOrderItemFromShutDown(List<InsuranceOrderItem> insuranceOrderItemList) {
 
-        if(insuranceOrderItemList.size()>0){
-            int index=insuranceOrderItemList.size()-1;
-            while (index>=0&&(!insuranceOrderItemList.get(index).getOrderStateDataItem().getId().equals("5"))){
+        if (insuranceOrderItemList.size() > 0) {
+            int index = insuranceOrderItemList.size() - 1;
+            while (index >= 0 && (!insuranceOrderItemList.get(index).getOrderStateDataItem().getId().equals("5"))) {
                 index--;
             }
-            System.out.println("最晚订单关闭的位置:"+index);
-            if(index>=0){
+            System.out.println("最晚订单关闭的位置:" + index);
+            if (index >= 0) {
                 return insuranceOrderItemList.get(index);
-            }
-            else {
+            } else {
                 return null;
             }
-        }
-        else {
+        } else {
             return null;
         }
 
 
-
-
-
-
     }
 
-     @RequestMapping("Test")
+    @RequestMapping(value = "Test", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String Test(){
-        JSONObject res=new JSONObject();
+    public String Test(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+        JSONObject res = new JSONObject();
+        StringBuffer str = new StringBuffer();
+        try {
+            BufferedInputStream in = new BufferedInputStream(request.getInputStream());
+            int i;
+            char c;
+            while ((i=in.read())!=-1) {
+                c=(char)i;
+                str.append(c);
+            }
 
-        res.put("state","test");
-
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        String string = new String(str);
+        if(string.length()>0){
+            com.alibaba.fastjson.JSONObject jsStr = com.alibaba.fastjson.JSONObject.parseObject(string); //将字符串{“id”：1}
+            res.put("名字",jsStr.get("name"));
+            res.put("success","success");
+        }
+        else
+            res.put("fail","fail");
         return res.toString();
-
-     }
-
+        }
 
 
-
-
-}
+        }
