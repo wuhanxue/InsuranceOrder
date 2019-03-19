@@ -1,6 +1,9 @@
 package com.jdlink.controller;
 
 import com.jdlink.domain.*;
+import com.jdlink.domain.dataItem.CurrencyDataItem;
+import com.jdlink.domain.dataItem.DepartmentDataItem;
+import com.jdlink.domain.dataItem.FreightDataItem;
 import com.jdlink.domain.dataItem.Token;
 import com.jdlink.service.InsuranceOrderService;
 import com.jdlink.service.UserService;
@@ -24,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.*;
 import java.net.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.apache.http.*;
 
@@ -787,16 +792,18 @@ public class InsuranceOrderController {
 
     }
 
-    @RequestMapping(value = "Test", produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "Api/addInsuranceOrder", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String Test(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+    public String Test(ServletRequest request, ServletResponse response) throws IOException, ServletException, ParseException {
         JSONObject res = new JSONObject();
         StringBuffer str = new StringBuffer();
         try {
-            BufferedInputStream in = new BufferedInputStream(request.getInputStream());
+            BufferedReader reader=null;
+            reader = new BufferedReader(new InputStreamReader(request.getInputStream(),"UTF-8"));
+//            BufferedInputStream in = new BufferedInputStream(request.getInputStream());
             int i;
             char c;
-            while ((i=in.read())!=-1) {
+            while ((i=reader.read())!=-1) {
                 c=(char)i;
                 str.append(c);
             }
@@ -806,9 +813,105 @@ public class InsuranceOrderController {
         }
         String string = new String(str);
         if(string.length()>0){
-            com.alibaba.fastjson.JSONObject jsStr = com.alibaba.fastjson.JSONObject.parseObject(string); //将字符串{“id”：1}
-            res.put("名字",jsStr.get("name"));
-            res.put("success","success");
+//            com.alibaba.fastjson.JSONObject jsStr = com.alibaba.fastjson.JSONObject.parseObject(string); //将字符串{“id”：1}
+            com.alibaba.fastjson.JSONObject jsonObject=getJSONObject1(string);
+            //1 取出TOKEN token一样才能进行读取;
+            //取出ICS
+            Object ICS= getJSONObject1(jsonObject.toString()).get("ICS");
+            //取出其中的DATA
+            Object DATA= getJSONObject1(ICS.toString()).get("DATA");
+            //转成数组
+            com.alibaba.fastjson.JSONArray jsonArray= com.alibaba.fastjson.JSONArray.parseArray(DATA.toString());
+            //取出保险订单选项
+            Object ORDER_ICS_SERVICE=getJSONObject1(jsonArray.get(0).toString()).get("ORDER_ICS_SERVICE");
+            System.out.println(ORDER_ICS_SERVICE);
+            //获取其中的一个属性
+            //取出货物价值属性
+            //在ORDER_INFO==》ORDER_CARGO_VALUE
+            //1取出 在ORDER_INFO
+            Object ORDER_INFO=getJSONObject1(jsonArray.get(0).toString()).get("ORDER_INFO");
+
+            InsuranceOrder insuranceOrder=new InsuranceOrder();
+            insuranceOrder.setId(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("ORDER_NO").toString());//订单号
+            insuranceOrder.setProposer(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("PROPOSER").toString());//申请人
+            DepartmentDataItem departmentDataItem=new DepartmentDataItem();
+            departmentDataItem.setId(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("DEPARTMENT_ID").toString());
+            insuranceOrder.setDepartmentDataItem(departmentDataItem);
+            insuranceOrder.setInsuredPersonName(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("INSURANT").toString());
+            insuranceOrder.setGoodsName(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("GOODS_NAME").toString());
+            insuranceOrder.setGoodsType(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("CARGO_TYPE").toString()));
+            insuranceOrder.setPackageNumber(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("PACKAGE_NUMBER").toString()));
+            //包装重量
+//        System.out.println(getJSONObject(ORDER_ICS_SERVICE.toString()).get("PACKAGE_NUMBER"));
+//        System.out.println(getJSONObject(ORDER_ICS_SERVICE.toString()).get("PACKAGE_WEIGHT"));
+            insuranceOrder.setPackageWeight(Float.parseFloat(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("PACKAGE_WEIGHT").toString()));
+            insuranceOrder.setActualCarrier(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("BEAR_FEES").toString()));
+            //国际运输类型
+            FreightDataItem internationalFreightDataItem=new FreightDataItem();
+            internationalFreightDataItem.setId(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("INTERNATIONAL_TRANSPORT_TYPE").toString());
+            insuranceOrder.setInternationalFreightDataItem(internationalFreightDataItem);
+            //国内运输类型
+            FreightDataItem domesticFreightDataItem=new FreightDataItem();
+            domesticFreightDataItem.setId(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("INLAND_TRANSPORT_TYPE").toString());
+            insuranceOrder.setDomesticFreightDataItem(domesticFreightDataItem);
+            insuranceOrder.setOriginalPlace(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("FROM_CITY").toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            insuranceOrder.setReceiveTime(sdf.parse(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("PICK_DATETIME").toString()));
+            insuranceOrder.setDestination(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("TO_CITY").toString());
+            insuranceOrder.setFeeCostType(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("FEE_COST_TYPE").toString()));
+            //航名
+            insuranceOrder.setFlightName(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("SHIP_NAME").toString());
+            //航次
+            insuranceOrder.setFlightShift(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("SAIL_NUM").toString());
+            //航班号
+            insuranceOrder.setFlightNumber(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("FLIGHT_NUM").toString());
+            //车次
+            insuranceOrder.setTruckShift(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("TRANS_NO").toString());
+            //车牌号
+            insuranceOrder.setLicensePlate(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("CAR_NO").toString());
+            //是否港澳
+            if(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("Y_HT_GOODS").toString())==1){
+                insuranceOrder.setyHTGoods(true);
+            }
+            if(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("Y_HT_GOODS").toString())==0){
+                insuranceOrder.setyHTGoods(false);
+            }
+            insuranceOrder.setInsuranceOrderRequirement(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("POLICY_REQUIREMENTS").toString()));
+            insuranceOrder.setFileInsurance(Integer.parseInt(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("ADDITIONAL_INSURANCE_TYPE").toString()));
+            insuranceOrder.setOtherInsurance(getJSONObject1(ORDER_ICS_SERVICE.toString()).get("ADDITIONAL_INSURANCE_NAME").toString());
+            System.out.println(insuranceOrder);
+            Object ORDER_CARGO_VALUE=getJSONObject1(ORDER_INFO.toString()).get("ORDER_CARGO_VALUE");
+
+            com.alibaba.fastjson.JSONArray ORDER_CARGO_VALUEArray= com.alibaba.fastjson.JSONArray.parseArray(ORDER_CARGO_VALUE.toString());
+            for (int i=0;i<ORDER_CARGO_VALUEArray.size();i++){
+                GoodsValue goodsValue=new GoodsValue();
+                CurrencyDataItem currencyDataItem=new CurrencyDataItem();
+                currencyDataItem.setId(getJSONObject1(ORDER_CARGO_VALUEArray.get(i).toString()).get("currency").toString());
+                goodsValue.setCurrencyDataItem(currencyDataItem);
+                goodsValue.setInsuranceOrderId(insuranceOrder.getId());
+                goodsValue.setValue(Float.parseFloat(getJSONObject1(ORDER_CARGO_VALUEArray.get(i).toString()).get("CARGO_VALUE").toString()));
+                try {
+                    insuranceOrderService.addGoodsValue(goodsValue);
+                }
+                catch (Exception e){
+                    res.put("error",e.toString());
+                }
+
+            }
+
+
+            try {
+                insuranceOrderService.addInsuranceOrder(insuranceOrder);
+                 res.put("RESULTFLAG","1");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                res.put("error",e.toString());
+                res.put("RESULTFLAG","0");
+            }
+
+
+
         }
         else
             res.put("fail","fail");
