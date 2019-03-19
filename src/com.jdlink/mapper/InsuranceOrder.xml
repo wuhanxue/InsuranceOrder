@@ -256,7 +256,18 @@
         delete from insurance_order_item where id=#{id};
         update goods_value set insurance_orderItem_id = null  where insurance_orderItem_id=#{id}
     </delete>
+<!--添加订单信息-->
+    <insert id="addInsuranceOrder" parameterType="InsuranceOrder">
+        insert into insurance_order(id, state_id, proposer, department_id, approval_date, insured_person_name, goods_name, goods_type, package_number, package_weight, actual_carrier, original_place, receive_time, destination, flight_name, flight_number, flight_shift, truck_shift, license_plate, goods_value, yht_goods, international_freight_id, domestic_freight_id, insurance_order_requirement, file_insurance, other_insurance, order_maker_service, creation_time, modify_time, modifier, quote, invoiceUrl, boxUrl, fee_Cost_Type)
+        values
+        (#{id},"2",#{proposer},#{departmentDataItem.id},#{approvalDate},#{insuredPersonName},#{goodsName},#{goodsType},#{packageNumber},#{packageWeight},#{actualCarrier},#{originalPlace},#{receiveTime},#{destination},#{flightName},#{flightNumber},#{flightShift},#{truckShift},#{licensePlate},#{goodsValue},#{yHTGoods},#{internationalFreightDataItem.id},#{domesticFreightDataItem.id},#{insuranceOrderRequirement},#{fileInsurance},#{otherInsurance},#{orderMakerService},NOW(),NOW(),#{modifier},#{quote},#{invoiceUrl},#{boxUrl},#{feeCostType});
 
+    </insert>
+    <!--添加货物价值信息-->
+    <insert id="addGoodsValue" parameterType="GoodsValue">
+        insert into goods_value  (insurance_order_id, value, currency_id, creation_time, modify_time, insurance_orderItem_id)
+        values (#{insuranceOrderId},#{value},#{currencyDataItem.id},NOW(),NOW(),#{insuranceOrderItem.id});
+    </insert>
     <!--添加保单信息-->
     <insert id="addInsuranceOrderItem" parameterType="InsuranceOrderItem">
         insert into insurance_order_item (id,order_id,insure_company_name,insure_date,premium,creation_time,creator,modify_time,state_id) values

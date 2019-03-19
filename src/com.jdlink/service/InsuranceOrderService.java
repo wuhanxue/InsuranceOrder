@@ -65,4 +65,8 @@ public interface InsuranceOrderService {
 
     /*关闭保单*/
     void shutInsuranceOrderItemDownById(String id);
+
+    void addInsuranceOrder(InsuranceOrder insuranceOrder);
+
+    void addGoodsValue(GoodsValue goodsValue);
 }

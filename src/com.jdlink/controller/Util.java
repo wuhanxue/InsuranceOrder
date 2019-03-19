@@ -191,6 +191,9 @@ public class Util {
         return jsonObject;
 
     }
+    public static  com.alibaba.fastjson.JSONObject getJSONObject1(String str){
+        return com.alibaba.fastjson.JSONObject.parseObject(str);
+    }
 
     /*日期比较*/
     public static  Boolean dateCompare(Date date1,Date date2){

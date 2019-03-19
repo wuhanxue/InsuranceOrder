@@ -114,5 +114,15 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
         insuranceOrderMapper.shutInsuranceOrderItemDownById(id);
     }
 
+    @Override
+    public void addInsuranceOrder(InsuranceOrder insuranceOrder) {
+        insuranceOrderMapper.addInsuranceOrder(insuranceOrder);
+    }
+
+    @Override
+    public void addGoodsValue(GoodsValue goodsValue) {
+        insuranceOrderMapper.addGoodsValue(goodsValue);
+    }
+
 
 }

@@ -46,4 +46,8 @@ public interface InsuranceOrderMapper {
     List<InsuranceOrderItem>listInsuranceOrderItem();
 
     void shutInsuranceOrderItemDownById(String id);
+
+    void addInsuranceOrder(InsuranceOrder insuranceOrder);
+
+    void addGoodsValue(GoodsValue goodsValue);
 }
