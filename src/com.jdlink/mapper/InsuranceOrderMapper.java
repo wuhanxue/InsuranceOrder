@@ -50,4 +50,6 @@ public interface InsuranceOrderMapper {
     void addInsuranceOrder(InsuranceOrder insuranceOrder);
 
     void addGoodsValue(GoodsValue goodsValue);
+
+    void updateInsuranceOrder(InsuranceOrder insuranceOrder);
 }
