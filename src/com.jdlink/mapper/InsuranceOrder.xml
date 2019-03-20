@@ -258,11 +258,35 @@
     </delete>
 <!--添加订单信息-->
     <insert id="addInsuranceOrder" parameterType="InsuranceOrder">
-        insert into insurance_order(id, state_id, proposer, department_id, approval_date, insured_person_name, goods_name, goods_type, package_number, package_weight, actual_carrier, original_place, receive_time, destination, flight_name, flight_number, flight_shift, truck_shift, license_plate, goods_value, yht_goods, international_freight_id, domestic_freight_id, insurance_order_requirement, file_insurance, other_insurance, order_maker_service, creation_time, modify_time, modifier, quote, invoiceUrl, boxUrl, fee_Cost_Type)
+        insert into insurance_order(id, state_id, proposer, department_id, approval_date, insured_person_name, goods_name, goods_type, package_number, package_weight, actual_carrier, original_place, receive_time, destination, flight_name, flight_number, flight_shift, truck_shift, license_plate, goods_value, yht_goods, international_freight_id, domestic_freight_id, insurance_order_requirement, file_insurance, other_insurance, order_maker_service, creation_time, modify_time, modifier, quote, invoiceUrl, boxUrl, fee_Cost_Type,bearfees)
         values
-        (#{id},"2",#{proposer},#{departmentDataItem.id},#{approvalDate},#{insuredPersonName},#{goodsName},#{goodsType},#{packageNumber},#{packageWeight},#{actualCarrier},#{originalPlace},#{receiveTime},#{destination},#{flightName},#{flightNumber},#{flightShift},#{truckShift},#{licensePlate},#{goodsValue},#{yHTGoods},#{internationalFreightDataItem.id},#{domesticFreightDataItem.id},#{insuranceOrderRequirement},#{fileInsurance},#{otherInsurance},#{orderMakerService},NOW(),NOW(),#{modifier},#{quote},#{invoiceUrl},#{boxUrl},#{feeCostType});
+        (#{id},"2",#{proposer},#{departmentDataItem.id},#{approvalDate},#{insuredPersonName},#{goodsName},#{goodsType},#{packageNumber},#{packageWeight},#{actualCarrier},#{originalPlace},#{receiveTime},#{destination},#{flightName},#{flightNumber},#{flightShift},#{truckShift},#{licensePlate},#{goodsValue},#{yHTGoods},#{internationalFreightDataItem.id},#{domesticFreightDataItem.id},#{insuranceOrderRequirement},#{fileInsurance},#{otherInsurance},#{orderMakerService},NOW(),NOW(),#{modifier},#{quote},#{invoiceUrl},#{boxUrl},#{feeCostType},#{bearfees});
+            <if test="goodsValues.size()>0">
+                <foreach collection="goodsValues" index="index" item="item">
+                    insert into goods_value  (insurance_order_id, value, currency_id, creation_time, modify_time, insurance_orderItem_id)
+                    values (#{id},#{item.value},#{item.currencyDataItem.id},NOW(),NOW(),#{item.insuranceOrderItem.id});
+                </foreach>
+            </if>
 
     </insert>
+
+    <!--跟新订单列表-->
+    <update id="updateInsuranceOrder" parameterType="InsuranceOrder">
+        update insurance_order set proposer=#{proposer},department_id=#{departmentDataItem.id},approval_date=#{approvalDate},insured_person_name=#{insuredPersonName},
+        goods_name=#{goodsName},goods_type=#{goodsType},package_number=#{packageNumber},package_weight=#{packageWeight},actual_carrier=#{actualCarrier},
+        original_place=#{originalPlace},receive_time=#{receiveTime},destination=#{destination},flight_name=#{flightName},
+        flight_number=#{flightNumber},flight_shift=#{flightShift},license_plate=#{licensePlate},goods_value=#{goodsValue},
+        yht_goods=#{yHTGoods},international_freight_id=#{internationalFreightDataItem.id},domestic_freight_id=#{domesticFreightDataItem.id},
+        insurance_order_requirement=#{insuranceOrderRequirement},file_insurance=#{fileInsurance},other_insurance=#{otherInsurance},
+        order_maker_service=#{orderMakerService},creation_time=NOW(),modify_time=NOW(),bearfees=#{bearfees} where id=#{id};
+        <if test="goodsValues.size()>0">
+            <foreach collection="goodsValues" index="index" item="item">
+              update goods_value set value=#{item.value},currency_id=#{item.currencyDataItem.id},creation_time=NOW(),modify_time=NOW(),
+                insurance_orderItem_id=#{item.insuranceOrderItem.id} where insurance_order_id=#{id}
+            </foreach>
+        </if>
+
+    </update>
     <!--添加货物价值信息-->
     <insert id="addGoodsValue" parameterType="GoodsValue">
         insert into goods_value  (insurance_order_id, value, currency_id, creation_time, modify_time, insurance_orderItem_id)

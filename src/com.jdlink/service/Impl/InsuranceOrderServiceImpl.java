@@ -124,5 +124,10 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
         insuranceOrderMapper.addGoodsValue(goodsValue);
     }
 
+    @Override
+    public void updateInsuranceOrder(InsuranceOrder insuranceOrder) {
+        insuranceOrderMapper.updateInsuranceOrder(insuranceOrder);
+    }
+
 
 }

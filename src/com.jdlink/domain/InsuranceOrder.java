@@ -61,9 +61,13 @@ public class InsuranceOrder {
      */
     private Float packageWeight;
     /**
-     * 实际承运人(我司承运1/供方承运2/第三方承运3)
+     * 承运人类型(我司承运1/供方承运2/第三方承运3)
      */
     private Integer actualCarrier;
+
+    /*实际承运人*/
+    private String bearfees;
+
     /**
      * 启运地
      */
@@ -261,6 +265,14 @@ public class InsuranceOrder {
 
     public List<InsuranceOrderItem> getInsuranceOrderItemList() {
         return insuranceOrderItemList;
+    }
+
+    public String getBearfees() {
+        return bearfees;
+    }
+
+    public void setBearfees(String bearfees) {
+        this.bearfees = bearfees;
     }
 
     public void setInsuranceOrderItemList(List<InsuranceOrderItem> insuranceOrderItemList) {

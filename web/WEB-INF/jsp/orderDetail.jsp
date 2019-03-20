@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">实际承运人：</label>
+                    <label class="col-sm-4 control-label">承运人类型：</label>
                     <div class="col-xs-7">
                         <input type="radio" id="person1" name="person" placeholder="">我司
                         <input type="radio" id="person2" name="person" placeholder="">供方
@@ -173,7 +173,6 @@
                 <label class="col-md-1 control-label" style="margin-left: 30px">业务范围：</label>
                 <div class="col-md-6">
                     <label id="international">国际运输：</label>
-
                     <input type="radio" id="sea1" name="type1" placeholder="">海运进口&nbsp;&nbsp;
                     <input type="radio" id="sea2" name="type1" placeholder="">海运出口&nbsp;&nbsp;
                     <input type="radio" id="air1" name="type1" placeholder="">空运进口&nbsp;&nbsp;
@@ -225,6 +224,12 @@
                         </c:if>
                     </c:if>
                 </div>
+                <%--<div class="col-md-6">--%>
+                    <%--<label>实际承运人：</label>--%>
+                    <%--<div class="col-xs-4">--%>
+                        <%--<input readonly type="text" class="form-control"  name="goodsName" placeholder="" value="${insuranceOrder.bearfees}">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </div>
         </div>
         <div class="row">
@@ -447,6 +452,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-horizontal col-md-3">
+                <div class="form-group">
+                <label for="licensePlateNumber" class="col-sm-4 control-label">实际承运人：</label>
+                <div class="col-xs-7">
+                    <input readonly type="text" onkeyup="searchData();" class="form-control"  name="licensePlateNumber" placeholder="" value="${insuranceOrder.bearfees}">
+                </div>
+                </div>
+            </div>
+
         </div>
         <div class="row">
             <%--<div class="form-horizontal col-md-2"></div>--%>
