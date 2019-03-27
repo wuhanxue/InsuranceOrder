@@ -278,7 +278,7 @@
         flight_number=#{flightNumber},flight_shift=#{flightShift},license_plate=#{licensePlate},goods_value=#{goodsValue},
         yht_goods=#{yHTGoods},international_freight_id=#{internationalFreightDataItem.id},domestic_freight_id=#{domesticFreightDataItem.id},
         insurance_order_requirement=#{insuranceOrderRequirement},file_insurance=#{fileInsurance},other_insurance=#{otherInsurance},
-        order_maker_service=#{orderMakerService},creation_time=NOW(),modify_time=NOW(),bearfees=#{bearfees} where id=#{id};
+        order_maker_service=#{orderMakerService},creation_time=NOW(),modify_time=NOW(),modifier=#{modifier},quote=#{quote},invoiceUrl=#{invoiceUrl},boxUrl=#{boxUrl},fee_Cost_Type=#{feeCostType},bearfees=#{bearfees} where id=#{id};
         <if test="goodsValues.size()>0">
             <foreach collection="goodsValues" index="index" item="item">
               update goods_value set value=#{item.value},currency_id=#{item.currencyDataItem.id},creation_time=NOW(),modify_time=NOW(),
@@ -362,4 +362,5 @@
     <update id="shutInsuranceOrderItemDownById" parameterType="String">
         update insurance_order_item set state_id=5 where id=#{id}
     </update>
+
 </mapper>
