@@ -6,8 +6,8 @@
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <context:component-scan base-package="com.jdlink.mapper"/><!-- 组件扫面自动配置==>在哪个xml中就在改xml下生效-->
-
+    <context:component-scan base-package="com.jdlink.service"/><!-- 组件扫面自动配置==>在哪个xml中就在改xml下生效-->
+    <!-- 配置数据源 -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName">
             <value>com.mysql.jdbc.Driver</value>
@@ -22,18 +22,22 @@
             <value>123456</value>
         </property>
     </bean>
-
+    <!--  配置sessionfactory -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--处理以下的数据-->
         <property name="typeAliasesPackage" value="com.jdlink.domain"/>
         <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath:com.jdlink/mapper/*.xml"/>
         <!--<property name="mapperLocations">-->
             <!--<array>-->
+                <!--<value>classpath*:</value>-->
                 <!--<value>classpath*:com/jdlink/mapper/*.xml</value>-->
             <!--</array>-->
         <!--</property>-->
     </bean>
 
+    <!-- 装配mapper接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.jdlink.mapper"/>
     </bean>
