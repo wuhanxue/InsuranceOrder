@@ -270,6 +270,10 @@
 
     </insert>
 
+    <!--删除货物价值-->
+    <delete id="deleteGoodValues" parameterType="String">
+        delete from goods_value where insurance_order_id=#{insuranceOrderId};
+    </delete>
     <!--跟新订单列表-->
     <update id="updateInsuranceOrder" parameterType="InsuranceOrder">
         update insurance_order set proposer=#{proposer},department_id=#{departmentDataItem.id},approval_date=#{approvalDate},insured_person_name=#{insuredPersonName},
@@ -281,10 +285,16 @@
         order_maker_service=#{orderMakerService},creation_time=NOW(),modify_time=NOW(),modifier=#{modifier},quote=#{quote},invoiceUrl=#{invoiceUrl},boxUrl=#{boxUrl},fee_Cost_Type=#{feeCostType},bearfees=#{bearfees} where id=#{id};
         <if test="goodsValues.size()>0">
             <foreach collection="goodsValues" index="index" item="item">
-              update goods_value set value=#{item.value},currency_id=#{item.currencyDataItem.id},creation_time=NOW(),modify_time=NOW(),
-                insurance_orderItem_id=#{item.insuranceOrderItem.id} where insurance_order_id=#{id}
+                insert into goods_value  (insurance_order_id, value, currency_id, creation_time, modify_time, insurance_orderItem_id)
+                values (#{id},#{item.value},#{item.currencyDataItem.id},NOW(),NOW(),#{item.insuranceOrderItem.id});
             </foreach>
         </if>
+        <!--<if test="goodsValues.size()>0">-->
+            <!--<foreach collection="goodsValues" index="index" item="item">-->
+              <!--update goods_value set value=#{item.value},currency_id=#{item.currencyDataItem.id},creation_time=NOW(),modify_time=NOW(),-->
+                 <!--where id=#{item.id}-->
+            <!--</foreach>-->
+        <!--</if>-->
 
     </update>
     <!--添加货物价值信息-->

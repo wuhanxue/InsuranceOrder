@@ -129,5 +129,10 @@ public class InsuranceOrderServiceImpl implements InsuranceOrderService
         insuranceOrderMapper.updateInsuranceOrder(insuranceOrder);
     }
 
+    @Override
+    public void deleteGoodValues(String insuranceOrderId) {
+        insuranceOrderMapper.deleteGoodValues(insuranceOrderId);
+    }
+
 
 }
