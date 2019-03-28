@@ -71,4 +71,6 @@ public interface InsuranceOrderService {
     void addGoodsValue(GoodsValue goodsValue);
 
     void updateInsuranceOrder(InsuranceOrder insuranceOrder);
+
+    void deleteGoodValues(String insuranceOrderId);
 }

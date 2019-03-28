@@ -920,18 +920,31 @@ public class InsuranceOrderController {
             System.out.println(insuranceOrder);
 
 
-
-
-            for (int i=0;i<jsonArray3.size();i++){
+            JSONObject obj=JSONObject.fromString(string);
+            JSONObject ICSObj=obj.getJSONObject("ICS");
+            JSONArray DATAarray=ICSObj.getJSONArray("DATA");
+            JSONObject dataObj=DATAarray.getJSONObject(0);
+            JSONArray order_infoArray=dataObj.getJSONArray("ORDER_INFO");
+            JSONObject ORDER_INFOObj=order_infoArray.getJSONObject(0);
+            JSONArray ORDER_CARGO_VALUEArray=ORDER_INFOObj.getJSONArray("ORDER_CARGO_VALUE");
+            for (int y=0;y<ORDER_CARGO_VALUEArray.length();y++){
+                JSONObject ORDER_CARGO_VALUE=null;
+                ORDER_CARGO_VALUE=ORDER_CARGO_VALUEArray.getJSONObject(y);
                 GoodsValue goodsValue=new GoodsValue();
                 CurrencyDataItem currencyDataItem=new CurrencyDataItem();
-                currencyDataItem.setId(GoodValuesJson.get("currency").toString());
+                currencyDataItem.setId(ORDER_CARGO_VALUE.getString("currency"));
                 goodsValue.setCurrencyDataItem(currencyDataItem);
                 goodsValue.setInsuranceOrderId(insuranceOrder.getId());
-                goodsValue.setValue(Float.parseFloat(GoodValuesJson.get("CARGO_VALUE").toString()));
+                goodsValue.setValue(Float.parseFloat(ORDER_CARGO_VALUE.getString("CARGO_VALUE")));
                 goodsValueList.add(goodsValue);
                 insuranceOrder.setGoodsValues(goodsValueList);
             }
+
+
+//            for (int i=0;i<jsonArray3.size();i++){
+//
+//
+//            }
 
             System.out.println(insuranceOrder);
             /*TOKEN*/
@@ -949,6 +962,8 @@ public class InsuranceOrderController {
                     insuranceOrderService.addInsuranceOrder(insuranceOrder);
                 } else {
                     //更新
+                    //货物价值要删除 再添加
+                    insuranceOrderService.deleteGoodValues(insuranceOrder.getId());
                     insuranceOrderService.updateInsuranceOrder(insuranceOrder);
                 }
 
