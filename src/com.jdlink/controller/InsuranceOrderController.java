@@ -389,7 +389,13 @@ public class InsuranceOrderController {
 //             List<InsuranceOrder> insuranceOrderList=insuranceOrderService.listInsuranceOrder(page);
             InsuranceOrder insuranceOrder = insuranceOrderService.getInsuranceOrderById(id);
             List<InsuranceOrderItem> insuranceOrderItemList = insuranceOrder.getInsuranceOrderItemList();
-            InsuranceOrderItem insuranceOrderItem = getNewestDate(insuranceOrderItemList);
+            InsuranceOrderItem insuranceOrderItem=null;
+            if(insuranceOrderItemList.size()>0){
+                 insuranceOrderItem = getNewestDate(insuranceOrderItemList);
+            }
+           else {
+                insuranceOrderItem=null;
+            }
 
             //都是空的
             if (insuranceOrder == null && insuranceOrderItem == null) {
@@ -614,7 +620,7 @@ public class InsuranceOrderController {
         } catch (Exception e) {
             e.printStackTrace();
             res.put("status", "fail");
-            res.put("message", "更新失败");
+            res.put("message", "更新失败"+e.toString());
         }
 
         return res.toString();
