@@ -1,19 +1,28 @@
 package com.jdlink.controller;
 
+import com.jdlink.domain.SslUtils;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
+import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
+
+import javax.net.ssl.SSLContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -156,7 +165,9 @@ public class Util {
 
         try{
             url = new URL(urlStr);
-
+            if("https".equalsIgnoreCase(url.getProtocol())){
+                SslUtils.ignoreSsl();
+            }
             in = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8") );
 
             String str = null;
@@ -166,14 +177,14 @@ public class Util {
                 sb.append( str );
             }
         } catch (Exception ex) {
-
+              return  ex.toString();
         } finally{
             try{
-                if(in!=null) {
+                if(in!=null&&!in.equals("")) {
                     in.close(); //关闭流
                 }
             }catch(IOException ex) {
-
+//                 result=ex.toString();
             }
         }
         String result =sb.toString();
@@ -213,6 +224,30 @@ public class Util {
    public String getString(String s) {
        return s;
    }
+
+
+    /**
+     * 获取忽略证书验证的client
+     *
+     * @return
+     * @throws Exception
+     */
+
+    public static CloseableHttpClient getIgnoeSSLClient() throws Exception {
+        SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, new TrustStrategy() {
+            @Override
+            public boolean isTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+                return true;
+            }
+        }).build();
+
+        //创建httpClient
+        CloseableHttpClient client = HttpClients.custom().setSSLContext(sslContext).
+                setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
+        return client;
+    }
+
+
 }
 
 
