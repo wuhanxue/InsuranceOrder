@@ -468,8 +468,6 @@
             <div class="form-horizontal col-md-12">
                 <table class="table table-striped table-hover table-condensed">
                     <c:forEach items="${insuranceOrder.goodsValues}" var="item">
-
-
                         <tr>
                             <td class="text-center" style="width: 8.3%">货物价值</td>
                             <td class="text-center" style="width: 8.3%">

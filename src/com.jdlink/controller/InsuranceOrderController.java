@@ -368,7 +368,7 @@ public class InsuranceOrderController {
      * */
     @RequestMapping(value = "PushDocStatus", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String PushDocStatus(@Param(value = "id") String id) {
+    public String PushDocStatus(@Param(value = "id") String id) throws Exception {
         JSONObject res = new JSONObject();
 
         try {
@@ -453,7 +453,7 @@ public class InsuranceOrderController {
     /*订单反馈接口*/
     @RequestMapping(value = "PushOperationTracking", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String PushOperationTracking(HttpSession session, Page page, String id) throws IOException { //,登录人信息,订单号
+    public String PushOperationTracking(HttpSession session, Page page, String id) throws Exception { //,登录人信息,订单号
         JSONObject res = new JSONObject();
         page = null;
         User user = (User) session.getAttribute("user");   // 获取用户信息
@@ -566,7 +566,7 @@ public class InsuranceOrderController {
     /*保单信息上传订单接口*/
     @RequestMapping(value = "PushInsuranceDetail", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String PushOperationTracking(String id, String state) {
+    public String PushOperationTracking(String id, String state)throws Exception {
 
         JSONObject res = new JSONObject();
 
@@ -803,7 +803,7 @@ public class InsuranceOrderController {
 
     @RequestMapping(value = "ICSOrders", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String Test(ServletRequest request, ServletResponse response) throws IOException, ServletException, ParseException {
+    public String Test(ServletRequest request, ServletResponse response) throws  Exception {
         JSONObject res = new JSONObject();
         StringBuffer str = new StringBuffer();
         try {
